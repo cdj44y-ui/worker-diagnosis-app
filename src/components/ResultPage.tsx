@@ -101,11 +101,12 @@ export default function ResultPage({ result, onRestart }: Props) {
         ))}
       </Card>
 
-      <div className="bg-apple-elevated border border-apple-border rounded-apple-lg p-6 sm:p-7 print-break shadow-apple">
-        <h4 className="text-[15px] font-semibold text-apple-text mb-1 flex items-center gap-2">
-          <Scale size={18} className="text-brand-blue shrink-0" strokeWidth={1.75} />
+      <div className="bg-gradient-to-b from-brand-blue/[0.07] to-apple-elevated border-2 border-brand-blue/30 rounded-apple-lg p-6 sm:p-7 print-break shadow-apple-md ring-1 ring-brand-blue/10">
+        <h4 className="text-[16px] font-semibold text-apple-text mb-1 flex items-center gap-2">
+          <Scale size={20} className="text-brand-blue shrink-0" strokeWidth={2} />
           근로자 추정제 적용 가능성
         </h4>
+        <p className="text-[11px] font-bold text-brand-blue uppercase tracking-wide mb-2">대비 · 사전 점검 포인트</p>
         <p className="text-[13px] text-apple-secondary leading-relaxed mb-4">
           {presumptionMet >= 3 ? (
             <>

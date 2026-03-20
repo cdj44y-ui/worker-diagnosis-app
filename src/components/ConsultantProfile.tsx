@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Award, GraduationCap, Briefcase, Building, Phone, ChevronRight } from 'lucide-react'
+import { Award, GraduationCap, Briefcase, Building, Phone, ChevronRight, Shield } from 'lucide-react'
 
 const CREDENTIALS = [
   {
@@ -25,16 +25,20 @@ const CREDENTIALS = [
 ]
 
 const EXPERTISE_AREAS = [
-  '가짜 3.3 · 위장고용 점검',
-  '근로감독 대응',
-  '근로자성 분쟁',
-  '4대보험·세무 정리',
-  '취업규칙·계약',
-  '중대재해처벌법 대비',
+  { text: '근로자 추정제 대응·계약 정비', emphasis: true },
+  { text: '가짜 3.3 · 위장고용 점검', emphasis: false },
+  { text: '근로감독 대응', emphasis: false },
+  { text: '근로자성 분쟁', emphasis: false },
+  { text: '4대보험·세무 정리', emphasis: false },
+  { text: '취업규칙·계약', emphasis: false },
+  { text: '중대재해처벌법 대비', emphasis: false },
 ]
 
 const NOTION_URL =
   'https://www.notion.so/2f5a65e0676180a9964cd57c9efd6147?v=8232b087526f4419ab68bd26bfd4d9ce'
+
+const TEL = '02-2138-0240'
+const TEL_HREF = 'tel:02-2138-0240'
 
 export default function ConsultantProfile() {
   return (
@@ -49,6 +53,26 @@ export default function ConsultantProfile() {
         </div>
 
         <div className="p-6">
+          <a
+            href={TEL_HREF}
+            className="block w-full mb-6 rounded-apple-lg border-2 border-brand-blue bg-brand-blue text-white px-5 py-5 text-center shadow-apple-md hover:bg-brand-blue-dark hover:border-brand-blue-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
+          >
+            <div className="flex items-center justify-center gap-2 text-[13px] font-semibold uppercase tracking-wide opacity-95">
+              <Phone size={18} strokeWidth={2.5} className="shrink-0" aria-hidden />
+              바로 전화 상담
+            </div>
+            <p className="text-[28px] sm:text-[32px] font-semibold tracking-tight tabular-nums mt-2">{TEL}</p>
+            <p className="text-[12px] opacity-90 mt-2 leading-snug">평일 업무시간 기준 · 위장고용·3.3%·추정제 문의 환영</p>
+          </a>
+
+          <div className="rounded-apple-lg border border-brand-blue/25 bg-brand-blue/[0.06] p-4 mb-6 flex gap-3 items-start">
+            <Shield size={20} className="text-brand-blue shrink-0 mt-0.5" strokeWidth={2} />
+            <p className="text-[13px] text-apple-secondary leading-relaxed">
+              <span className="text-apple-text font-semibold">근로자 추정제</span> 적용 가능성과 감독 리스크를 함께
+              점검·정리할 수 있도록 자문합니다.
+            </p>
+          </div>
+
           <div className="grid grid-cols-2 gap-3 mb-6">
             {CREDENTIALS.map((c) => (
               <div key={c.title} className="rounded-apple border border-apple-border bg-apple-bg/50 p-4">
@@ -62,13 +86,17 @@ export default function ConsultantProfile() {
           <div className="rounded-apple border border-apple-border p-4 mb-6">
             <h4 className="text-[11px] font-semibold text-apple-tertiary uppercase tracking-wider mb-3">전문 분야</h4>
             <div className="flex flex-wrap gap-2">
-              {EXPERTISE_AREAS.map((area) => (
+              {EXPERTISE_AREAS.map(({ text, emphasis }) => (
                 <span
-                  key={area}
-                  className="inline-flex items-center gap-1 text-[12px] font-medium text-apple-text bg-apple-bg px-3 py-1.5 rounded-full border border-apple-border"
+                  key={text}
+                  className={`inline-flex items-center gap-1 text-[12px] font-medium px-3 py-1.5 rounded-full border ${
+                    emphasis
+                      ? 'text-apple-text bg-brand-blue/10 border-brand-blue/30 ring-1 ring-brand-blue/20'
+                      : 'text-apple-text bg-apple-bg border-apple-border'
+                  }`}
                 >
-                  <ChevronRight size={12} className="text-brand-blue shrink-0" />
-                  {area}
+                  <ChevronRight size={12} className={`shrink-0 ${emphasis ? 'text-brand-blue' : 'text-brand-blue'}`} />
+                  {text}
                 </span>
               ))}
             </div>
@@ -87,17 +115,10 @@ export default function ConsultantProfile() {
               자가진단 시작
             </Link>
             <a
-              href="tel:02-2138-0240"
-              className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full bg-apple-text text-white text-[15px] font-medium hover:opacity-90 transition-opacity"
-            >
-              <Phone size={17} strokeWidth={2} />
-              02-2138-0240
-            </a>
-            <a
               href={NOTION_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center py-3.5 rounded-full border border-apple-border text-apple-text text-[15px] font-medium hover:bg-apple-bg transition-colors"
+              className="flex-1 flex items-center justify-center py-3.5 rounded-full border-2 border-apple-border text-apple-text text-[15px] font-medium hover:bg-apple-bg transition-colors"
             >
               비대면 상담
             </a>
