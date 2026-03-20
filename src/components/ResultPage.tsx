@@ -9,7 +9,8 @@ import {
   EVIDENCE_ITEMS,
 } from '../data/legal-refs'
 import { getVerdictColor, getVerdictText, getBarColor } from '../utils/scoring'
-import { Printer, RotateCcw, FileText, AlertTriangle, Scale } from 'lucide-react'
+import { RotateCcw, FileText, Scale } from 'lucide-react'
+import DisclaimerNotice from './DisclaimerNotice'
 
 interface Props {
   result: DiagnosisResult
@@ -187,36 +188,13 @@ export default function ResultPage({ result, onRestart }: Props) {
         ))}
       </Card>
 
-      <div className="bg-apple-bg/60 border border-apple-border rounded-apple-lg p-5 text-[12px] text-apple-secondary leading-relaxed">
-        <div className="flex items-start gap-3">
-          <AlertTriangle size={16} className="text-amber-600/90 mt-0.5 shrink-0" strokeWidth={1.75} />
-          <div>
-            <span className="font-semibold text-apple-text">면책 고지 및 이용 안내</span>
-            <p className="mt-2">
-              본 진단은 대법원 판례(94다22859, 2004다29736, 타다 2024두32973) 및 고용노동부 가이드라인을 체계화한{' '}
-              <span className="text-apple-text font-medium">자가진단 도구</span>이며, 법적 효력이 있는 공식 판정이
-              아닙니다.
-            </p>
-            <p className="mt-2">
-              정확한 판단을 위해서는 <span className="text-apple-text font-medium">공인노무사·변호사 등 전문가 상담</span>
-              을 받으시기 바랍니다.
-            </p>
-          </div>
-        </div>
-      </div>
+      <DisclaimerNotice variant="result" className="print-break" />
 
-      <div className="flex flex-col sm:flex-row gap-3 no-print">
-        <button
-          type="button"
-          onClick={() => window.print()}
-          className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full bg-apple-surface border border-apple-border text-apple-text font-medium text-[15px] hover:bg-apple-bg transition-colors shadow-apple"
-        >
-          <Printer size={18} strokeWidth={1.75} /> 인쇄 / PDF
-        </button>
+      <div className="no-print">
         <button
           type="button"
           onClick={onRestart}
-          className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full bg-neutral-900 text-white font-medium text-[15px] shadow-sm border border-neutral-800 hover:bg-neutral-800 transition-colors"
+          className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-neutral-900 text-white font-medium text-[15px] shadow-sm border border-neutral-800 hover:bg-neutral-800 transition-colors"
         >
           <RotateCcw size={18} strokeWidth={1.75} /> 다시 진단
         </button>

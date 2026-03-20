@@ -34,8 +34,7 @@ const EXPERTISE_AREAS = [
   { text: '중대재해처벌법 대비', emphasis: false },
 ]
 
-const NOTION_URL =
-  'https://www.notion.so/2f5a65e0676180a9964cd57c9efd6147?v=8232b087526f4419ab68bd26bfd4d9ce'
+const NOTION_URL = 'https://north-saffron-5b7.notion.site/cc7a5b60e4104ef697435cbf880d8341'
 
 const TEL = '02-2138-0240'
 const TEL_HREF = 'tel:02-2138-0240'
