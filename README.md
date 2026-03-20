@@ -17,6 +17,36 @@ npm run build
 npm run preview
 ```
 
+## Git에 올리기
+
+원격 저장소가 없다면 GitHub에서 새 저장소를 만든 뒤:
+
+```bash
+git remote add origin https://github.com/<계정>/<저장소>.git
+git branch -M main
+git push -u origin main
+```
+
+(GitHub CLI 사용 시) `gh repo create worker-diagnosis --private --source=. --remote=origin --push`
+
+## Vercel에 배포
+
+1. [Vercel](https://vercel.com) 로그인 → **Add New Project** → GitHub 저장소 연결  
+2. **Framework Preset**: Vite (자동 인식), **Build**: `npm run build`, **Output**: `dist`  
+3. 저장소 루트에 `vercel.json`이 있으면 동일 설정이 적용됩니다.
+
+CLI로 새 프로젝트에 연결·배포:
+
+```bash
+npm i -g vercel
+# 또는
+npx vercel login
+npx vercel        # 프리뷰
+npx vercel --prod # 프로덕션
+```
+
+`package.json` 스크립트: `npm run vercel:prod` (전역/로컬 `vercel` CLI 필요)
+
 ## 커스터마이징
 
 | 항목 | 위치 |
