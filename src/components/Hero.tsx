@@ -1,23 +1,15 @@
-import { ChevronDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ChevronRight } from 'lucide-react'
 
-const BADGES = [
-  '대법원 94다22859',
-  '대법원 2004다29736',
-  '타다 2024두32973',
-  '근기법 제2조',
-  '노동부 가이드',
-]
+/** 랜딩 전용 — 판례 사건번호는 노출하지 않음 (진단 화면·결과에서만) */
+const HIGHLIGHTS = ['5개 영역', '19문항', '결과 리포트', '참고용 진단', '약 5분']
 
-interface Props {
-  onStartDiagnosis?: () => void
-}
-
-export default function Hero({ onStartDiagnosis }: Props) {
+export default function Hero() {
   return (
     <>
       <header className="bg-apple-surface border-b border-apple-border px-5 py-3 flex flex-wrap justify-between items-center gap-2 text-[12px] text-apple-secondary">
         <span className="font-semibold text-apple-text tracking-tight">근로자성 판단 진단</span>
-        <span className="text-apple-tertiary">노무법인 위너스 · 판례 기반 자가진단</span>
+        <span className="text-apple-tertiary">노무법인 위너스 · 참고용 자가진단</span>
       </header>
 
       <section className="relative bg-apple-bg pt-14 pb-16 px-5 text-center">
@@ -32,27 +24,24 @@ export default function Hero({ onStartDiagnosis }: Props) {
 
           <p className="text-[17px] text-apple-secondary leading-relaxed mb-2 max-w-md mx-auto">
             최근 고용부 감독에서도 지적된 <span className="text-apple-text font-medium">3.3% 사업소득</span>·
-            위장고용 이슈. 대법원 판례와 가이드라인을 바탕으로{' '}
+            위장고용 이슈. 실무에서 자주 쓰는 기준과 가이드를 바탕으로{' '}
             <span className="text-apple-text font-medium">5분 안에</span> 스스로 점검해 보세요.
           </p>
 
           <p className="text-[14px] text-apple-tertiary mb-10 max-w-sm mx-auto leading-relaxed">
-            5개 영역 · 19문항 · 결과 리포트 제공 (참고용, 법률 자문 아님)
+            진단을 시작하면 문항별 근거·판례 참고가 함께 표시됩니다. (참고용, 법률 자문 아님)
           </p>
 
-          {onStartDiagnosis && (
-            <button
-              type="button"
-              onClick={onStartDiagnosis}
-              className="group inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white text-[17px] font-medium px-8 py-3.5 rounded-full shadow-apple transition-colors duration-200"
-            >
-              자가진단 시작하기
-              <ChevronDown size={18} className="opacity-80 group-hover:translate-y-0.5 transition-transform duration-200" />
-            </button>
-          )}
+          <Link
+            to="/diagnosis"
+            className="group inline-flex items-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white text-[17px] font-medium px-8 py-3.5 rounded-full shadow-apple transition-colors duration-200"
+          >
+            자가진단 시작하기
+            <ChevronRight size={18} className="opacity-80 group-hover:translate-x-0.5 transition-transform duration-200" />
+          </Link>
 
           <div className="flex flex-wrap gap-2 justify-center mt-10">
-            {BADGES.map((b) => (
+            {HIGHLIGHTS.map((b) => (
               <span
                 key={b}
                 className="text-[11px] font-medium text-apple-secondary bg-apple-surface border border-apple-border px-3 py-1.5 rounded-full"

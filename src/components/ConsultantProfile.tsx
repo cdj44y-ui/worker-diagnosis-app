@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Award, GraduationCap, Briefcase, Building, Phone, ChevronRight } from 'lucide-react'
 
 const CREDENTIALS = [
@@ -9,7 +10,7 @@ const CREDENTIALS = [
   {
     icon: Award,
     title: '공인노무사',
-    desc: '노동법·판례 실무',
+    desc: '노동법 실무',
   },
   {
     icon: Building,
@@ -35,11 +36,7 @@ const EXPERTISE_AREAS = [
 const NOTION_URL =
   'https://www.notion.so/2f5a65e0676180a9964cd57c9efd6147?v=8232b087526f4419ab68bd26bfd4d9ce'
 
-interface Props {
-  onStartDiagnosis?: () => void
-}
-
-export default function ConsultantProfile({ onStartDiagnosis }: Props) {
+export default function ConsultantProfile() {
   return (
     <div className="mb-10 no-print">
       <div className="bg-apple-surface rounded-apple-lg border border-apple-border shadow-apple-md overflow-hidden">
@@ -83,15 +80,12 @@ export default function ConsultantProfile({ onStartDiagnosis }: Props) {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            {onStartDiagnosis && (
-              <button
-                type="button"
-                onClick={onStartDiagnosis}
-                className="flex-1 flex items-center justify-center py-3.5 rounded-full bg-brand-blue hover:bg-brand-blue-dark text-white text-[15px] font-medium transition-colors"
-              >
-                자가진단 시작
-              </button>
-            )}
+            <Link
+              to="/diagnosis"
+              className="flex-1 flex items-center justify-center py-3.5 rounded-full bg-brand-blue hover:bg-brand-blue-dark text-white text-[15px] font-medium transition-colors text-center"
+            >
+              자가진단 시작
+            </Link>
             <a
               href="tel:02-2138-0240"
               className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full bg-apple-text text-white text-[15px] font-medium hover:opacity-90 transition-opacity"
