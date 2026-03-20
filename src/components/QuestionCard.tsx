@@ -42,7 +42,7 @@ export default function QuestionCard({ category, answers, onSelect }: Props) {
         {category.questions.map((q, qi) => (
           <div key={q.id} className={qi < category.questions.length - 1 ? 'pb-8 border-b border-apple-border' : ''}>
             <div className="flex items-start gap-3 mb-2">
-              <span className="w-7 h-7 rounded-lg bg-apple-text text-white text-[12px] font-semibold flex items-center justify-center shrink-0">
+              <span className="w-7 h-7 rounded-lg bg-neutral-900 text-white text-[12px] font-semibold flex items-center justify-center shrink-0 shadow-sm border border-neutral-800">
                 {qi + 1}
               </span>
               <span className="text-[15px] font-semibold text-apple-text leading-snug pt-0.5">{q.text}</span>

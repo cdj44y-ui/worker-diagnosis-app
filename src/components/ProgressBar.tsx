@@ -39,7 +39,7 @@ export default function ProgressBar({ step, progressPct, answeredCount, totalQue
                 text-[11px] font-medium transition-colors
                 ${
                   active
-                    ? 'bg-apple-text text-white'
+                    ? 'bg-neutral-900 text-white shadow-sm border border-neutral-800'
                     : done
                       ? 'bg-apple-bg text-brand-blue border border-apple-border'
                       : 'bg-apple-bg text-apple-tertiary'

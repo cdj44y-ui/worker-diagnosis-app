@@ -27,6 +27,20 @@ function verdictPanelClass(verdict: VerdictType): string {
   }
 }
 
+/** 배지: 흰 글자 대신 밝은 배경 + 진한 글씨로 가독성 확보 */
+function badgeClass(badge: string): string {
+  switch (badge) {
+    case '대법원':
+      return 'bg-sky-100 text-sky-950 border border-sky-300/80'
+    case '법령':
+      return 'bg-amber-100 text-amber-950 border border-amber-300/80'
+    case '행정해석':
+      return 'bg-emerald-100 text-emerald-950 border border-emerald-300/80'
+    default:
+      return 'bg-neutral-200 text-neutral-900 border border-neutral-400/60'
+  }
+}
+
 export default function ResultPage({ result, onRestart }: Props) {
   const { percentage, verdict, categoryScores, presumptionMet, presumptionItems, answers } = result
   const color = getVerdictColor(verdict)
@@ -163,7 +177,9 @@ export default function ResultPage({ result, onRestart }: Props) {
         {LEGAL_REFERENCES.map((ref) => (
           <div key={ref.name} className="bg-apple-bg/80 border border-apple-border pl-4 pr-4 py-3 rounded-apple mb-2 last:mb-0">
             <div className="flex items-center gap-2 mb-1 flex-wrap">
-              <span className="text-[10px] font-semibold text-white bg-apple-text px-2 py-0.5 rounded-md">{ref.badge}</span>
+              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md ${badgeClass(ref.badge)}`}>
+                {ref.badge}
+              </span>
               <span className="text-[14px] font-semibold text-apple-text">{ref.name}</span>
             </div>
             <p className="text-[12px] text-apple-secondary leading-relaxed">{ref.summary}</p>
@@ -200,7 +216,7 @@ export default function ResultPage({ result, onRestart }: Props) {
         <button
           type="button"
           onClick={onRestart}
-          className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full bg-apple-text text-white font-medium text-[15px] hover:opacity-90 transition-opacity"
+          className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full bg-neutral-900 text-white font-medium text-[15px] shadow-sm border border-neutral-800 hover:bg-neutral-800 transition-colors"
         >
           <RotateCcw size={18} strokeWidth={1.75} /> 다시 진단
         </button>

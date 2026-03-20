@@ -36,7 +36,7 @@ export default function NavigationBar({ step, isCategoryComplete, onPrev, onNext
           type="button"
           onClick={onSubmit}
           disabled={!isCategoryComplete}
-          className="flex-[1.6] flex items-center justify-center gap-2 py-3.5 rounded-full bg-apple-text text-white text-[15px] font-medium transition-opacity disabled:opacity-35 disabled:cursor-not-allowed hover:opacity-90"
+          className="flex-[1.6] flex items-center justify-center gap-2 py-3.5 rounded-full bg-neutral-900 text-white text-[15px] font-medium shadow-sm border border-neutral-800 transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-neutral-800"
         >
           <Scale size={17} strokeWidth={2} />
           결과 보기
