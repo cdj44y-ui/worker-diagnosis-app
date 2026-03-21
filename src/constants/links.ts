@@ -1,6 +1,5 @@
-/** 비대면 문의 (Notion) */
-export const NOTION_REMOTE_CONSULT_URL =
-  'https://north-saffron-5b7.notion.site/cc7a5b60e4104ef697435cbf880d8341'
+/** 비대면 상담 Notion URL — `constants/notion.ts` 에서 export */
+export { NOTION_REMOTE_CONSULT_URL, NOTION_REMOTE_CONSULT_URL_DEFAULT } from './notion'
 
 /**
  * 근로감독 자가진단(사업장·노동법 준수 점검) — labor-inspection-app 배포 URL

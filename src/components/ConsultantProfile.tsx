@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Award, GraduationCap, Briefcase, Building, Phone, ChevronRight, Shield } from 'lucide-react'
-import { NOTION_REMOTE_CONSULT_URL } from '../constants/links'
+import RemoteConsultLink from './RemoteConsultLink'
 
 const CREDENTIALS = [
   {
@@ -112,14 +112,7 @@ export default function ConsultantProfile() {
             >
               자가진단 시작
             </Link>
-            <a
-              href={NOTION_REMOTE_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center py-3.5 rounded-full border-2 border-apple-border text-apple-text text-[15px] font-medium hover:bg-apple-bg transition-colors"
-            >
-              비대면 상담
-            </a>
+            <RemoteConsultLink variant="landingOutline" />
           </div>
         </div>
       </div>

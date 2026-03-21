@@ -22,6 +22,13 @@
 VITE_LABOR_INSPECTION_URL=https://실제-배포-주소
 ```
 
+## 비대면 상담(Notion) URL
+
+- 코드상 기본값은 [`src/constants/notion.ts`](./src/constants/notion.ts)의 `NOTION_REMOTE_CONSULT_URL_DEFAULT` 한 곳입니다.
+- UI의 **「비대면 상담」** 버튼은 모두 [`RemoteConsultLink`](./src/components/RemoteConsultLink.tsx)로만 연결됩니다.
+- 배포 사이트에서 링크가 예전 주소로 열리면 **Vercel → Settings → Environment Variables** 에서 `VITE_NOTION_REMOTE_CONSULT_URL` 이 **옛값으로 남아 있는지** 확인하세요. 삭제하거나 최신 Notion URL로 바꾼 뒤 재배포하면 됩니다.
+- 로컬에서 덮어쓰려면 `.env.example` 참고.
+
 ## 실행
 
 ```bash

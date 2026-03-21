@@ -4,6 +4,7 @@ dist
 *.local
 .env
 .env.*
+!.env.example
 
 # Vercel (로컬 프로젝트 연결 정보 — 커밋하지 않음)
 .vercel

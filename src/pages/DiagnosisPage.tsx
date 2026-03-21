@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ChevronLeft, ExternalLink } from 'lucide-react'
-import { NOTION_REMOTE_CONSULT_URL, LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
+import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
+import RemoteConsultLink from '../components/RemoteConsultLink'
 import { useDiagnosis } from '../hooks/useDiagnosis'
 import InfoBanner from '../components/InfoBanner'
 import ProgressBar from '../components/ProgressBar'
@@ -34,15 +35,7 @@ export default function DiagnosisPage() {
         {/* 1순위: 비대면 상담 — 진단 화면 최상단에 항상 노출 */}
         <div className="border-b border-brand-blue/40 bg-gradient-to-b from-brand-blue to-brand-blue-dark shadow-md">
           <div className="max-w-3xl mx-auto px-4 pt-4 pb-4 sm:pt-5 sm:pb-5">
-            <a
-              href={NOTION_REMOTE_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2.5 rounded-apple-lg bg-white px-4 py-4 sm:py-[1.125rem] text-[17px] sm:text-[18px] font-bold text-brand-blue shadow-lg hover:bg-zinc-50 active:scale-[0.99] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-blue"
-            >
-              비대면 상담
-              <ExternalLink size={20} strokeWidth={2.25} aria-hidden />
-            </a>
+            <RemoteConsultLink variant="headerPrimary" />
             <p className="text-center text-[12px] sm:text-[13px] text-white/90 mt-3 leading-snug px-1">
               노션 문의 페이지가 새 탭에서 열립니다 · 언제든지 문의·안내 확인 가능
             </p>
