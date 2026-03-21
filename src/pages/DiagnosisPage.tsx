@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ChevronLeft, ExternalLink } from 'lucide-react'
-import { NOTION_REMOTE_CONSULT_URL } from '../constants/links'
+import { NOTION_REMOTE_CONSULT_URL, LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
 import { useDiagnosis } from '../hooks/useDiagnosis'
 import InfoBanner from '../components/InfoBanner'
 import ProgressBar from '../components/ProgressBar'
@@ -53,7 +53,7 @@ export default function DiagnosisPage() {
           </div>
         </div>
         <div className="border-b border-apple-border bg-apple-surface/90 backdrop-blur-md supports-[backdrop-filter]:bg-apple-surface/80">
-          <div className="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+          <div className="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-2">
             <Link
               to="/"
               className="inline-flex items-center gap-1 text-[14px] font-medium text-brand-blue hover:text-brand-blue-dark transition-colors"
@@ -65,6 +65,15 @@ export default function DiagnosisPage() {
               ·
             </span>
             <span className="text-[13px] font-semibold text-apple-text">근로자성 자가진단</span>
+            <a
+              href={LABOR_INSPECTION_DIAGNOSIS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sm:ml-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-brand-blue hover:text-brand-blue-dark hover:underline"
+            >
+              근로감독 진단 사이트
+              <ExternalLink size={14} strokeWidth={2} aria-hidden />
+            </a>
           </div>
         </div>
       </header>
