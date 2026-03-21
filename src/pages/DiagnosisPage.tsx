@@ -31,25 +31,21 @@ export default function DiagnosisPage() {
   return (
     <div className="min-h-screen bg-apple-bg">
       <header className="sticky top-0 z-20 no-print">
-        <div className="border-b border-brand-blue/25 bg-gradient-to-r from-brand-blue/[0.09] via-white to-brand-blue/[0.06] backdrop-blur-sm">
-          <div className="max-w-3xl mx-auto px-4 py-3 sm:py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <div>
-              <p className="text-[14px] sm:text-[15px] font-semibold text-apple-text leading-snug">
-                언제든지 비대면 상담 가능
-              </p>
-              <p className="text-[12px] sm:text-[13px] text-apple-secondary mt-0.5 leading-snug">
-                노션 페이지에서 문의 방법·안내를 확인할 수 있습니다.
-              </p>
-            </div>
+        {/* 1순위: 비대면 상담 — 진단 화면 최상단에 항상 노출 */}
+        <div className="border-b border-brand-blue/40 bg-gradient-to-b from-brand-blue to-brand-blue-dark shadow-md">
+          <div className="max-w-3xl mx-auto px-4 pt-4 pb-4 sm:pt-5 sm:pb-5">
             <a
               href={NOTION_REMOTE_CONSULT_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 shrink-0 rounded-full bg-brand-blue px-5 py-2.5 text-[14px] font-semibold text-white shadow-apple hover:bg-brand-blue-dark transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2"
+              className="flex w-full items-center justify-center gap-2.5 rounded-apple-lg bg-white px-4 py-4 sm:py-[1.125rem] text-[17px] sm:text-[18px] font-bold text-brand-blue shadow-lg hover:bg-zinc-50 active:scale-[0.99] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-blue"
             >
-              비대면 상담 (Notion)
-              <ExternalLink size={16} strokeWidth={2} aria-hidden />
+              비대면 상담
+              <ExternalLink size={20} strokeWidth={2.25} aria-hidden />
             </a>
+            <p className="text-center text-[12px] sm:text-[13px] text-white/90 mt-3 leading-snug px-1">
+              노션 문의 페이지가 새 탭에서 열립니다 · 언제든지 문의·안내 확인 가능
+            </p>
           </div>
         </div>
         <div className="border-b border-apple-border bg-apple-surface/90 backdrop-blur-md supports-[backdrop-filter]:bg-apple-surface/80">
