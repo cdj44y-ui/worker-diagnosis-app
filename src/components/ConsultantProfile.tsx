@@ -66,7 +66,7 @@ export default function ConsultantProfile() {
           <div className="rounded-apple-lg border border-brand-blue/25 bg-brand-blue/[0.06] p-4 mb-6 flex gap-3 items-start">
             <Shield size={20} className="text-brand-blue shrink-0 mt-0.5" strokeWidth={2} />
             <p className="text-[13px] text-apple-secondary leading-relaxed">
-              <span className="text-apple-text font-semibold">근로자 추정제</span> 적용 가능성과 감독 리스크를 함께
+              <span className="text-apple-text font-semibold">근로자 추정제</span> 관련 논의·실무와 감독 리스크를 함께
               점검·정리할 수 있도록 자문합니다.
             </p>
           </div>

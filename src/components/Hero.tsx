@@ -3,7 +3,7 @@ import { ChevronRight, Shield, ExternalLink } from 'lucide-react'
 import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
 
 /** 랜딩 전용 — 판례 사건번호는 노출하지 않음 */
-const HIGHLIGHTS = ['5개 영역', '19문항', '근로자 추정제 지표', '결과 리포트', '약 5분']
+const HIGHLIGHTS = ['5개 영역', '19문항', '추정제 대비 판례 지표', '결과 리포트', '약 5분']
 
 export default function Hero() {
   return (
@@ -49,8 +49,8 @@ export default function Hero() {
           <div className="flex items-start justify-center gap-2 max-w-md mx-auto mb-8 px-3 py-3 rounded-apple-lg bg-brand-blue/[0.07] border border-brand-blue/20 text-left">
             <Shield size={18} className="text-brand-blue shrink-0 mt-0.5" strokeWidth={2} aria-hidden />
             <p className="text-[13px] text-apple-secondary leading-relaxed">
-              <span className="text-apple-text font-semibold">근로자 추정제</span> 도입·적용에 대비해, 핵심 지표 충족
-              여부를 결과에서 함께 확인할 수 있습니다.
+              <span className="text-apple-text font-semibold">근로자 추정제</span> 논의에 대비해, 판례상 자주 쓰이는
+              핵심 판단요소 5가지 충족 여부를 결과에서 함께 확인할 수 있습니다. (추정제 법안 요건과 동일하지 않음)
             </p>
           </div>
 

@@ -64,9 +64,9 @@ export interface DiagnosisResult {
   percentage: number
   verdict: VerdictType
   categoryScores: CategoryScore[]
-  /** 근로자 추정제 충족 개수 (0~5) */
+  /** 판례 핵심 지표(5문항) 충족 개수 (0~5) — 추정제 법안 요건과 동일하지 않음 */
   presumptionMet: number
-  /** 근로자 추정제 개별 항목 충족 여부 */
+  /** 판례 핵심 지표별 충족 여부 */
   presumptionItems: { label: string; met: boolean }[]
   /** 사용자 응답 맵 */
   answers: Record<string, number>

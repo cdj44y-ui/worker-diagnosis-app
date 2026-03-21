@@ -50,7 +50,7 @@ export default function DisclaimerNotice({ variant, className = '' }: Props) {
                 <p>
                   본 진단은{' '}
                   <span className="text-apple-text font-medium">
-                    대법원 판례(94다22859, 2004다29736, 타다 2024두32973)
+                    대법원 판례(94다22859, 2004다29736, 2024두32973)
                   </span>
                   및 고용노동부 가이드라인을 체계화한{' '}
                   <span className="text-apple-text font-medium">자가진단 도구</span>이며, 법적 효력이 있는 공식 판정이

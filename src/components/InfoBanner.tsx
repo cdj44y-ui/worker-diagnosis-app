@@ -8,8 +8,9 @@ export default function InfoBanner() {
           <Shield size={18} className="text-brand-blue" strokeWidth={2} />
         </div>
         <p className="text-[13px] text-apple-secondary leading-relaxed pt-1">
-          결과 화면에서 <span className="text-apple-text font-semibold">근로자 추정제</span> 핵심 지표 충족 여부를 함께
-          확인할 수 있습니다. 도입·적용 시기는 법령·정책에 따르며, 본 진단은 참고용입니다.
+          결과 화면에서 <span className="text-apple-text font-semibold">근로자 추정제 대비</span>를 위해, 판례상 자주
+          쓰이는 핵심 판단요소 5가지 충족 여부를 함께 확인할 수 있습니다. 추정제 법안의 요건 구조와 동일하지 않을 수
+          있으며, 도입·적용은 법령·정책에 따릅니다. 본 표시는 참고용입니다.
         </p>
       </div>
 
@@ -19,7 +20,7 @@ export default function InfoBanner() {
         </div>
         <p className="text-[13px] text-apple-secondary leading-relaxed pt-0.5">
           본 진단은{' '}
-          <span className="text-apple-text font-medium">대법원 판례(94다22859, 2004다29736, 타다 2024두32973)</span>와
+          <span className="text-apple-text font-medium">대법원 판례(94다22859, 2004다29736, 2024두32973)</span>와
           고용노동부 가이드 취지를 참고한 <span className="text-apple-text font-medium">자가진단</span>입니다. 문항
           가중치는 판례상 중요도를 반영한 참고치이며, 법적 효력이 없습니다.
         </p>

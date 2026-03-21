@@ -119,19 +119,26 @@ export default function ResultPage({ result, onRestart }: Props) {
       <div className="bg-gradient-to-b from-brand-blue/[0.07] to-apple-elevated border-2 border-brand-blue/30 rounded-apple-lg p-6 sm:p-7 print-break shadow-apple-md ring-1 ring-brand-blue/10">
         <h4 className="text-[16px] font-semibold text-apple-text mb-1 flex items-center gap-2">
           <Scale size={20} className="text-brand-blue shrink-0" strokeWidth={2} />
-          근로자 추정제 적용 가능성
+          근로자 추정제 대비 — 판례 핵심 지표 자가점검
         </h4>
-        <p className="text-[11px] font-bold text-brand-blue uppercase tracking-wide mb-2">대비 · 사전 점검 포인트</p>
+        <p className="text-[11px] font-bold text-brand-blue uppercase tracking-wide mb-2">
+          판례상 핵심 판단요소 · 사전 점검 (추정제 법안 요건과 동일하지 않음)
+        </p>
+        <p className="text-[12px] text-apple-secondary leading-relaxed mb-3">
+          근로자 추정제 관련 법안은 입법 과정에 따라 요건·구조가 달라질 수 있습니다. 아래 5개는{' '}
+          <span className="text-apple-text font-medium">판례상 사용종속성 등 핵심 판단요소</span>를 사전에 점검하기 위한
+          참고 지표이며, 법상 추정요건과 1:1로 대응하지 않습니다.
+        </p>
         <p className="text-[13px] text-apple-secondary leading-relaxed mb-4">
           {presumptionMet >= 3 ? (
             <>
-              <span className="text-apple-text font-medium">충족 가능성 높음</span> (핵심 5개 지표 중 {presumptionMet}개
-              충족) — 근로자 추정제 시행 시 근로자로 추정될 가능성이 높습니다.
+              <span className="text-apple-text font-medium">판례 핵심 지표 충족 다수</span> (5개 중 {presumptionMet}개
+              충족) — 향후 근로자성·추정제 논의에서 유리할 수 있는 요소가 많습니다. 실제 적용은 입법·해석에 따릅니다.
             </>
           ) : (
             <>
-              <span className="text-apple-text font-medium">충족 가능성 낮음</span> (핵심 5개 지표 중 {presumptionMet}개
-              충족) — 추정 대상에 해당하지 않을 가능성이 높습니다.
+              <span className="text-apple-text font-medium">판례 핵심 지표 충족 소수</span> (5개 중 {presumptionMet}개
+              충족) — 위 지표는 추정제 법안 요건과 동일하지 않으며, 개별 사안·판례로 달라질 수 있습니다.
             </>
           )}
         </p>
