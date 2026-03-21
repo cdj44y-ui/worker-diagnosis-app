@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Award, GraduationCap, Briefcase, Building, Phone, ChevronRight, Shield } from 'lucide-react'
+import { NOTION_REMOTE_CONSULT_URL } from '../constants/links'
 
 const CREDENTIALS = [
   {
@@ -33,8 +34,6 @@ const EXPERTISE_AREAS = [
   { text: '취업규칙·계약', emphasis: false },
   { text: '중대재해처벌법 대비', emphasis: false },
 ]
-
-const NOTION_URL = 'https://north-saffron-5b7.notion.site/cc7a5b60e4104ef697435cbf880d8341'
 
 const TEL = '02-2138-0240'
 const TEL_HREF = 'tel:02-2138-0240'
@@ -114,7 +113,7 @@ export default function ConsultantProfile() {
               자가진단 시작
             </Link>
             <a
-              href={NOTION_URL}
+              href={NOTION_REMOTE_CONSULT_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 flex items-center justify-center py-3.5 rounded-full border-2 border-apple-border text-apple-text text-[15px] font-medium hover:bg-apple-bg transition-colors"
