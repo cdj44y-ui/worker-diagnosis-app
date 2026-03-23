@@ -19,9 +19,6 @@ export default function AchievementStats() {
             </div>
           ))}
         </div>
-        <p className="text-center text-[11px] text-apple-tertiary mt-8 max-w-lg mx-auto">
-          위 수치는 운영 시 실제 데이터로 교체 예정입니다.
-        </p>
       </div>
     </section>
   )

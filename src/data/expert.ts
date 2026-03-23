@@ -84,21 +84,21 @@ export const EXPERT = {
 
   achievements: [
     {
-      metric: '000',
-      unit: '건+',
+      metric: '51',
+      unit: '건',
       label: '근로자성 판단 자문',
       description: '프리랜서·위탁직·특수고용 근로자성 실질 판단',
     },
     {
-      metric: '000',
+      metric: '47',
       unit: '개사',
       label: '계약 구조 리스크 진단',
       description: '위탁·도급 계약의 근로자성 리스크 사전 점검',
     },
     {
-      metric: '000',
-      unit: '회+',
-      label: '기업 강의·세미나',
+      metric: '31',
+      unit: '개',
+      label: '기업 강의 및 세미나',
       description: '근로자성 판단, 특수고용, 플랫폼 노동 관련 강의',
     },
   ],
