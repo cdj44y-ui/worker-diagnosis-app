@@ -1,6 +1,7 @@
 import AlertBanner from '../components/AlertBanner'
 import Hero from '../components/Hero'
 import CrackdownStats from '../components/CrackdownStats'
+import LaborInspectionLinkCard from '../components/LaborInspectionLinkCard'
 import ConsultantProfile from '../components/ConsultantProfile'
 import DisclaimerNotice from '../components/DisclaimerNotice'
 
@@ -15,6 +16,9 @@ export default function LandingPage() {
           <DisclaimerNotice variant="landing" />
         </div>
         <CrackdownStats />
+        <div className="mb-10">
+          <LaborInspectionLinkCard variant="landing" />
+        </div>
         <ConsultantProfile />
       </div>
     </div>

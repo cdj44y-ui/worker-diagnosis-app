@@ -7,6 +7,7 @@ import AchievementStats from '../components/about/AchievementStats'
 import ApproachSection from '../components/about/ApproachSection'
 import CaseKeywords from '../components/about/CaseKeywords'
 import TestimonialSlider from '../components/about/TestimonialSlider'
+import LaborInspectionLinkCard from '../components/LaborInspectionLinkCard'
 import AboutCTA from '../components/about/AboutCTA'
 import { SITE_ORIGIN } from '../constants/site'
 
@@ -54,6 +55,9 @@ export default function AboutPage() {
         <ApproachSection />
         <CaseKeywords />
         <TestimonialSlider />
+        <section className="px-4 sm:px-5 py-6 max-w-3xl mx-auto">
+          <LaborInspectionLinkCard variant="about" />
+        </section>
         <AboutCTA />
       </main>
     </div>
