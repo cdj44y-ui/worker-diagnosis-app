@@ -12,7 +12,7 @@ export default function HeroSection() {
             {!imgErr ? (
               <img
                 src={EXPERT.photo}
-                alt=""
+                alt={`${EXPERT.name} ${EXPERT.title} 프로필 사진`}
                 width={180}
                 height={180}
                 className="w-[180px] h-[180px] rounded-full object-cover object-top border-4 border-white shadow-apple-md"

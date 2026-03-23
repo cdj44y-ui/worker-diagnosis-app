@@ -5,7 +5,7 @@ export const EXPERT = {
   title: '노무사',
   affiliation: '노무법인 위너스',
   credentials: ['안전공학 박사', '공인노무사', '근로자성 판단 전문'],
-  photo: '/images/profile-cho.jpg',
+  photo: '/images/profile-cho.png',
 
   career: [
     { company: '현대카드', role: '인사팀', icon: '🏢' },
