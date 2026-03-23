@@ -1,38 +1,73 @@
-import { Link } from 'react-router-dom'
-import { ChevronLeft, ExternalLink } from 'lucide-react'
+import { Link, useBlocker } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
 import RemoteConsultLink from '../components/RemoteConsultLink'
 import { useDiagnosis } from '../hooks/useDiagnosis'
+import { FLAT_QUESTIONS } from '../data/questions'
 import InfoBanner from '../components/InfoBanner'
-import ProgressBar from '../components/ProgressBar'
-import QuestionCard from '../components/QuestionCard'
-import NavigationBar from '../components/NavigationBar'
+import SingleQuestionPanel from '../components/SingleQuestionPanel'
+import CategoryInterstitial from '../components/CategoryInterstitial'
+import DiagnosisFinalGate from '../components/DiagnosisFinalGate'
 import ResultPage from '../components/ResultPage'
 
 /** 진단 전용 — 랜딩(통계·프로필)과 URL·화면 모두 분리 */
 export default function DiagnosisPage() {
   const {
-    step,
+    hydrated,
+    flow,
     answers,
     result,
     totalQuestions,
     answeredCount,
     progressPct,
-    currentCategory,
+    progressCategoryLabel,
     isCategoryComplete,
     selectAnswer,
     nextStep,
     prevStep,
     showResult,
     restart,
+    completeInterstitial,
+    isResult,
   } = useDiagnosis()
 
-  const isResult = step === 5
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) =>
+      !isResult &&
+      answeredCount > 0 &&
+      currentLocation.pathname === '/diagnosis' &&
+      nextLocation.pathname !== '/diagnosis',
+  )
+  const blockerHandled = useRef(false)
+
+  useEffect(() => {
+    if (blocker.state !== 'blocked') {
+      blockerHandled.current = false
+      return
+    }
+    if (blockerHandled.current) return
+    blockerHandled.current = true
+    const ok = window.confirm('진단이 완료되지 않았습니다. 나가시겠습니까?')
+    if (ok) blocker.proceed()
+    else blocker.reset()
+  }, [blocker])
+
+  const canPrev =
+    flow.kind === 'question'
+      ? flow.index > 0
+      : flow.kind === 'interstitial' || flow.kind === 'final'
+
+  const showNav = flow.kind === 'question'
+
+  if (!hydrated) {
+    return <div className="min-h-screen bg-apple-bg" aria-busy="true" />
+  }
 
   return (
     <div className="min-h-screen bg-apple-bg">
       <header className="sticky top-0 z-20 no-print">
-        {/* 1순위: 비대면 상담 — 진단 화면 최상단에 항상 노출 */}
         <div className="border-b border-brand-blue/40 bg-gradient-to-b from-brand-blue to-brand-blue-dark shadow-md">
           <div className="max-w-3xl mx-auto px-4 pt-4 pb-4 sm:pt-5 sm:pb-5">
             <RemoteConsultLink variant="headerPrimary" />
@@ -45,6 +80,11 @@ export default function DiagnosisPage() {
           <div className="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-2">
             <Link
               to="/"
+              onClick={(e) => {
+                if (!isResult && answeredCount > 0 && !window.confirm('진단이 완료되지 않았습니다. 나가시겠습니까?')) {
+                  e.preventDefault()
+                }
+              }}
               className="inline-flex items-center gap-1 text-[14px] font-medium text-brand-blue hover:text-brand-blue-dark transition-colors"
             >
               <ChevronLeft size={18} strokeWidth={2} aria-hidden />
@@ -65,32 +105,117 @@ export default function DiagnosisPage() {
             </a>
           </div>
         </div>
+
+        {!isResult ? (
+          <div className="border-b border-apple-border bg-apple-bg/95 backdrop-blur-md">
+            <div className="max-w-3xl mx-auto px-4 py-3">
+              <div className="flex justify-between items-baseline gap-2 mb-2 text-[13px]">
+                <span className="font-medium text-apple-text tabular-nums">
+                  {answeredCount} / {totalQuestions} 문항 완료
+                </span>
+                <span className="text-apple-secondary tabular-nums">{progressPct}%</span>
+              </div>
+              <div className="h-1 bg-apple-bg rounded-full overflow-hidden mb-2">
+                <div
+                  className="h-full bg-brand-blue rounded-full transition-all duration-500 ease-out"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={progressCategoryLabel}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-[12px] font-medium text-brand-blue truncate"
+                >
+                  {progressCategoryLabel}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+          </div>
+        ) : null}
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 pb-20 pt-6">
+      <div className="max-w-3xl mx-auto px-4 pb-24 pt-6">
         {!isResult ? (
           <>
             <InfoBanner />
 
-            <ProgressBar
-              step={step}
-              progressPct={progressPct}
-              answeredCount={answeredCount}
-              totalQuestions={totalQuestions}
-              answers={answers}
-            />
+            <div className="min-h-[320px]">
+              <AnimatePresence mode="wait">
+                {flow.kind === 'question' ? (
+                  <motion.div
+                    key={`q-${flow.index}`}
+                    className="w-full"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
+                  >
+                    <SingleQuestionPanel
+                      category={FLAT_QUESTIONS[flow.index].category}
+                      question={FLAT_QUESTIONS[flow.index].question}
+                      globalIndex={flow.index}
+                      total={totalQuestions}
+                      answers={answers}
+                      onSelect={selectAnswer}
+                    />
+                  </motion.div>
+                ) : null}
 
-            {currentCategory && (
-              <QuestionCard category={currentCategory} answers={answers} onSelect={selectAnswer} />
-            )}
+                {flow.kind === 'interstitial' ? (
+                  <motion.div
+                    key="interstitial"
+                    className="w-full"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.22 }}
+                  >
+                    <CategoryInterstitial nextIndex={flow.nextIndex} onContinue={completeInterstitial} />
+                  </motion.div>
+                ) : null}
 
-            <NavigationBar
-              step={step}
-              isCategoryComplete={isCategoryComplete}
-              onPrev={prevStep}
-              onNext={nextStep}
-              onSubmit={showResult}
-            />
+                {flow.kind === 'final' ? (
+                  <motion.div
+                    key="final"
+                    className="w-full"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.22 }}
+                  >
+                    <DiagnosisFinalGate onShowResult={showResult} />
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </div>
+
+            {showNav ? (
+              <div className="flex gap-3 mt-6 no-print">
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  disabled={!canPrev}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-3.5 min-h-[48px] rounded-full border border-apple-border bg-apple-surface text-apple-text text-[15px] font-medium transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-apple-bg"
+                >
+                  <ChevronLeft size={18} strokeWidth={2} />
+                  이전
+                </button>
+
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  disabled={!isCategoryComplete || (flow.kind === 'question' && flow.index >= totalQuestions - 1)}
+                  className="flex-[1.4] flex items-center justify-center gap-1.5 py-3.5 min-h-[48px] rounded-full bg-brand-blue text-white text-[15px] font-medium transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-brand-blue-dark"
+                >
+                  다음
+                  <ChevronRight size={18} strokeWidth={2} />
+                </button>
+              </div>
+            ) : null}
           </>
         ) : (
           result && <ResultPage result={result} onRestart={restart} />

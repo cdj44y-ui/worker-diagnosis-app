@@ -1,8 +1,33 @@
-import type { Category } from '../types'
+import type { CaseReference, Category } from '../types'
 
 // ═══════════════════════════════════════════════════════════════
 // 대법원 판례 기반 근로자성 판단 진단 문항 데이터
 // ═══════════════════════════════════════════════════════════════
+
+const REFS_SUBORDINATION: CaseReference[] = [
+  { caseNo: '2006다64573', date: '2006.12.7', summary: '업무지시 거부 가능성' },
+  { caseNo: '2019다14134', date: '2019.6.13', summary: '학습지 교사 근로자성' },
+]
+
+const REFS_TIME_PLACE: CaseReference[] = [
+  { caseNo: '2018다44763', date: '2019.2.14', summary: '방송연출자 출퇴근 관리' },
+  { caseNo: '2017다273441', date: '2018.6.15', summary: '골프장 캐디 근무시간 구속' },
+]
+
+const REFS_ECONOMIC: CaseReference[] = [
+  { caseNo: '2022다255492', date: '2023.9.21', summary: '배달 라이더 전속성' },
+  { caseNo: '2016다277538', date: '2018.11.29', summary: '대리운전 기사' },
+]
+
+const REFS_PLATFORM: CaseReference[] = [
+  { caseNo: '2024두32973', date: '2024.7.25', summary: '타다 드라이버' },
+  { caseNo: '2017다292343', date: '2018.4.26', summary: '텔레마케터 간접통제' },
+]
+
+const REFS_FORMAL: CaseReference[] = [
+  { caseNo: '2011다78804', date: '2013.2.15', summary: '4대보험 가입과 근로자성' },
+  { caseNo: '94다22859', date: '1994.12.9', summary: '계약형식보다 실질 우선' },
+]
 
 export const CATEGORIES: Category[] = [
   {
@@ -15,6 +40,7 @@ export const CATEGORIES: Category[] = [
         id: 'q1',
         text: '업무의 내용(종류·범위)을 누가 결정합니까?',
         refs: ['대법원 2004다29736', '대법원 2024두32973'],
+        references: REFS_SUBORDINATION,
         hint:
           '대법원 2024두32973(타다) 취지 — 쏘카가 운전기사의 업무내용을 결정한 점이 근로자성 인정의 핵심 근거로 작용',
         weight: 5,
@@ -30,6 +56,7 @@ export const CATEGORIES: Category[] = [
         id: 'q2',
         text: '업무 수행 방법·절차·순서에 대한 구체적 지시를 받습니까?',
         refs: ['대법원 94다22859', '대법원 2004다29736'],
+        references: REFS_SUBORDINATION,
         hint:
           '94다22859는 「구체적·개별적」 지휘·감독, 2004다29736은 「상당한」 지휘·감독으로 표현이 완화됨 — 세부 지시가 없어도 지휘·감독이 인정될 수 있음',
         weight: 5,
@@ -45,6 +72,7 @@ export const CATEGORIES: Category[] = [
         id: 'q3',
         text: '취업규칙·복무규정·인사규정의 적용을 받습니까?',
         refs: ['대법원 2004다29736'],
+        references: REFS_SUBORDINATION,
         hint: '복장 규정, 보고 체계, 회의 참석 의무, 교육 이수 의무 등 포함',
         weight: 3,
         options: [
@@ -59,6 +87,7 @@ export const CATEGORIES: Category[] = [
         id: 'q4',
         text: '업무를 거부하거나 다른 업무를 수행할 자유가 있습니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_SUBORDINATION,
         hint: '업무 거부 시 불이익(계약 해지, 배정 제한 등) 존재 = 종속성 강화',
         weight: 3,
         options: [
@@ -81,6 +110,7 @@ export const CATEGORIES: Category[] = [
         id: 'q5',
         text: '근무시간(출·퇴근 시간)이 정해져 있습니까?',
         refs: ['대법원 2004다29736', '대법원 2024두32973'],
+        references: REFS_TIME_PLACE,
         hint: '대법원 2024두32973(타다) 취지 — 근무시간에 비례한 보수를 받은 점 등이 근로자성 판단에 참작',
         weight: 4,
         options: [
@@ -94,6 +124,7 @@ export const CATEGORIES: Category[] = [
         id: 'q6',
         text: '근무장소가 지정되어 있습니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_TIME_PLACE,
         hint: '사업장 출근 의무, 지정된 현장 근무 등. 원격근무라도 접속 의무 시 구속 인정 가능',
         weight: 3,
         options: [
@@ -107,6 +138,7 @@ export const CATEGORIES: Category[] = [
         id: 'q7',
         text: '초과근무·휴일근무를 지시받습니까?',
         refs: ['대법원 2004다29736'],
+        references: REFS_TIME_PLACE,
         hint: '연장·야간·휴일 근로 지시 가능성 = 시간 종속성의 강력한 징표',
         weight: 2,
         options: [
@@ -128,6 +160,7 @@ export const CATEGORIES: Category[] = [
         id: 'q8',
         text: '보수는 어떤 형태로 지급됩니까?',
         refs: ['대법원 94다22859', '대법원 2004다29736', '대법원 2024두32973'],
+        references: REFS_ECONOMIC,
         hint:
           '대법원 2024두32973(타다) 취지 — 업무 성과와 무관하게 근무시간에 비례한 보수 등이 참작. 기본급·고정급 존재는 근로자성 강화 요소',
         weight: 4,
@@ -143,6 +176,7 @@ export const CATEGORIES: Category[] = [
         id: 'q9',
         text: '이 업무가 주된 수입원이며 전속적으로 근무합니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_ECONOMIC,
         hint: '경제적 종속성 + 전속성: 사용자에 대한 경제적 의존도가 높을수록 근로자성 강화',
         weight: 3,
         options: [
@@ -156,6 +190,7 @@ export const CATEGORIES: Category[] = [
         id: 'q10',
         text: '제3자를 고용하여 업무를 대행시킬 수 있습니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_ECONOMIC,
         hint: '노무의 대체성: 본인이 직접 수행해야 한다면 근로자성 강화',
         weight: 3,
         options: [
@@ -169,6 +204,7 @@ export const CATEGORIES: Category[] = [
         id: 'q11',
         text: '비품·장비·원재료는 누가 소유·제공합니까?',
         refs: ['대법원 94다22859', '대법원 2004다29736'],
+        references: REFS_ECONOMIC,
         hint: '사용자 제공 = 근로자 징표 / 본인 소유 투자 = 사업자 징표',
         weight: 2,
         options: [
@@ -182,6 +218,7 @@ export const CATEGORIES: Category[] = [
         id: 'q12',
         text: '독자적 사업자등록이 있고 실제 영리활동을 합니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_ECONOMIC,
         hint: '사업자등록 유무 자체보다 "독립하여 자신의 계산으로 사업을 영위할 수 있는지"가 핵심',
         weight: 2,
         options: [
@@ -203,6 +240,7 @@ export const CATEGORIES: Category[] = [
         id: 'q13',
         text: '앱·플랫폼·알고리즘을 통해 업무가 배정·관리됩니까?',
         refs: ['대법원 2024두32973'],
+        references: REFS_PLATFORM,
         hint:
           '대법원 2024두32973 — 온라인 플랫폼의 알고리즘·복수 사업참여자의 노무관리 특성을 고려할 것 (판시 취지)',
         weight: 3,
@@ -217,6 +255,7 @@ export const CATEGORIES: Category[] = [
         id: 'q14',
         text: '중간 협력업체(파견·용역업체)가 존재합니까?',
         refs: ['대법원 2024두32973'],
+        references: REFS_PLATFORM,
         hint:
           '대법원 2024두32973(타다) 취지 — 협력업체의 운전업무 독립성 부족 등을 고려해, 명목상 중간업체 계약이라도 실질 사용자를 판단',
         weight: 3,
@@ -231,6 +270,7 @@ export const CATEGORIES: Category[] = [
         id: 'q15',
         text: '서비스 품질 기준·고객평가·페널티 시스템이 있습니까?',
         refs: ['대법원 2024두32973'],
+        references: REFS_PLATFORM,
         hint: '대법원 2024두32973(타다) 취지 — 평가·페널티를 통한 간접 통제는 지휘·감독의 현대적 형태로 참작될 수 있음',
         weight: 2,
         options: [
@@ -252,6 +292,7 @@ export const CATEGORIES: Category[] = [
         id: 'q16',
         text: '소득세는 어떻게 처리됩니까?',
         refs: ['대법원 2004다29736'],
+        references: REFS_FORMAL,
         hint: '판례: "근로소득세를 원천징수하였는지…사용자가 경제적 우월한 지위를 이용하여 임의로 정할 여지가 크다"',
         weight: 1.5,
         options: [
@@ -265,6 +306,7 @@ export const CATEGORIES: Category[] = [
         id: 'q17',
         text: '4대 사회보험에 가입되어 있습니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_FORMAL,
         hint: '국민연금·건강보험·고용보험·산재보험. 미가입이 곧 비근로자를 의미하지는 않음',
         weight: 1.5,
         options: [
@@ -278,6 +320,7 @@ export const CATEGORIES: Category[] = [
         id: 'q18',
         text: '계약서상 명칭은 무엇입니까?',
         refs: ['대법원 2004다29736'],
+        references: REFS_FORMAL,
         hint: '"계약의 형식이 고용계약인지 도급계약인지보다 그 실질에 있어…판단하여야 한다"',
         weight: 1,
         options: [
@@ -292,6 +335,7 @@ export const CATEGORIES: Category[] = [
         id: 'q19',
         text: '퇴직금·연차휴가·각종 수당이 지급됩니까?',
         refs: ['대법원 94다22859'],
+        references: REFS_FORMAL,
         hint: '근로기준법상 보호 규정 적용 여부. 미지급이 곧 비근로자를 의미하지 않음',
         weight: 1.5,
         options: [
@@ -318,3 +362,20 @@ export const PRESUMPTION_LABELS = [
   '근무시간 지정',
   '근무장소 지정',
 ]
+
+export function getCategoryCaseReferences(categoryId: string): CaseReference[] {
+  const cat = CATEGORIES.find((c) => c.id === categoryId)
+  if (!cat) return []
+  const map = new Map<string, CaseReference>()
+  for (const q of cat.questions) {
+    for (const r of q.references ?? []) {
+      map.set(r.caseNo, r)
+    }
+  }
+  return [...map.values()]
+}
+
+/** 문항 1개씩 진행용 — 카테고리·문항 순서 */
+export const FLAT_QUESTIONS = CATEGORIES.flatMap((category) =>
+  category.questions.map((question) => ({ category, question })),
+)

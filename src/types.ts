@@ -23,12 +23,21 @@ export interface Option {
   cls: ScoreClass
 }
 
+/** 구조화된 판례 인용 (카테고리·문항 매핑) */
+export interface CaseReference {
+  caseNo: string
+  date: string
+  summary: string
+}
+
 /** 개별 문항 */
 export interface Question {
   id: string
   text: string
   /** 근거 판례·법령 */
   refs: string[]
+  /** 구조화된 관련 판례 (영역별 분석 접이식 등에 사용) */
+  references?: CaseReference[]
   /** 판례 원문 기반 해설 */
   hint: string
   /** 가중치 (1~5, 판례 중요도 반영) */
@@ -56,6 +65,26 @@ export interface CategoryScore {
 
 /** 판정 등급 */
 export type VerdictType = 'worker' | 'gray' | 'freelancer'
+
+/** 리스크 경고 CTA 긴급도 */
+export type RiskCtaType = 'urgent' | 'moderate' | 'info'
+
+/** 결과 화면 리스크 경고 + 상담 전환 */
+export interface RiskWarning {
+  title: string
+  description: string
+  estimatedCost: string
+  ctaText: string
+  ctaType: RiskCtaType
+}
+
+/** getVerdictText() 반환 */
+export interface VerdictTextResult {
+  title: string
+  icon: string
+  sub: string
+  riskWarning: RiskWarning
+}
 
 /** 종합 판정 결과 */
 export interface DiagnosisResult {

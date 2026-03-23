@@ -12,6 +12,7 @@
     "vercel:prod": "vercel --prod"
   },
   "dependencies": {
+    "@notionhq/client": "^5.14.0",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
@@ -19,8 +20,10 @@
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "@vercel/node": "^5.6.18",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",

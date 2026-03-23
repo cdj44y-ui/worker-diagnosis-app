@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
-import type { DiagnosisResult, VerdictType } from '../types'
-import { CATEGORIES } from '../data/questions'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import type { CategoryScore, DiagnosisResult, RiskCtaType, VerdictType } from '../types'
+import { CATEGORIES, getCategoryCaseReferences } from '../data/questions'
 import {
   LEGAL_REFERENCES,
   ACTIONS_WORKER,
@@ -9,8 +11,11 @@ import {
   EVIDENCE_ITEMS,
 } from '../data/legal-refs'
 import { getVerdictColor, getVerdictText, getBarColor } from '../utils/scoring'
-import { RotateCcw, FileText, Scale } from 'lucide-react'
+import { NOTION_REMOTE_CONSULT_URL } from '../constants/notion'
+import { RotateCcw, FileText, Scale, Mail } from 'lucide-react'
 import DisclaimerNotice from './DisclaimerNotice'
+import ReportEmailModal from './ReportEmailModal'
+import ShareResultBar from './ShareResultBar'
 
 interface Props {
   result: DiagnosisResult
@@ -25,6 +30,17 @@ function verdictPanelClass(verdict: VerdictType): string {
       return 'bg-amber-50/50 border-amber-100/80'
     case 'freelancer':
       return 'bg-emerald-50/50 border-emerald-100/80'
+  }
+}
+
+function riskWarningPanelClass(ctaType: RiskCtaType): string {
+  switch (ctaType) {
+    case 'urgent':
+      return 'bg-red-50 border-red-200 text-red-800'
+    case 'moderate':
+      return 'bg-amber-50 border-amber-200 text-amber-800'
+    case 'info':
+      return 'bg-stone-50 border-stone-200 text-stone-600'
   }
 }
 
@@ -43,9 +59,19 @@ function badgeClass(badge: string): string {
 }
 
 export default function ResultPage({ result, onRestart }: Props) {
+  const [reportOpen, setReportOpen] = useState(false)
+  const [toast, setToast] = useState<{ kind: 'ok' | 'err'; message: string } | null>(null)
+
+  useEffect(() => {
+    if (!toast) return
+    const t = window.setTimeout(() => setToast(null), 4500)
+    return () => window.clearTimeout(t)
+  }, [toast])
+
   const { percentage, verdict, categoryScores, presumptionMet, presumptionItems, answers } = result
   const color = getVerdictColor(verdict)
   const text = getVerdictText(verdict)
+  const { riskWarning } = text
   const actions = verdict === 'worker' ? ACTIONS_WORKER : verdict === 'gray' ? ACTIONS_GRAY : ACTIONS_FREELANCER
 
   const questionDetails = CATEGORIES.flatMap((cat) =>
@@ -84,6 +110,24 @@ export default function ResultPage({ result, onRestart }: Props) {
       </div>
 
       <div
+        className={`rounded-apple-lg border p-6 sm:p-7 text-left print-break shadow-apple ${riskWarningPanelClass(riskWarning.ctaType)}`}
+      >
+        <h3 className="text-[15px] sm:text-[16px] font-semibold leading-snug mb-2">{riskWarning.title}</h3>
+        <p className="text-[13px] leading-relaxed opacity-95 mb-3">{riskWarning.description}</p>
+        {riskWarning.estimatedCost ? (
+          <p className="text-[12px] leading-relaxed opacity-90 border-t border-current/10 pt-3 mb-4">{riskWarning.estimatedCost}</p>
+        ) : null}
+        <button
+          type="button"
+          onClick={() => window.open(NOTION_REMOTE_CONSULT_URL, '_blank', 'noopener,noreferrer')}
+          className="w-full py-3 px-4 rounded-full bg-brand-blue text-white font-semibold text-[14px] shadow-sm hover:bg-brand-blue-dark transition-colors"
+        >
+          {riskWarning.ctaText}
+        </button>
+        <p className="text-center text-[11px] mt-2.5 opacity-90">02-2138-0240 전화 상담도 가능합니다</p>
+      </div>
+
+      <div
         className={`rounded-apple-lg border p-7 sm:p-8 text-center print-break ${verdictPanelClass(verdict)}`}
       >
         <div className="text-4xl mb-3" aria-hidden>
@@ -93,9 +137,63 @@ export default function ResultPage({ result, onRestart }: Props) {
         <p className="text-[14px] text-apple-secondary max-w-lg mx-auto leading-relaxed">{text.sub}</p>
       </div>
 
+      <div className="bg-apple-surface rounded-apple-lg border border-apple-border shadow-apple-md p-6 sm:p-7 text-center no-print">
+        <p className="text-[13px] text-apple-secondary mb-4 leading-relaxed">
+          PDF·요약 리포트를 이메일로 받아보실 수 있습니다.
+        </p>
+        <button
+          type="button"
+          onClick={() => setReportOpen(true)}
+          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto min-w-[240px] py-3.5 px-6 rounded-full border-2 border-brand-blue/35 bg-brand-blue/[0.06] text-brand-blue font-semibold text-[15px] hover:bg-brand-blue/10 transition-colors min-h-[48px]"
+        >
+          <Mail size={20} strokeWidth={2} aria-hidden />
+          진단 결과 리포트 받기
+        </button>
+      </div>
+
+      <ReportEmailModal
+        open={reportOpen}
+        onClose={() => setReportOpen(false)}
+        result={result}
+        onSuccess={() =>
+          setToast({
+            kind: 'ok',
+            message: '리포트가 이메일로 발송됩니다 (영업일 1일 이내)',
+          })
+        }
+        onError={() =>
+          setToast({
+            kind: 'err',
+            message: '잠시 후 다시 시도해주세요. 급한 경우 02-2138-0240으로 연락주세요',
+          })
+        }
+      />
+
+      <ShareResultBar percentage={percentage} verdict={verdict} />
+
+      <AnimatePresence>
+        {toast ? (
+          <motion.div
+            key="result-toast"
+            role="status"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.22 }}
+            className={`fixed bottom-6 left-1/2 z-[60] max-w-[min(92vw,22rem)] -translate-x-1/2 rounded-apple-lg border px-4 py-3 text-center text-[13px] font-medium shadow-apple-md no-print ${
+              toast.kind === 'ok'
+                ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+                : 'bg-red-50 border-red-200 text-red-900'
+            }`}
+          >
+            {toast.message}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <Card title="영역별 분석">
         {categoryScores.map((cs) => (
-          <Row key={cs.id} label={cs.name} score={cs.score} max={cs.max} pct={cs.pct} />
+          <CategoryAnalysisRow key={cs.id} cs={cs} />
         ))}
       </Card>
 
@@ -221,17 +319,44 @@ function Card({ title, children }: { title: string; children: ReactNode }) {
   )
 }
 
-function Row({ label, score, max, pct }: { label: string; score: number; max: number; pct: number }) {
-  const barColor = getBarColor(pct)
+function CategoryAnalysisRow({ cs }: { cs: CategoryScore }) {
+  const [open, setOpen] = useState(false)
+  const cases = getCategoryCaseReferences(cs.id)
+  const barColor = getBarColor(cs.pct)
   return (
-    <div className="flex items-center justify-between py-3 border-b border-apple-border last:border-0 gap-3">
-      <div className="flex-1 text-[14px] font-medium text-apple-text">{label}</div>
-      <div className="w-32 h-1.5 bg-apple-bg rounded-full overflow-hidden shrink-0">
-        <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, background: barColor }} />
+    <div className="border-b border-apple-border last:border-0">
+      <div className="flex items-center justify-between py-3 gap-3">
+        <div className="flex-1 text-[14px] font-medium text-apple-text">{cs.name}</div>
+        <div className="w-32 h-1.5 bg-apple-bg rounded-full overflow-hidden shrink-0">
+          <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cs.pct}%`, background: barColor }} />
+        </div>
+        <div className="text-[12px] font-semibold min-w-[64px] text-right tabular-nums" style={{ color: barColor }}>
+          {cs.score.toFixed(1)} / {cs.max.toFixed(1)}
+        </div>
       </div>
-      <div className="text-[12px] font-semibold min-w-[64px] text-right tabular-nums" style={{ color: barColor }}>
-        {score.toFixed(1)} / {max.toFixed(1)}
-      </div>
+      {cases.length > 0 ? (
+        <div className="pb-3">
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="text-[12px] font-medium text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center gap-1"
+            aria-expanded={open}
+          >
+            관련 판례 {cases.length}건 <span aria-hidden>{open ? '▾' : '▸'}</span>
+          </button>
+          {open ? (
+            <ul className="mt-2 space-y-2 pl-1 border-l-2 border-brand-blue/20">
+              {cases.map((c) => (
+                <li key={c.caseNo} className="text-[12px] text-apple-secondary leading-relaxed pl-3">
+                  <span className="text-apple-text font-medium">대법원 {c.caseNo}</span>
+                  <span className="text-apple-tertiary"> · {c.date}</span>
+                  <span className="block mt-0.5">{c.summary}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   )
 }

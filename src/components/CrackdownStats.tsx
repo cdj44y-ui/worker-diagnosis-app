@@ -1,51 +1,57 @@
 import { Building2, Users, Banknote, Gavel, MapPin, TrendingUp } from 'lucide-react'
+import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
+
+const { summary, industries, caseTypes, updatedAt, source, sourceUrl } = CRACKDOWN_DATA
+
+const unpaidEok = (summary.unpaidWages / 100_000_000).toFixed(2)
 
 const STATS = [
-  { icon: Building2, value: '72', unit: '개소', sub: '108개 중 적발', label: '위반 사업장' },
-  { icon: Users, value: '1,070', unit: '명', sub: '보도 기준', label: '관련 근로자' },
-  { icon: Banknote, value: '6.85', unit: '억원', sub: '체불 적발', label: '임금 규모' },
-  { icon: Gavel, value: '256', unit: '건', sub: '복합 위반', label: '법 위반 건수' },
-]
-
-/** 보도 적발 건수 기준 — 3.3%·위장고용 이슈가 상대적으로 많이 드러난 업종 */
-const TOP_33_INDUSTRIES = [
-  { industry: '숙박·음식', count: 39, label: '보도상 최다' },
-  { industry: '제조업', count: 16, label: '하도급·3.3% 병존 언급' },
-  { industry: '도·소매', count: 13, label: '유통·실사용자 이슈' },
-]
-
-const OTHER_INDUSTRIES = [
-  { industry: '운수·창고', count: 3 },
-  { industry: '사업지원', count: 1 },
-]
-
-const CASE_LINES = [
   {
-    line: '콜센터 교육생 다수 사업소득 처리 · 체불 다액 적발 사례',
-    emphasis: true,
+    icon: Building2,
+    value: String(summary.violated),
+    unit: '개소',
+    sub: `${summary.inspected}개 중 적발`,
+    label: '위반 사업장',
   },
   {
-    line: '제조 하도급 다수 3.3% 적용 · 보험 미가입 정리 필요',
-    emphasis: true,
+    icon: Users,
+    value: summary.affectedWorkers.toLocaleString('ko-KR'),
+    unit: '명',
+    sub: '보도 기준',
+    label: '관련 근로자',
   },
-  { line: '동일 사업주 다지점 운영(인원 분산) 형태도 보도', emphasis: false },
-  { line: '물류 · 실질 사용자 판단 · 불법파견 이슈 병존 가능', emphasis: false },
+  {
+    icon: Banknote,
+    value: unpaidEok,
+    unit: '억원',
+    sub: '체불 적발',
+    label: '임금 규모',
+  },
+  {
+    icon: Gavel,
+    value: String(summary.violations),
+    unit: '건',
+    sub: '복합 위반',
+    label: '법 위반 건수',
+  },
 ]
 
 export default function CrackdownStats() {
-  const maxCount = TOP_33_INDUSTRIES[0]?.count ?? 39
+  const maxCount = industries[0]?.count ?? 1
+  const top3 = industries.slice(0, 3)
+  const formattedDate = formatCrackdownDate(updatedAt)
 
   return (
     <div className="mb-10 no-print">
       <div className="text-center mb-8">
-        <p className="text-[12px] font-semibold text-brand-blue tracking-wide mb-2">고용노동부 보도자료 요약</p>
+        <p className="text-[12px] font-semibold text-brand-blue tracking-wide mb-2">{source} 요약</p>
         <h2 className="text-[22px] sm:text-[26px] font-semibold text-apple-text tracking-tight leading-snug">
           가짜 3.3 · 위장고용 감독 흐름
         </h2>
         <p className="text-[14px] text-apple-secondary mt-2 max-w-lg mx-auto leading-relaxed">
           <span className="text-apple-text font-medium">3.3% 사업소득</span> 관련 보도에서 적발 건수가 많았던 업종은{' '}
-          <span className="text-apple-text font-semibold">숙박·음식 → 제조 → 도·소매</span> 순으로 집중됐습니다. (보도
-          2026.3.19 기준, 개별 사업장과 다를 수 있음)
+          <span className="text-apple-text font-semibold">숙박·음식 → 제조 → 도·소매</span> 순으로 집중됐습니다. (보도{' '}
+          {formattedDate} 기준, 개별 사업장과 다를 수 있음)
         </p>
       </div>
 
@@ -74,9 +80,9 @@ export default function CrackdownStats() {
           </h3>
         </div>
         <div className="grid sm:grid-cols-3 gap-3">
-          {TOP_33_INDUSTRIES.map((c, i) => (
+          {top3.map((c, i) => (
             <div
-              key={c.industry}
+              key={c.name}
               className="relative rounded-apple border border-brand-blue/25 bg-apple-surface p-4 text-left shadow-apple"
             >
               <span className="absolute top-3 right-3 text-[10px] font-bold text-white bg-brand-blue px-2 py-0.5 rounded-full">
@@ -87,8 +93,8 @@ export default function CrackdownStats() {
                 <span className="text-[32px] font-semibold text-apple-text tabular-nums leading-none">{c.count}</span>
                 <span className="text-[13px] text-apple-secondary">건</span>
               </div>
-              <p className="text-[15px] font-semibold text-apple-text mt-2">{c.industry}</p>
-              <p className="text-[11px] text-apple-secondary mt-1 leading-snug">{c.label}</p>
+              <p className="text-[15px] font-semibold text-apple-text mt-2">{c.name}</p>
+              <p className="text-[11px] text-apple-secondary mt-1 leading-snug">비중 약 {c.percentage}%</p>
             </div>
           ))}
         </div>
@@ -101,15 +107,15 @@ export default function CrackdownStats() {
             전 업종 적발 분포 (보도 기준)
           </h3>
           <div className="space-y-3">
-            {[...TOP_33_INDUSTRIES, ...OTHER_INDUSTRIES].map((c) => {
+            {industries.map((c, i) => {
               const pct = Math.round((c.count / maxCount) * 100)
-              const isTop = 'label' in c
+              const isTop = i < 3
               return (
-                <div key={c.industry} className="flex items-center gap-3">
+                <div key={c.name} className="flex items-center gap-3">
                   <span
-                    className={`text-[12px] font-medium w-[5rem] shrink-0 ${isTop ? 'text-apple-text font-semibold' : 'text-apple-secondary'}`}
+                    className={`text-[12px] font-medium w-[6.5rem] shrink-0 ${isTop ? 'text-apple-text font-semibold' : 'text-apple-secondary'}`}
                   >
-                    {c.industry}
+                    {c.name}
                   </span>
                   <div className="flex-1 h-2.5 bg-apple-bg rounded-full overflow-hidden">
                     <div
@@ -118,7 +124,7 @@ export default function CrackdownStats() {
                     />
                   </div>
                   <span
-                    className={`text-[11px] font-semibold w-10 text-right tabular-nums ${isTop ? 'text-brand-blue' : 'text-apple-tertiary'}`}
+                    className={`text-[11px] font-semibold w-12 text-right tabular-nums ${isTop ? 'text-brand-blue' : 'text-apple-tertiary'}`}
                   >
                     {c.count}
                   </span>
@@ -134,22 +140,16 @@ export default function CrackdownStats() {
             보도에서 언급된 유형
           </h3>
           <ul className="space-y-3">
-            {CASE_LINES.map(({ line, emphasis }) => (
+            {caseTypes.map((item) => (
               <li
-                key={line}
-                className={`text-[13px] leading-relaxed relative rounded-lg py-2.5 pl-4 pr-2 -ml-1 ${
-                  emphasis ? 'bg-brand-blue/[0.06] border border-brand-blue/15 font-medium text-apple-text' : 'text-apple-secondary'
-                }`}
+                key={item.type}
+                className="text-[13px] leading-relaxed relative rounded-lg py-2.5 pl-4 pr-2 -ml-1 bg-brand-blue/[0.06] border border-brand-blue/15 font-medium text-apple-text"
               >
-                <span
-                  className={`absolute left-1.5 top-[0.85em] w-1.5 h-1.5 rounded-full ${emphasis ? 'bg-brand-blue' : 'bg-apple-tertiary'}`}
-                />
-                {emphasis && (
-                  <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-wide mb-0.5">
-                    3.3%·사업소득과 연계된 사례
-                  </span>
-                )}
-                {line}
+                <span className="absolute left-1.5 top-[0.85em] w-1.5 h-1.5 rounded-full bg-brand-blue" />
+                <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-wide mb-0.5">
+                  {item.amount} · 관련 {item.workers}명
+                </span>
+                {item.type}
               </li>
             ))}
           </ul>
@@ -158,6 +158,13 @@ export default function CrackdownStats() {
           </p>
         </div>
       </div>
+
+      <p className="text-center text-[11px] text-apple-tertiary mt-6">
+        최종 업데이트: {formattedDate} · 출처:{' '}
+        <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline">
+          {source}
+        </a>
+      </p>
     </div>
   )
 }
