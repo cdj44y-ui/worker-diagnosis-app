@@ -160,7 +160,7 @@ export default function CrackdownStats() {
       </div>
 
       <p className="text-center text-[11px] text-apple-tertiary mt-6">
-        최종 업데이트: {formattedDate} · 출처:{' '}
+        최종 업데이트: {formattedDate} | 출처:{' '}
         <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline">
           {source}
         </a>

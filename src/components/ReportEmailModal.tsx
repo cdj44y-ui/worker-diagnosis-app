@@ -28,8 +28,13 @@ export default function ReportEmailModal({ open, onClose, result, onSuccess, onE
   const [submitting, setSubmitting] = useState(false)
 
   function validateEmail(v: string): boolean {
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
-    setEmailError(ok || !v.trim() ? '' : '올바른 이메일 주소를 입력해 주세요.')
+    const t = v.trim()
+    if (!t) {
+      setEmailError('이메일을 입력해 주세요.')
+      return false
+    }
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t)
+    setEmailError(ok ? '' : '올바른 이메일 주소를 입력해 주세요.')
     return ok
   }
 
@@ -62,7 +67,7 @@ export default function ReportEmailModal({ open, onClose, result, onSuccess, onE
   }
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {open ? (
         <motion.div
           key="report-email-modal"

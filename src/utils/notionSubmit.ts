@@ -15,7 +15,10 @@ export interface DiagnosisReportPayload {
   submittedAt: string
 }
 
-/** Vercel 배포 시 `/api/submit-diagnosis` 로 전달 (로컬 `vite` 단독 실행 시 404 가능) */
+/**
+ * 서버리스 `api/submit-diagnosis.ts`로 POST — Notion 키는 서버 `NOTION_API_KEY`만 사용 (클라이언트 env 없음).
+ * 로컬은 `vercel dev`로 띄우거나 배포 환경에서 테스트하세요. `npm run dev`만 쓰면 `/api`가 없을 수 있습니다.
+ */
 export async function submitDiagnosisReport(payload: DiagnosisReportPayload): Promise<void> {
   const res = await fetch('/api/submit-diagnosis', {
     method: 'POST',

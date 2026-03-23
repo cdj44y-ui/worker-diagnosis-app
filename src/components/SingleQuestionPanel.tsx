@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 import type { Category, Option, Question, ScoreClass } from '../types'
 
 interface Props {
@@ -102,11 +103,7 @@ export default function SingleQuestionPanel({
                       ${selected ? 'border-white bg-white' : 'border-apple-border bg-apple-surface'}
                     `}
                   >
-                    {selected && (
-                      <svg className="w-2.5 h-2.5 text-brand-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                    )}
+                    {selected ? <Check className="w-3.5 h-3.5 text-brand-blue" strokeWidth={2.5} aria-hidden /> : null}
                   </span>
 
                   <span className={`flex-1 ${selected ? 'font-medium' : 'text-apple-text'}`}>{opt.label}</span>

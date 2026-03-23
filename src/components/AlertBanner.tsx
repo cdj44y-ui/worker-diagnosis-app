@@ -11,7 +11,7 @@ export default function AlertBanner() {
     <div className="no-print border-b border-apple-border bg-apple-surface/90 backdrop-blur-md supports-[backdrop-filter]:bg-apple-surface/75">
       <div className="max-w-3xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row sm:items-center sm:justify-center gap-1 sm:gap-2 text-center">
         <p className="text-[13px] text-apple-secondary leading-snug flex flex-wrap items-center justify-center gap-x-1.5">
-          <CircleDot size={14} className="shrink-0 text-brand-blue hidden sm:inline" strokeWidth={2.5} aria-hidden />
+          <CircleDot size={14} className="shrink-0 text-brand-blue" strokeWidth={2.5} aria-hidden />
           <span className="text-apple-text font-semibold">고용노동부 보도</span>
           <span className="text-apple-tertiary">·</span>
           가짜 3.3 의심 <span className="text-apple-text font-medium">{summary.inspected}개소</span> 감독,{' '}

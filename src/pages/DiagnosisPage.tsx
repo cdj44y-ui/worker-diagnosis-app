@@ -1,11 +1,12 @@
 import { Link, useBlocker } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
 import RemoteConsultLink from '../components/RemoteConsultLink'
 import { useDiagnosis } from '../hooks/useDiagnosis'
 import { FLAT_QUESTIONS } from '../data/questions'
+import { shortCategoryTitle } from '../utils/categoryLabel'
 import InfoBanner from '../components/InfoBanner'
 import SingleQuestionPanel from '../components/SingleQuestionPanel'
 import CategoryInterstitial from '../components/CategoryInterstitial'
@@ -22,7 +23,6 @@ export default function DiagnosisPage() {
     totalQuestions,
     answeredCount,
     progressPct,
-    progressCategoryLabel,
     isCategoryComplete,
     selectAnswer,
     nextStep,
@@ -31,7 +31,31 @@ export default function DiagnosisPage() {
     restart,
     completeInterstitial,
     isResult,
+    slideDirection,
   } = useDiagnosis()
+
+  const categoryLineLabel = useMemo(() => {
+    if (flow.kind === 'question') {
+      const cur = FLAT_QUESTIONS[flow.index].category
+      const curShort = shortCategoryTitle(cur)
+      if (flow.index === 0) return curShort
+      const prevShort = shortCategoryTitle(FLAT_QUESTIONS[flow.index - 1].category)
+      return prevShort !== curShort ? `${prevShort} → ${curShort}` : curShort
+    }
+    if (flow.kind === 'interstitial') {
+      const prev = shortCategoryTitle(FLAT_QUESTIONS[flow.nextIndex - 1].category)
+      const next = shortCategoryTitle(FLAT_QUESTIONS[flow.nextIndex].category)
+      return `${prev} → ${next}`
+    }
+    if (flow.kind === 'final') return '모든 문항 완료'
+    return ''
+  }, [flow])
+
+  const cardVariants = {
+    enter: (dir: number) => ({ opacity: 0, x: dir * 20 }),
+    center: { opacity: 1, x: 0 },
+    exit: (dir: number) => ({ opacity: 0, x: dir * -20 }),
+  }
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
@@ -107,15 +131,15 @@ export default function DiagnosisPage() {
         </div>
 
         {!isResult ? (
-          <div className="border-b border-apple-border bg-apple-bg/95 backdrop-blur-md">
-            <div className="max-w-3xl mx-auto px-4 py-3">
+          <div className="border-b border-apple-border bg-apple-bg/95 backdrop-blur-md supports-[backdrop-filter]:bg-apple-bg/90">
+            <div className="max-w-lg mx-auto px-4 py-3">
               <div className="flex justify-between items-baseline gap-2 mb-2 text-[13px]">
                 <span className="font-medium text-apple-text tabular-nums">
                   {answeredCount} / {totalQuestions} 문항 완료
                 </span>
-                <span className="text-apple-secondary tabular-nums">{progressPct}%</span>
+                <span className="text-apple-secondary tabular-nums hidden sm:inline">{progressPct}%</span>
               </div>
-              <div className="h-1 bg-apple-bg rounded-full overflow-hidden mb-2">
+              <div className="h-0.5 bg-apple-bg rounded-full overflow-hidden mb-2">
                 <div
                   className="h-full bg-brand-blue rounded-full transition-all duration-500 ease-out"
                   style={{ width: `${progressPct}%` }}
@@ -123,14 +147,14 @@ export default function DiagnosisPage() {
               </div>
               <AnimatePresence mode="wait">
                 <motion.p
-                  key={progressCategoryLabel}
+                  key={categoryLineLabel}
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-[12px] font-medium text-brand-blue truncate"
+                  transition={{ duration: 0.22 }}
+                  className="text-[12px] font-medium text-brand-blue text-center sm:text-left line-clamp-2 min-h-[2.5rem] sm:min-h-0"
                 >
-                  {progressCategoryLabel}
+                  {categoryLineLabel}
                 </motion.p>
               </AnimatePresence>
             </div>
@@ -138,21 +162,23 @@ export default function DiagnosisPage() {
         ) : null}
       </header>
 
-      <div className="max-w-3xl mx-auto px-4 pb-24 pt-6">
+      <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
         {!isResult ? (
           <>
             <InfoBanner />
 
-            <div className="min-h-[320px]">
-              <AnimatePresence mode="wait">
+            <div className="min-h-[min(52vh,420px)]">
+              <AnimatePresence mode="wait" custom={slideDirection}>
                 {flow.kind === 'question' ? (
                   <motion.div
                     key={`q-${flow.index}`}
                     className="w-full"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
+                    custom={slideDirection}
+                    variants={cardVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <SingleQuestionPanel
                       category={FLAT_QUESTIONS[flow.index].category}
@@ -169,10 +195,12 @@ export default function DiagnosisPage() {
                   <motion.div
                     key="interstitial"
                     className="w-full"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.22 }}
+                    custom={slideDirection}
+                    variants={cardVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <CategoryInterstitial nextIndex={flow.nextIndex} onContinue={completeInterstitial} />
                   </motion.div>
@@ -182,10 +210,12 @@ export default function DiagnosisPage() {
                   <motion.div
                     key="final"
                     className="w-full"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.22 }}
+                    custom={slideDirection}
+                    variants={cardVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <DiagnosisFinalGate onShowResult={showResult} />
                   </motion.div>

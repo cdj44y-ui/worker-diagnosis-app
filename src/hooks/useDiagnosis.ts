@@ -3,7 +3,7 @@ import { FLAT_QUESTIONS } from '../data/questions'
 import { calculateResult } from '../utils/scoring'
 import type { Category, DiagnosisResult } from '../types'
 
-const STORAGE_KEY = 'worker-diagnosis-flow-v1'
+const STORAGE_KEY = 'free119-diagnosis-flow-v1'
 const AUTO_ADVANCE_MS = 300
 const INTERSTITIAL_MS = 1500
 
@@ -32,11 +32,16 @@ function countAnswered(answers: Record<string, number>): number {
   return Object.keys(answers).length
 }
 
+/** 카드 전환: 1 = 앞으로(다음·자동), -1 = 뒤로(이전) */
+export type SlideDirection = 1 | -1
+
 export function useDiagnosis() {
   const [answers, setAnswers] = useState<Record<string, number>>({})
   const [flow, setFlow] = useState<DiagnosisFlow>({ kind: 'question', index: 0 })
   const [result, setResult] = useState<DiagnosisResult | null>(null)
   const [hydrated, setHydrated] = useState(false)
+  /** 문항/인터스티셜/최종 화면 슬라이드 방향 (AnimatePresence custom) */
+  const [slideDirection, setSlideDirection] = useState<SlideDirection>(1)
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const interstitialTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -58,6 +63,33 @@ export function useDiagnosis() {
   }, [])
 
   useEffect(() => {
+    let cancelled = false
+
+    function restoreFromSession(parsed: { answers: Record<string, number>; flow?: DiagnosisFlow }) {
+      setAnswers(parsed.answers)
+      if (parsed.flow?.kind === 'result') {
+        setFlow({ kind: 'question', index: 0 })
+      } else if (parsed.flow?.kind === 'final') {
+        setFlow({ kind: 'final' })
+      } else if (parsed.flow?.kind === 'interstitial') {
+        setFlow({ kind: 'question', index: parsed.flow.nextIndex })
+      } else if (parsed.flow?.kind === 'question') {
+        const first = firstUnansweredIndex(parsed.answers)
+        if (first >= totalQuestions) {
+          setFlow({ kind: 'final' })
+        } else {
+          setFlow({ kind: 'question', index: first })
+        }
+      } else {
+        const first = firstUnansweredIndex(parsed.answers)
+        if (first >= totalQuestions) {
+          setFlow({ kind: 'final' })
+        } else {
+          setFlow({ kind: 'question', index: first })
+        }
+      }
+    }
+
     try {
       const raw = sessionStorage.getItem(STORAGE_KEY)
       if (!raw) {
@@ -69,32 +101,27 @@ export function useDiagnosis() {
         setHydrated(true)
         return
       }
-      const ok = window.confirm('이전 진단을 이어하시겠습니까?')
-      if (ok) {
-        setAnswers(parsed.answers)
-        if (parsed.flow?.kind === 'result') {
-          setFlow({ kind: 'question', index: 0 })
-        } else if (parsed.flow?.kind === 'final') {
-          setFlow({ kind: 'final' })
-        } else if (parsed.flow?.kind === 'interstitial') {
-          setFlow({ kind: 'question', index: parsed.flow.nextIndex })
-        } else if (parsed.flow?.kind === 'question') {
-          const first = firstUnansweredIndex(parsed.answers)
-          if (first >= totalQuestions) {
-            setFlow({ kind: 'final' })
-          } else {
-            setFlow({ kind: 'question', index: first })
-          }
+
+      // confirm()은 메인 스레드를 막아 첫 페인트 전에 호출되면 빈 화면이 계속됨(특히 인앱 브라우저).
+      // 먼저 hydration을 끝내고, 다음 틱에 이어하기 여부를 묻는다.
+      setHydrated(true)
+      const t = window.setTimeout(() => {
+        if (cancelled) return
+        const ok = window.confirm('이전 진단을 이어하시겠습니까?')
+        if (ok) {
+          restoreFromSession({ answers: parsed.answers!, flow: parsed.flow })
         } else {
-          const first = firstUnansweredIndex(parsed.answers)
-          if (first >= totalQuestions) {
-            setFlow({ kind: 'final' })
-          } else {
-            setFlow({ kind: 'question', index: first })
+          try {
+            sessionStorage.removeItem(STORAGE_KEY)
+          } catch {
+            /* ignore */
           }
         }
-      } else {
-        sessionStorage.removeItem(STORAGE_KEY)
+      }, 0)
+
+      return () => {
+        cancelled = true
+        window.clearTimeout(t)
       }
     } catch {
       /* ignore */
@@ -129,6 +156,7 @@ export function useDiagnosis() {
   const selectAnswer = useCallback(
     (questionId: string, optionIndex: number) => {
       clearTimers()
+      setSlideDirection(1)
       setAnswers((prev) => ({ ...prev, [questionId]: optionIndex }))
 
       advanceTimer.current = setTimeout(() => {
@@ -153,6 +181,7 @@ export function useDiagnosis() {
 
   const completeInterstitial = useCallback(() => {
     clearTimers()
+    setSlideDirection(1)
     setFlow((f) => {
       if (f.kind !== 'interstitial') return f
       return { kind: 'question', index: f.nextIndex }
@@ -171,6 +200,7 @@ export function useDiagnosis() {
 
   const prevStep = useCallback(() => {
     clearTimers()
+    setSlideDirection(-1)
     setFlow((f) => {
       if (f.kind === 'final') {
         return { kind: 'question', index: totalQuestions - 1 }
@@ -187,6 +217,7 @@ export function useDiagnosis() {
 
   const nextStep = useCallback(() => {
     clearTimers()
+    setSlideDirection(1)
     setFlow((f) => {
       if (f.kind !== 'question') return f
       const q = FLAT_QUESTIONS[f.index].question
@@ -205,6 +236,7 @@ export function useDiagnosis() {
 
   const showResult = useCallback(() => {
     clearTimers()
+    setSlideDirection(1)
     const r = calculateResult(answers)
     setResult(r)
     setFlow({ kind: 'result' })
@@ -218,6 +250,7 @@ export function useDiagnosis() {
 
   const restart = useCallback(() => {
     clearTimers()
+    setSlideDirection(1)
     setAnswers({})
     setResult(null)
     setFlow({ kind: 'question', index: 0 })
@@ -248,13 +281,6 @@ export function useDiagnosis() {
     return null
   }, [flow, totalQuestions])
 
-  const progressCategoryLabel = useMemo(() => {
-    if (flow.kind === 'question') return FLAT_QUESTIONS[flow.index].category.title
-    if (flow.kind === 'interstitial') return FLAT_QUESTIONS[flow.nextIndex].category.title
-    if (flow.kind === 'final') return '완료 요약'
-    return ''
-  }, [flow])
-
   const isCategoryComplete = useMemo(() => {
     if (flow.kind !== 'question') return true
     const q = FLAT_QUESTIONS[flow.index].question
@@ -272,7 +298,6 @@ export function useDiagnosis() {
     answeredCount,
     progressPct,
     currentCategory,
-    progressCategoryLabel,
     isCategoryComplete,
     selectAnswer,
     nextStep,
@@ -282,5 +307,6 @@ export function useDiagnosis() {
     step,
     completeInterstitial,
     isResult,
+    slideDirection,
   }
 }
