@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
+import AboutPage from './pages/AboutPage'
 
 /** 정적 import 시 진단 번들 오류가 랜딩까지 막을 수 있어 지연 로드 */
 const DiagnosisPage = lazy(() => import('./pages/DiagnosisPage'))
@@ -16,6 +17,7 @@ function DiagnosisFallback() {
 /** useBlocker는 Data Router(createBrowserRouter) 안에서만 동작 */
 const router = createBrowserRouter([
   { path: '/', element: <LandingPage /> },
+  { path: '/about', element: <AboutPage /> },
   {
     path: '/diagnosis',
     element: (

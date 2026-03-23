@@ -44,7 +44,15 @@ export default function ConsultantProfile() {
       <div className="bg-apple-surface rounded-apple-lg border border-apple-border shadow-apple-md overflow-hidden">
         <div className="px-6 py-8 bg-apple-elevated border-b border-apple-border">
           <p className="text-[12px] font-semibold text-brand-blue tracking-wide mb-1">노무법인 위너스</p>
-          <h3 className="text-[28px] font-semibold text-apple-text tracking-tight">조대진 노무사</h3>
+          <div className="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 className="text-[28px] font-semibold text-apple-text tracking-tight">조대진 노무사</h3>
+            <Link
+              to="/about"
+              className="text-[13px] font-medium text-brand-blue hover:text-brand-blue-dark hover:underline shrink-0"
+            >
+              전문가 소개
+            </Link>
+          </div>
           <p className="text-[15px] text-apple-secondary mt-2 leading-relaxed max-w-md">
             감독·분쟁까지 이어질 수 있는 구조를, 계약과 실무 기준으로 정리합니다.
           </p>

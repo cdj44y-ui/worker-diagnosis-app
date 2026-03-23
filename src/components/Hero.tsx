@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { ChevronRight, Shield, ExternalLink } from 'lucide-react'
-import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
+import { ChevronRight, Shield } from 'lucide-react'
+import SiteNav from './SiteNav'
 
 /** 랜딩 전용 — 판례 사건번호는 노출하지 않음 */
 const HIGHLIGHTS = ['5개 영역', '19문항', '추정제 대비 판례 지표', '결과 리포트', '약 5분']
@@ -8,24 +8,7 @@ const HIGHLIGHTS = ['5개 영역', '19문항', '추정제 대비 판례 지표',
 export default function Hero() {
   return (
     <>
-      <header className="bg-apple-surface border-b border-apple-border px-5 py-3">
-        <div className="max-w-3xl mx-auto flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-[12px] font-semibold text-apple-text tracking-tight">근로자성 판단 진단</span>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px]">
-            <a
-              href={LABOR_INSPECTION_DIAGNOSIS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 font-medium text-brand-blue hover:text-brand-blue-dark hover:underline"
-            >
-              근로감독 진단 사이트
-              <ExternalLink size={12} strokeWidth={2.5} className="opacity-80" aria-hidden />
-            </a>
-            <span className="text-apple-tertiary hidden sm:inline">|</span>
-            <span className="text-apple-tertiary">노무법인 위너스 · 참고용 자가진단</span>
-          </div>
-        </div>
-      </header>
+      <SiteNav />
 
       <section className="relative bg-apple-bg pt-14 pb-16 px-5 text-center">
         <div className="max-w-xl mx-auto">
