@@ -5,28 +5,26 @@ import type { CaseReference, Category } from '../types'
 // ═══════════════════════════════════════════════════════════════
 
 const REFS_SUBORDINATION: CaseReference[] = [
-  { caseNo: '2006다64573', date: '2006.12.7', summary: '업무지시 거부 가능성' },
-  { caseNo: '2019다14134', date: '2019.6.13', summary: '학습지 교사 근로자성' },
+  { caseNo: '2014두12598', date: '2018.6.15', summary: '학습지 교사, 노동조합법상 근로자성 인정(위탁계약 해지=부당노동행위)' },
 ]
 
 const REFS_TIME_PLACE: CaseReference[] = [
-  { caseNo: '2018다44763', date: '2019.2.14', summary: '방송연출자 출퇴근 관리' },
-  { caseNo: '2017다273441', date: '2018.6.15', summary: '골프장 캐디 근무시간 구속' },
+  { caseNo: '2015두38092', date: '2018.10.12', summary: '방송연기자, 방송사가 정한 시간·장소 구속 등을 근거로 노동조합법상 근로자성 인정' },
+  { caseNo: '2011다78804', date: '2014.2.13', summary: '골프장 캐디, 근무시간 구속 등에도 근로기준법상 근로자성은 부정(노동조합법상 근로자성만 인정)' },
 ]
 
 const REFS_ECONOMIC: CaseReference[] = [
-  { caseNo: '2022다255492', date: '2023.9.21', summary: '배달 라이더 전속성' },
-  { caseNo: '2016다277538', date: '2018.11.29', summary: '대리운전 기사' },
+  { caseNo: '2020다267491', date: '2024.9.27', summary: '대리운전 기사, 소득의 전적 의존·보수 결정구조 등 경제적 종속 인정(노동조합법상 근로자성 인정)' },
+  { caseNo: '2024나2037832', date: '2026.7.3', court: '서울고등법원', summary: '배달 플랫폼 라이더, 보수·배차 구조에 대한 재량 없음 등을 근거로 근로기준법상 근로자성 인정(항소심, 첫 인정 사례)' },
 ]
 
 const REFS_PLATFORM: CaseReference[] = [
   { caseNo: '2024두32973', date: '2024.7.25', summary: '타다 드라이버' },
-  { caseNo: '2017다292343', date: '2018.4.26', summary: '텔레마케터 간접통제' },
 ]
 
 const REFS_FORMAL: CaseReference[] = [
-  { caseNo: '2011다78804', date: '2013.2.15', summary: '4대보험 가입과 근로자성' },
   { caseNo: '94다22859', date: '1994.12.9', summary: '계약형식보다 실질 우선' },
+  { caseNo: '2021도11675', date: '2023.9.21', summary: '봉직의(페이닥터), 세금·4대보험 등 형식적 지표만으로 근로자성을 쉽게 부정해서는 안 된다고 판시' },
 ]
 
 export const CATEGORIES: Category[] = [
