@@ -96,7 +96,7 @@ export default function DiagnosisPage() {
           <div className="max-w-3xl mx-auto px-4 pt-4 pb-4 sm:pt-5 sm:pb-5">
             <RemoteConsultLink variant="headerPrimary" />
             <p className="text-center text-[12px] sm:text-[13px] text-white/90 mt-3 leading-snug px-1">
-              노션 문의 페이지가 새 탭에서 열립니다 · 언제든지 문의·안내 확인 가능
+              상담 신청 페이지로 이동합니다 · 언제든지 문의·안내 확인 가능
             </p>
           </div>
         </div>
