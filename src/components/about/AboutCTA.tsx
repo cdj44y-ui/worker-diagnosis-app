@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import { ChevronRight, Calendar, Phone, Mail } from 'lucide-react'
+import { ChevronRight, MessageSquare, Phone, Mail } from 'lucide-react'
 import { EXPERT } from '../../data/expert'
 
 export default function AboutCTA() {
-  const { phone, email, calendly, affiliation } = EXPERT.contact
+  const { phone, email, affiliation } = EXPERT.contact
   const telHref = `tel:${phone.replace(/-/g, '')}`
 
   return (
@@ -16,7 +16,7 @@ export default function AboutCTA() {
           <p className="text-[14px] text-apple-secondary leading-relaxed mb-8">
             3분 자가진단으로 근로자성 리스크를 확인하고,
             <br className="hidden sm:block" />
-            전문가와 15분 무료 상담으로 대응 방향을 잡으세요.
+            전문가 상담으로 대응 방향을 잡으세요.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
@@ -27,15 +27,13 @@ export default function AboutCTA() {
               근로자성 진단 시작하기
               <ChevronRight size={18} strokeWidth={2} aria-hidden />
             </Link>
-            <a
-              href={calendly}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/consult"
               className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-full border-2 border-brand-blue/40 bg-brand-blue/[0.06] text-brand-blue font-semibold text-[15px] hover:bg-brand-blue/10 transition-colors"
             >
-              <Calendar size={18} strokeWidth={2} aria-hidden />
-              15분 무료 상담 예약하기
-            </a>
+              <MessageSquare size={18} strokeWidth={2} aria-hidden />
+              상담 신청하기
+            </Link>
           </div>
 
           <p className="text-[13px] font-medium text-apple-text mb-3">
