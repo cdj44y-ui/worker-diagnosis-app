@@ -1,7 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { ExternalLink } from 'lucide-react'
 import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
-import { EXPERT } from '../data/expert'
 
 /** 랜딩·소개 공통 상단 네비게이션 */
 export default function SiteNav() {
@@ -27,14 +26,9 @@ export default function SiteNav() {
           <span className="text-apple-tertiary" aria-hidden>
             ·
           </span>
-          <a
-            href={EXPERT.contact.calendly}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] font-medium text-brand-blue hover:text-brand-blue-dark"
-          >
+          <Link to="/consult" className={linkCls('/consult')}>
             상담 신청
-          </a>
+          </Link>
         </nav>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-apple-secondary">
           <a

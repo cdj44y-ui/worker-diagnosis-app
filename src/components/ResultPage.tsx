@@ -11,7 +11,7 @@ import {
   EVIDENCE_ITEMS,
 } from '../data/legal-refs'
 import { getVerdictColor, getVerdictText, getBarColor } from '../utils/scoring'
-import { NOTION_REMOTE_CONSULT_URL } from '../constants/notion'
+import { useNavigate } from 'react-router-dom'
 import { RotateCcw, FileText, Scale, Mail } from 'lucide-react'
 import DisclaimerNotice from './DisclaimerNotice'
 import ReportEmailModal from './ReportEmailModal'
@@ -59,6 +59,7 @@ function badgeClass(badge: string): string {
 }
 
 export default function ResultPage({ result, onRestart }: Props) {
+  const navigate = useNavigate()
   const [reportOpen, setReportOpen] = useState(false)
   const [toast, setToast] = useState<{ kind: 'ok' | 'err'; message: string } | null>(null)
 
@@ -119,7 +120,7 @@ export default function ResultPage({ result, onRestart }: Props) {
         ) : null}
         <button
           type="button"
-          onClick={() => window.open(NOTION_REMOTE_CONSULT_URL, '_blank', 'noopener,noreferrer')}
+          onClick={() => navigate(`/consult?score=${percentage}&grade=${encodeURIComponent(text.title)}`)}
           className="w-full py-3 px-4 rounded-full bg-brand-blue text-white font-semibold text-[14px] shadow-sm hover:bg-brand-blue-dark transition-colors"
         >
           {riskWarning.ctaText}
@@ -348,7 +349,7 @@ function CategoryAnalysisRow({ cs }: { cs: CategoryScore }) {
             <ul className="mt-2 space-y-2 pl-1 border-l-2 border-brand-blue/20">
               {cases.map((c) => (
                 <li key={c.caseNo} className="text-[12px] text-apple-secondary leading-relaxed pl-3">
-                  <span className="text-apple-text font-medium">대법원 {c.caseNo}</span>
+                  <span className="text-apple-text font-medium">{c.court ?? '대법원'} {c.caseNo}</span>
                   <span className="text-apple-tertiary"> · {c.date}</span>
                   <span className="block mt-0.5">{c.summary}</span>
                 </li>
