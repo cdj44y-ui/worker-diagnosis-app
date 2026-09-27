@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import AboutPage from './pages/AboutPage'
+import ConsultPage from './pages/ConsultPage'
 
 /** 정적 import 시 진단 번들 오류가 랜딩까지 막을 수 있어 지연 로드 */
 const DiagnosisPage = lazy(() => import('./pages/DiagnosisPage'))
@@ -18,6 +19,7 @@ function DiagnosisFallback() {
 const router = createBrowserRouter([
   { path: '/', element: <LandingPage /> },
   { path: '/about', element: <AboutPage /> },
+  { path: '/consult', element: <ConsultPage /> },
   {
     path: '/diagnosis',
     element: (

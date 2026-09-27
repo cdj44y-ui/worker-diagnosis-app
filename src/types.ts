@@ -28,6 +28,8 @@ export interface CaseReference {
   caseNo: string
   date: string
   summary: string
+  /** 선고 법원 — 생략 시 '대법원' (하급심 판결 등 대법원이 아닌 경우에만 명시) */
+  court?: string
 }
 
 /** 개별 문항 */
