@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import LandingPage from './pages/LandingPage'
 import AboutPage from './pages/AboutPage'
 import ConsultPage from './pages/ConsultPage'
+import FloatingConsultButton from './components/FloatingConsultButton'
 
 /** 정적 import 시 진단 번들 오류가 랜딩까지 막을 수 있어 지연 로드 */
 const DiagnosisPage = lazy(() => import('./pages/DiagnosisPage'))
@@ -32,5 +33,10 @@ const router = createBrowserRouter([
 ])
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return (
+    <>
+      <RouterProvider router={router} />
+      <FloatingConsultButton />
+    </>
+  )
 }
