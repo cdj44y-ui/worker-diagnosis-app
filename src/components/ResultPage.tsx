@@ -280,6 +280,24 @@ export default function ResultPage({ result, onRestart }: Props) {
         ))}
       </div>
 
+      {verdict === 'worker' && (
+        <div className="bg-emerald-50/60 border border-emerald-100 rounded-apple-lg p-6 sm:p-7 print-break">
+          <h4 className="text-[15px] font-semibold text-apple-text mb-2">근로자성이 강하게 인정됩니다 — 근로기준법 준수도 확인하세요</h4>
+          <p className="text-[13px] text-apple-secondary leading-relaxed mb-4">
+            이 인력이 근로자로 인정된다면 근로계약서·임금·근로시간·4대보험 등 근로기준법 전반의 의무가 함께 발생합니다.
+            RISK119에서 50여개 항목으로 무료 점검할 수 있습니다.
+          </p>
+          <a
+            href="https://risk119.site"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 min-h-[48px] px-5 rounded-full bg-emerald-700 text-white text-[14px] font-semibold hover:bg-emerald-800 transition-colors w-full sm:w-auto"
+          >
+            근로감독 리스크 진단 사이트 열기
+          </a>
+        </div>
+      )}
+
       <Card title="적용 판례 및 법적 근거">
         {LEGAL_REFERENCES.map((ref) => (
           <div key={ref.name} className="bg-apple-bg/80 border border-apple-border pl-4 pr-4 py-3 rounded-apple mb-2 last:mb-0">
