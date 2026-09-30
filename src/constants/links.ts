@@ -7,3 +7,10 @@ export { NOTION_REMOTE_CONSULT_URL, NOTION_REMOTE_CONSULT_URL_DEFAULT } from './
  */
 export const LABOR_INSPECTION_DIAGNOSIS_URL =
   import.meta.env.VITE_LABOR_INSPECTION_URL ?? 'https://risk119.site'
+
+/**
+ * 중대재해처벌법 안전보건관리체계 자가진단 — safe119-cursor-starter 배포 URL
+ * 배포 주소가 다르면 `.env`에 `VITE_SAFE119_URL` 로 지정
+ */
+export const SAFE119_DIAGNOSIS_URL =
+  import.meta.env.VITE_SAFE119_URL ?? 'https://safe119.site'
