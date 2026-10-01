@@ -3,7 +3,6 @@ import { useEffect, useMemo, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
-import RemoteConsultLink from '../components/RemoteConsultLink'
 import { useDiagnosis } from '../hooks/useDiagnosis'
 import { FLAT_QUESTIONS } from '../data/questions'
 import { shortCategoryTitle } from '../utils/categoryLabel'
@@ -92,14 +91,6 @@ export default function DiagnosisPage() {
   return (
     <div className="min-h-screen bg-apple-bg">
       <header className="sticky top-0 z-20 no-print">
-        <div className="border-b border-brand-blue/40 bg-gradient-to-b from-brand-blue to-brand-blue-dark shadow-md">
-          <div className="max-w-3xl mx-auto px-4 pt-4 pb-4 sm:pt-5 sm:pb-5">
-            <RemoteConsultLink variant="headerPrimary" />
-            <p className="text-center text-[12px] sm:text-[13px] text-white/90 mt-3 leading-snug px-1">
-              상담 신청 페이지로 이동합니다 · 언제든지 문의·안내 확인 가능
-            </p>
-          </div>
-        </div>
         <div className="border-b border-apple-border bg-apple-surface/90 backdrop-blur-md supports-[backdrop-filter]:bg-apple-surface/80">
           <div className="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-2">
             <Link
