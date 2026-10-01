@@ -28,7 +28,7 @@ export default function FloatingConsultButton() {
   return (
     <a
       href="/consult"
-      className="fixed bottom-5 right-4 z-50 flex items-center gap-2 rounded-full bg-brand-blue px-5 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(0,113,227,0.4)] transition-all hover:-translate-y-0.5 hover:bg-brand-blue-dark hover:shadow-[0_10px_28px_rgba(0,113,227,0.45)] sm:bottom-6 sm:right-6 sm:px-6 sm:py-4 sm:text-base"
+      className="fixed bottom-5 right-4 z-50 flex items-center gap-2 rounded-full bg-brand-blue px-5 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(49,130,246,0.4)] transition-all hover:-translate-y-0.5 hover:bg-brand-blue-dark hover:shadow-[0_10px_28px_rgba(49,130,246,0.45)] sm:bottom-6 sm:right-6 sm:px-6 sm:py-4 sm:text-base"
       aria-label="상담 신청하기"
     >
       <span aria-hidden>💬</span>
