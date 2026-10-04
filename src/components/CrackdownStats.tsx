@@ -1,7 +1,7 @@
 import { Building2, Users, Banknote, Gavel, MapPin, TrendingUp } from 'lucide-react'
 import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
 
-const { summary, industries, caseTypes, updatedAt, source, sourceUrl } = CRACKDOWN_DATA
+const { summary, industries, caseTypes, updatedAt, source, sourceUrl, followUp } = CRACKDOWN_DATA
 
 const unpaidEok = (summary.unpaidWages / 100_000_000).toFixed(2)
 
@@ -159,7 +159,30 @@ export default function CrackdownStats() {
         </div>
       </div>
 
-      <p className="text-center text-[11px] text-apple-tertiary mt-6">
+      {followUp && (
+        <div className="mt-6 flex items-start gap-2 rounded-apple border border-brand-blue/20 bg-brand-blue/[0.05] px-4 py-3 text-left">
+          <TrendingUp size={14} className="text-brand-blue shrink-0 mt-0.5" strokeWidth={2} />
+          <p className="text-[12px] text-apple-text leading-relaxed">
+            <span className="font-semibold text-brand-blue">{formatCrackdownDate(followUp.date)}</span>{' '}
+            {followUp.text}
+            {followUp.sourceUrl && (
+              <>
+                {' '}
+                <a
+                  href={followUp.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand-blue hover:underline"
+                >
+                  (출처)
+                </a>
+              </>
+            )}
+          </p>
+        </div>
+      )}
+
+      <p className="text-center text-[11px] text-apple-tertiary mt-4">
         최종 업데이트: {formattedDate} | 출처:{' '}
         <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className="text-brand-blue hover:underline">
           {source}
