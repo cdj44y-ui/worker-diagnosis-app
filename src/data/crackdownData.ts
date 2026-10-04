@@ -3,6 +3,12 @@ export const CRACKDOWN_DATA = {
   source: '고용노동부 보도자료',
   sourceUrl: 'https://www.moel.go.kr',
 
+  followUp: {
+    date: '2026-07-01',
+    text: '후속조치: 적발 사업장 4대보험 미가입자 전원 소급 가입 완료, 보험료 5억 2천만원 추징 · 과태료 부과 진행 중',
+    sourceUrl: 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599',
+  },
+
   summary: {
     inspected: 108,
     violated: 72,
