@@ -10,8 +10,8 @@ const CONSULT_TITLE = '상담 신청 | 노무법인 위너스 - FREE119'
 
 export default function ConsultPage() {
   const [searchParams] = useSearchParams()
-  const score = searchParams.get('score') ?? undefined
-  const grade = searchParams.get('grade') ?? undefined
+  const score = searchParams.get('s') ?? undefined
+  const grade = searchParams.get('g') ?? undefined
 
   useEffect(() => {
     const prevTitle = document.title
