@@ -120,7 +120,7 @@ export default function ResultPage({ result, onRestart }: Props) {
         ) : null}
         <button
           type="button"
-          onClick={() => navigate(`/consult?score=${percentage}&grade=${encodeURIComponent(text.title)}`)}
+          onClick={() => navigate(`/consult?s=${percentage}&g=${encodeURIComponent(text.title)}`)}
           className="w-full py-3 px-4 rounded-full bg-brand-blue text-white font-semibold text-[14px] shadow-sm hover:bg-brand-blue-dark transition-colors"
         >
           {riskWarning.ctaText}
