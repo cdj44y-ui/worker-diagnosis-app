@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 import CrackdownStats from '../components/CrackdownStats'
 import LaborInspectionLinkCard from '../components/LaborInspectionLinkCard'
 import ConsultantProfile from '../components/ConsultantProfile'
+import IntroVideo from '../components/IntroVideo'
 import DisclaimerNotice from '../components/DisclaimerNotice'
 
 /** 소개·통계·상담 CTA — 진단 문항·판례 번호는 `/diagnosis`에서만 노출 */
@@ -12,6 +13,7 @@ export default function LandingPage() {
       <AlertBanner />
       <Hero />
       <div className="max-w-3xl mx-auto px-4 pb-20">
+        <IntroVideo />
         <div className="mb-10">
           <DisclaimerNotice variant="landing" />
         </div>
