@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { LABOR_INSPECTION_DIAGNOSIS_URL } from '../constants/links'
 import { useDiagnosis } from '../hooks/useDiagnosis'
-import { FLAT_QUESTIONS } from '../data/questions'
+import { FLAT_QUESTIONS, CATEGORIES } from '../data/questions'
 import { shortCategoryTitle } from '../utils/categoryLabel'
 import InfoBanner from '../components/InfoBanner'
 import SingleQuestionPanel from '../components/SingleQuestionPanel'
@@ -92,7 +92,7 @@ export default function DiagnosisPage() {
     <div className="min-h-screen bg-apple-bg">
       <header className="sticky top-0 z-20 no-print">
         <div className="border-b border-apple-border bg-apple-surface/90 backdrop-blur-md supports-[backdrop-filter]:bg-apple-surface/80">
-          <div className="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+          <div className="max-w-[1120px] mx-auto px-4 py-3 md:px-8 flex flex-wrap items-center gap-x-3 gap-y-2">
             <Link
               to="/"
               onClick={(e) => {
@@ -123,7 +123,7 @@ export default function DiagnosisPage() {
 
         {!isResult ? (
           <div className="border-b border-apple-border bg-apple-bg/95 backdrop-blur-md supports-[backdrop-filter]:bg-apple-bg/90">
-            <div className="max-w-2xl mx-auto px-4 py-3">
+            <div className="max-w-[1120px] mx-auto px-4 py-3 md:px-8">
               <div className="flex justify-between items-baseline gap-2 mb-2 text-[13px]">
                 <span className="text-[16px] font-bold text-apple-text tabular-nums">
                   {answeredCount} / {totalQuestions} 문항 완료
@@ -153,10 +153,36 @@ export default function DiagnosisPage() {
         ) : null}
       </header>
 
-      <div className="max-w-2xl mx-auto px-4 pb-24 pt-6">
+      <div className={(isResult ? 'max-w-2xl' : 'max-w-[1120px] md:grid md:grid-cols-[270px_1fr] md:gap-8') + ' mx-auto px-4 pb-24 pt-6 md:px-8'}>
         {!isResult ? (
           <>
-            <InfoBanner />
+            <aside className="hidden md:block [word-break:keep-all]">
+              <p className="mb-3 text-[15px] font-bold text-[#5B6680]">판단 영역 · 대법원 판례 순</p>
+              <nav className="overflow-hidden rounded-[14px] border border-[#DDE2EA] bg-white">
+                {CATEGORIES.map((c, ci) => {
+                  const done = c.questions.filter((q) => answers[q.id] !== undefined).length
+                  const curCat = flow.kind === 'question' ? FLAT_QUESTIONS[flow.index].category.id : flow.kind === 'interstitial' ? FLAT_QUESTIONS[flow.nextIndex].category.id : ''
+                  const active = curCat === c.id
+                  const complete = done === c.questions.length
+                  return (
+                    <div key={c.id} className={'grid grid-cols-[34px_1fr_auto] items-center gap-2 border-b border-[#EEF1F5] px-4 py-3.5 last:border-b-0 ' + (active ? 'bg-[#14213D] text-white' : 'bg-white')}>
+                      <span className={'text-[16px] font-extrabold ' + (active ? 'text-[#9CC3FF]' : 'text-[#3182F6]')}>{ci + 1}</span>
+                      <span className={'text-[15px] leading-snug ' + (active ? 'font-bold' : 'text-[#3D4A63]')}>{c.title.replace(/ \(.*\)$/, '')}</span>
+                      <span className={'text-[13px] font-bold ' + (complete ? (active ? 'text-[#9CC3FF]' : 'text-[#1B64DA]') : active ? 'text-[#C9D1E0]' : 'text-[#8A94A6]')}>{complete ? '완료' : done + '/' + c.questions.length}</span>
+                    </div>
+                  )
+                })}
+              </nav>
+              <details className="mt-4 rounded-[12px] border border-[#DDE2EA] bg-white px-4 py-3 text-[14px] leading-[1.65] text-[#5B6680]">
+                <summary className="cursor-pointer font-bold text-[#3D4A63]">진단 안내 보기</summary>
+                <div className="mt-2"><InfoBanner /></div>
+              </details>
+            </aside>
+            <div>
+            <details className="mb-4 rounded-[12px] border border-[#DDE2EA] bg-white px-4 py-3 text-[14px] text-[#5B6680] md:hidden">
+              <summary className="cursor-pointer font-bold text-[#3D4A63]">진단 안내 보기</summary>
+              <div className="mt-2"><InfoBanner /></div>
+            </details>
 
             <div className="min-h-[min(52vh,420px)]">
               <AnimatePresence mode="wait" custom={slideDirection}>
@@ -237,6 +263,7 @@ export default function DiagnosisPage() {
                 </button>
               </div>
             ) : null}
+            </div>
           </>
         ) : (
           result && <ResultPage result={result} onRestart={restart} />
