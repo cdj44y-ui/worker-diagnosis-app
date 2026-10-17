@@ -11,6 +11,7 @@ import SingleQuestionPanel from '../components/SingleQuestionPanel'
 import CategoryInterstitial from '../components/CategoryInterstitial'
 import DiagnosisFinalGate from '../components/DiagnosisFinalGate'
 import ResultPage from '../components/ResultPage'
+import { VERIFIED_DATE, PROMISE } from '../components/brand/brand'
 
 /** 진단 전용 — 랜딩(통계·프로필)과 URL·화면 모두 분리 */
 export default function DiagnosisPage() {
@@ -166,9 +167,9 @@ export default function DiagnosisPage() {
                   const complete = done === c.questions.length
                   return (
                     <div key={c.id} className={'grid grid-cols-[34px_1fr_auto] items-center gap-2 border-b border-[#EEF1F5] px-4 py-3.5 last:border-b-0 ' + (active ? 'bg-[#14213D] text-white' : 'bg-white')}>
-                      <span className={'text-[16px] font-extrabold ' + (active ? 'text-[#9CC3FF]' : 'text-[#3182F6]')}>{ci + 1}</span>
+                      <span className={'text-[16px] font-extrabold ' + (active ? 'text-[#80CBC4]' : 'text-[#00796B]')}>{ci + 1}</span>
                       <span className={'text-[15px] leading-snug ' + (active ? 'font-bold' : 'text-[#3D4A63]')}>{c.title.replace(/ \(.*\)$/, '')}</span>
-                      <span className={'text-[13px] font-bold ' + (complete ? (active ? 'text-[#9CC3FF]' : 'text-[#1B64DA]') : active ? 'text-[#C9D1E0]' : 'text-[#8A94A6]')}>{complete ? '완료' : done + '/' + c.questions.length}</span>
+                      <span className={'text-[13px] font-bold ' + (complete ? (active ? 'text-[#80CBC4]' : 'text-[#00695C]') : active ? 'text-[#C9D1E0]' : 'text-[#8A94A6]')}>{complete ? '완료' : done + '/' + c.questions.length}</span>
                     </div>
                   )
                 })}
@@ -263,6 +264,7 @@ export default function DiagnosisPage() {
                 </button>
               </div>
             ) : null}
+            <p className="mt-6 text-[14px] text-[#6B7280] no-print">문항별 근거 판례·법령 원문 대조일 {VERIFIED_DATE} · {PROMISE}</p>
             </div>
           </>
         ) : (
