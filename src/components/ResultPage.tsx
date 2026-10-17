@@ -106,6 +106,7 @@ export default function ResultPage({ result, onRestart }: Props) {
           <p className="text-[15px] font-bold text-[#3182F6]">이 결과를 함께 정리할 사람</p>
           <p className="mt-1 text-[26px] font-bold">조대진 대표노무사</p>
           <p className="mt-1 text-[16px] text-[#5B6680]">노무법인 위너스 · 공인노무사 16년 · 안전공학 박사 · 현대카드·삼성서울병원 인사 출신</p>
+          <p className="mt-3 text-[17px] leading-[1.7] text-[#3D4A63]">카드모집인, 대출모집인, 병원 연구원, 방문 점검원, 헤어 디자이너, 헬스 트레이너까지 직군마다 다른 근로자성 쟁점을 직접 다뤄 왔습니다.</p>
           <div className="mt-4 border-t-2 border-[#14213D]">
             {[['1', '결과 검토', '진단 결과로 근로자성이 문제 될 인력과 기간을 정리합니다.'], ['2', '소급 부담 산정', '4대보험·퇴직금 등 과거분 규모와 정리 방안을 세웁니다.'], ['3', '계약 구조 정비', '실제 운영과 계약서가 맞도록 구조를 다시 설계합니다.']].map(([n, t, d]) => (
               <div key={n} className="grid grid-cols-[36px_1fr] gap-2 border-b border-[#DDE2EA] py-3"><span className="text-[20px] font-extrabold text-[#3182F6]">{n}</span><p className="text-[17px] leading-[1.6]"><b>{t}</b> — <span className="text-[#3D4A63]">{d}</span></p></div>
