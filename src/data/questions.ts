@@ -19,7 +19,7 @@ const REFS_ECONOMIC: CaseReference[] = [
 ]
 
 const REFS_PLATFORM: CaseReference[] = [
-  { caseNo: '2024두32973', date: '2024.7.25', summary: '타다 드라이버' },
+  { caseNo: '2024두32973', date: '2024.7.25', summary: '차량 호출 플랫폼 운전기사, 근로기준법상 근로자성 인정(플랫폼 운영사를 사용자로 판단)' },
 ]
 
 const REFS_FORMAL: CaseReference[] = [
@@ -40,7 +40,7 @@ export const CATEGORIES: Category[] = [
         refs: ['대법원 2004다29736', '대법원 2024두32973'],
         references: REFS_SUBORDINATION,
         hint:
-          '대법원 2024두32973(타다) 취지 — 쏘카가 운전기사의 업무내용을 결정한 점이 근로자성 인정의 핵심 근거로 작용',
+          '대법원 2024두32973(차량 호출 플랫폼 사건) 취지 — 플랫폼 운영사가 운전기사의 업무내용을 결정한 점이 근로자성 인정의 핵심 근거로 작용',
         weight: 5,
         options: [
           { label: '사용자(회사)가 전적으로 결정', score: 5, tag: '근로자↑↑', cls: 'high' },
@@ -109,7 +109,7 @@ export const CATEGORIES: Category[] = [
         text: '근무시간(출·퇴근 시간)이 정해져 있습니까?',
         refs: ['대법원 2004다29736', '대법원 2024두32973'],
         references: REFS_TIME_PLACE,
-        hint: '대법원 2024두32973(타다) 취지 — 근무시간에 비례한 보수를 받은 점 등이 근로자성 판단에 참작',
+        hint: '대법원 2024두32973(차량 호출 플랫폼 사건) 취지 — 근무시간에 비례한 보수를 받은 점 등이 근로자성 판단에 참작',
         weight: 4,
         options: [
           { label: '출퇴근 시간 엄격히 지정, 근태관리 시스템 적용', score: 5, tag: '근로자↑↑', cls: 'high' },
@@ -160,7 +160,7 @@ export const CATEGORIES: Category[] = [
         refs: ['대법원 94다22859', '대법원 2004다29736', '대법원 2024두32973'],
         references: REFS_ECONOMIC,
         hint:
-          '대법원 2024두32973(타다) 취지 — 업무 성과와 무관하게 근무시간에 비례한 보수 등이 참작. 기본급·고정급 존재는 근로자성 강화 요소',
+          '대법원 2024두32973(차량 호출 플랫폼 사건) 취지 — 업무 성과와 무관하게 근무시간에 비례한 보수 등이 참작. 기본급·고정급 존재는 근로자성 강화 요소',
         weight: 4,
         options: [
           { label: '월 고정급 (기본급 + 제수당)', score: 5, tag: '근로자↑↑', cls: 'high' },
@@ -232,7 +232,7 @@ export const CATEGORIES: Category[] = [
     id: 'platform',
     tag: 'STEP 4 / 5',
     title: '플랫폼·간접 통제 (대법원 2024두32973 등)',
-    desc: '대법원 2024. 7. 25. 선고 2024두32973(타다) 등이 제시한 플랫폼 노동 관련 판단기준을 참고합니다. 알고리즘·앱을 통한 간접적 통제, 중간 협력업체 구조 등을 판단합니다.',
+    desc: '대법원 2024. 7. 25. 선고 2024두32973(차량 호출 플랫폼 사건) 등이 제시한 플랫폼 노동 관련 판단기준을 참고합니다. 알고리즘·앱을 통한 간접적 통제, 중간 협력업체 구조 등을 판단합니다.',
     questions: [
       {
         id: 'q13',
@@ -255,7 +255,7 @@ export const CATEGORIES: Category[] = [
         refs: ['대법원 2024두32973'],
         references: REFS_PLATFORM,
         hint:
-          '대법원 2024두32973(타다) 취지 — 협력업체의 운전업무 독립성 부족 등을 고려해, 명목상 중간업체 계약이라도 실질 사용자를 판단',
+          '대법원 2024두32973(차량 호출 플랫폼 사건) 취지 — 협력업체의 운전업무 독립성 부족 등을 고려해, 명목상 중간업체 계약이라도 실질 사용자를 판단',
         weight: 3,
         options: [
           { label: '중간업체 있으나 실질 지시는 원청이 함', score: 5, tag: '근로자↑↑', cls: 'high' },
@@ -269,7 +269,7 @@ export const CATEGORIES: Category[] = [
         text: '서비스 품질 기준·고객평가·페널티 시스템이 있습니까?',
         refs: ['대법원 2024두32973'],
         references: REFS_PLATFORM,
-        hint: '대법원 2024두32973(타다) 취지 — 평가·페널티를 통한 간접 통제는 지휘·감독의 현대적 형태로 참작될 수 있음',
+        hint: '대법원 2024두32973(차량 호출 플랫폼 사건) 취지 — 평가·페널티를 통한 간접 통제는 지휘·감독의 현대적 형태로 참작될 수 있음',
         weight: 2,
         options: [
           { label: '엄격한 품질 기준 + 평점 하락 시 불이익', score: 5, tag: '근로자↑↑', cls: 'high' },
