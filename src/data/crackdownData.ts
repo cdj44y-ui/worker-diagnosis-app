@@ -5,7 +5,7 @@ export const CRACKDOWN_DATA = {
 
   followUp: {
     date: '2026-07-01',
-    text: '후속조치: 적발 사업장 4대보험 미가입자 전원 소급 가입 완료, 보험료 5억 2천만원 추징 · 과태료 부과 진행 중',
+    text: '후속조치: 미가입 노동자 1,070명 전원 고용·산재보험 소급 가입, 과거 미납 보험료 5억 2천만원 소급 부과·징수, 피보험자격 미신고 사업장 과태료 순차 부과',
     sourceUrl: 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599',
   },
 
