@@ -7,7 +7,7 @@ export default function AboutCTA() {
   const telHref = `tel:${phone.replace(/-/g, '')}`
 
   return (
-    <section className="px-4 sm:px-5 py-14 sm:py-20 pb-24 bg-gradient-to-b from-apple-bg to-brand-blue/[0.06]">
+    <section className="px-4 sm:px-5 py-14 sm:py-20 pb-24 bg-apple-bg">
       <div className="max-w-2xl mx-auto">
         <div className="rounded-apple-lg border-2 border-brand-blue/35 bg-apple-surface shadow-apple-md p-8 sm:p-10 text-center">
           <h2 className="text-[18px] sm:text-[20px] font-semibold text-apple-text mb-3 leading-snug">
@@ -29,10 +29,10 @@ export default function AboutCTA() {
             </Link>
             <Link
               to="/consult"
-              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-full border-2 border-brand-blue/40 bg-brand-blue/[0.06] text-brand-blue font-semibold text-[15px] hover:bg-brand-blue/10 transition-colors"
+              className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-full bg-[#1F4E79] text-white font-semibold text-[15px] hover:bg-[#173B5C] transition-colors"
             >
               <MessageSquare size={18} strokeWidth={2} aria-hidden />
-              상담 신청하기
+              상담 신청
             </Link>
           </div>
 
