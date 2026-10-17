@@ -1,4 +1,3 @@
-import FamilySites from './FamilySites'
 import LawCalendar from './brand/LawCalendar'
 import { PROMISE } from './brand/brand'
 import { Link } from 'react-router-dom'
@@ -229,7 +228,6 @@ export default function TrustLanding() {
           </div>
         </div>
       </section>
-      <FamilySites />
     </div>
   )
 }
