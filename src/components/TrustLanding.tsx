@@ -1,3 +1,4 @@
+import FamilySites from './FamilySites'
 import { Link } from 'react-router-dom'
 import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
 
@@ -230,6 +231,7 @@ export default function TrustLanding() {
           </div>
         </div>
       </section>
+      <FamilySites />
     </div>
   )
 }
