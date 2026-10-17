@@ -9,6 +9,7 @@ import { RotateCcw, Mail } from 'lucide-react'
 import DisclaimerNotice from './DisclaimerNotice'
 import ReportEmailModal from './ReportEmailModal'
 import ShareResultBar from './ShareResultBar'
+import ResultSheet from './brand/ResultSheet'
 
 // 2026-10-18 RISK119 결과 화면 구성 준용 — 법령·판례·고용노동부 발표로 확인된 내용만 사용
 interface Props { result: DiagnosisResult; onRestart: () => void }
@@ -44,14 +45,20 @@ export default function ResultPage({ result, onRestart }: Props) {
 
   return (
     <div className="animate-slide-up space-y-5 pb-24 text-[#14213D] [word-break:keep-all]">
+      {/* 결과지 (브랜드 v1.1 공통 형식) */}
+      <ResultSheet result={result} title={text.title} percentage={percentage} />
+      <div className="flex flex-col items-start gap-3 rounded-[12px] border border-[#D1D5DB] bg-white p-5 md:flex-row md:items-center md:justify-between md:p-6 no-print">
+        <p className="text-[17px] leading-[1.6] text-[#374151]">이 결과지를 바탕으로 계약 구조와 소급 부담을 함께 정리합니다. 상담은 유료 자문입니다.</p>
+        <button type="button" onClick={goConsult} className="inline-flex min-h-[54px] shrink-0 items-center rounded-[10px] bg-[#1F4E79] px-6 text-[18px] font-bold text-white hover:bg-[#173B5C]">상담 신청서 작성</button>
+      </div>
       {/* 1. 결과 */}
       <div className="overflow-hidden rounded-[16px] bg-[#14213D] p-8 text-white print-break md:p-10">
-        <p className="text-[16px] font-bold text-[#9CC3FF]">근로자성 자가진단 결과</p>
+        <p className="text-[16px] font-bold text-[#80CBC4]">근로자성 자가진단 결과</p>
         <div className="mt-3 flex flex-wrap items-end gap-x-6 gap-y-2">
           <p className="text-[84px] font-extrabold leading-none tracking-[-3px] tabular-nums">{percentage}<span className="ml-1 text-[26px] font-bold tracking-normal text-[#AFC3E8]">/ 100</span></p>
           <p className="mb-2 rounded-md bg-white px-3 py-1.5 text-[19px] font-extrabold" style={{ color }}>{text.title}</p>
         </div>
-        <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/15"><div className="h-full rounded-full transition-all duration-1000" style={{ width: `${percentage}%`, background: '#9CC3FF' }} /></div>
+        <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/15"><div className="h-full rounded-full transition-all duration-1000" style={{ width: `${percentage}%`, background: '#80CBC4' }} /></div>
         <div className="mt-2 flex justify-between text-[14px] font-semibold text-[#AFC3E8]"><span>0 · 사업자 쪽</span><span>40~65 · 판단 유보</span><span>100 · 근로자 쪽</span></div>
         <p className="mt-6 text-[18px] leading-[1.7] text-[#DCE4F2]">{text.sub}</p>
       </div>
@@ -75,7 +82,7 @@ export default function ResultPage({ result, onRestart }: Props) {
       {/* 4. 사업주 부담 */}
       {verdict !== 'freelancer' && (
         <div className="rounded-[16px] bg-[#14213D] p-6 text-white md:p-8 print-break">
-          <p className="text-[15px] font-bold text-[#9CC3FF]">근로자로 판단되면</p>
+          <p className="text-[15px] font-bold text-[#80CBC4]">근로자로 판단되면</p>
           <h3 className="mt-1 text-[26px] font-bold leading-snug">사업주가 부담하게 되는 것</h3>
           <p className="mt-2 text-[16px] leading-[1.7] text-[#C9D1E0]">가장 먼저 돌아오는 것은 4대보험 소급분입니다. 지난 고용노동부 감독에서는 적발 사업장에 5억 2천만원이 소급 징수됐습니다.</p>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
@@ -104,16 +111,16 @@ export default function ResultPage({ result, onRestart }: Props) {
       <div className="grid items-start gap-6 rounded-[16px] border border-[#DDE2EA] bg-[#F7F9FC] p-6 md:grid-cols-[150px_1fr] md:p-8 print-break">
         <img src="/expert/cho-daejin.jpg" alt="조대진 대표노무사" width={150} height={195} className="h-[195px] w-[150px] rounded-xl object-cover" />
         <div>
-          <p className="text-[15px] font-bold text-[#3182F6]">이 결과를 함께 정리할 사람</p>
-          <p className="mt-1 text-[26px] font-bold">조대진 대표노무사</p>
-          <p className="mt-1 text-[16px] text-[#5B6680]">노무법인 위너스 · 공인노무사 16년 · 안전공학 박사 · 현대카드·삼성서울병원 인사 출신</p>
+          <p className="text-[15px] font-bold text-[#00796B]">이 결과를 함께 정리할 사람</p>
+          <p className="mt-1 text-[26px] font-bold">대기업 인사팀 출신 노무사, 조대진</p>
+          <p className="mt-1 text-[16px] text-[#5B6680]">공인노무사 16년 · 안전공학 박사 · 노무법인 위너스 · 현대카드·삼성서울병원 인사 출신</p>
           <p className="mt-3 text-[17px] leading-[1.7] text-[#3D4A63]">카드모집인, 대출모집인, 병원 연구원, 방문 점검원, 헤어 디자이너, 헬스 트레이너까지 직군마다 다른 근로자성 쟁점을 직접 다뤄 왔습니다.</p>
           <div className="mt-4 border-t-2 border-[#14213D]">
             {[['1', '결과 검토', '진단 결과로 근로자성이 문제 될 인력과 기간을 정리합니다.'], ['2', '소급 부담 산정', '4대보험·퇴직금 등 과거분 규모와 정리 방안을 세웁니다.'], ['3', '계약 구조 정비', '실제 운영과 계약서가 맞도록 구조를 다시 설계합니다.']].map(([n, t, d]) => (
-              <div key={n} className="grid grid-cols-[36px_1fr] gap-2 border-b border-[#DDE2EA] py-3"><span className="text-[20px] font-extrabold text-[#3182F6]">{n}</span><p className="text-[17px] leading-[1.6]"><b>{t}</b> — <span className="text-[#3D4A63]">{d}</span></p></div>
+              <div key={n} className="grid grid-cols-[36px_1fr] gap-2 border-b border-[#DDE2EA] py-3"><span className="text-[20px] font-extrabold text-[#00796B]">{n}</span><p className="text-[17px] leading-[1.6]"><b>{t}</b> — <span className="text-[#3D4A63]">{d}</span></p></div>
             ))}
           </div>
-          <button type="button" onClick={goConsult} className="mt-5 inline-flex min-h-[60px] w-full items-center justify-center rounded-[12px] bg-[#3182F6] px-7 text-[19px] font-bold text-white hover:bg-[#1B64DA] md:w-auto">상담 신청서 작성하기 →</button>
+          <button type="button" onClick={goConsult} className="mt-5 inline-flex min-h-[60px] w-full items-center justify-center rounded-[12px] bg-[#1F4E79] px-7 text-[19px] font-bold text-white hover:bg-[#173B5C] md:w-auto">상담 신청서 작성하기 →</button>
           <p className="mt-3 text-[15px] leading-[1.6] text-[#5B6680]">진단 결과는 신청서에 자동으로 담깁니다. 상담은 유료 자문으로 진행되며, 신청서 확인 후 일정과 비용을 안내드립니다. 일정에 따라 노무법인 위너스 소속의 경험 많은 노무사가 먼저 연락드릴 수 있습니다.</p>
         </div>
       </div>
@@ -142,7 +149,7 @@ export default function ResultPage({ result, onRestart }: Props) {
           <h4 className="mt-7 text-[19px] font-bold">적용 판례 및 법적 근거</h4>
           {LEGAL_REFERENCES.map((ref) => (
             <div key={ref.name} className="mt-3 rounded-xl border border-[#E6EAF0] bg-[#F7F9FC] px-4 py-3">
-              <p className="text-[16px] font-bold"><span className="mr-2 rounded bg-white px-2 py-0.5 text-[13px] text-[#1B64DA] ring-1 ring-[#D6E4FA]">{ref.badge}</span>{ref.name}</p>
+              <p className="text-[16px] font-bold"><span className="mr-2 rounded bg-white px-2 py-0.5 text-[13px] text-[#00695C] ring-1 ring-[#B2DFDB]">{ref.badge}</span>{ref.name}</p>
               <p className="mt-1 text-[15px] leading-[1.65] text-[#3D4A63]">{ref.summary}</p>
             </div>
           ))}
@@ -151,7 +158,7 @@ export default function ResultPage({ result, onRestart }: Props) {
 
       <div className="rounded-[16px] border border-[#DDE2EA] bg-white p-6 text-center no-print">
         <p className="mb-4 text-[16px] text-[#5B6680]">진단 요약 리포트를 이메일로 받아보실 수 있습니다.</p>
-        <button type="button" onClick={() => setReportOpen(true)} className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-[10px] border-2 border-[#3182F6]/35 bg-[#3182F6]/[0.06] px-6 text-[17px] font-semibold text-[#1B64DA]"><Mail size={20} strokeWidth={2} aria-hidden /> 진단 결과 리포트 받기</button>
+        <button type="button" onClick={() => setReportOpen(true)} className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-[10px] border-2 border-[#00796B]/35 bg-[#00796B]/[0.06] px-6 text-[17px] font-semibold text-[#00695C]"><Mail size={20} strokeWidth={2} aria-hidden /> 진단 결과 리포트 받기</button>
       </div>
       <ReportEmailModal open={reportOpen} onClose={() => setReportOpen(false)} result={result}
         onSuccess={() => setToast({ kind: 'ok', message: '리포트가 이메일로 발송됩니다 (영업일 1일 이내)' })}
@@ -172,7 +179,7 @@ export default function ResultPage({ result, onRestart }: Props) {
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#DDE2EA] bg-white/95 backdrop-blur no-print">
         <div className="mx-auto flex max-w-2xl items-center justify-between gap-3 px-4 py-3">
           <p className="text-[16px] font-bold">{text.title} <span className="font-normal text-[#5B6680]">· {percentage}점</span></p>
-          <button type="button" onClick={goConsult} className="inline-flex h-[50px] shrink-0 items-center rounded-[10px] bg-[#3182F6] px-5 text-[16px] font-bold text-white">상담 신청서 작성</button>
+          <button type="button" onClick={goConsult} className="inline-flex h-[50px] shrink-0 items-center rounded-[10px] bg-[#1F4E79] px-5 text-[16px] font-bold text-white hover:bg-[#173B5C]">상담 신청서 작성</button>
         </div>
       </div>
     </div>
