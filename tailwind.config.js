@@ -10,8 +10,8 @@ export default {
           secondary: '#86868b',
           tertiary: '#aeaeb2',
           border: '#d2d2d7',
-          blue: '#3182F6',
-          'blue-hover': '#1B64DA',
+          blue: '#00796B',
+          'blue-hover': '#00695C',
           surface: '#ffffff',
           elevated: '#fafafa',
         },
@@ -21,9 +21,9 @@ export default {
           600: '#2d2d2f',
         },
         brand: {
-          blue: '#3182F6',
-          'blue-dark': '#1B64DA',
-          'blue-light': '#6FA3F7',
+          blue: '#00796B',
+          'blue-dark': '#00695C',
+          'blue-light': '#4DB6AC',
         },
       },
       fontFamily: {
