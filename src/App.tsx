@@ -6,7 +6,18 @@ import ConsultPage from './pages/ConsultPage'
 import FloatingConsultButton from './components/FloatingConsultButton'
 
 /** 정적 import 시 진단 번들 오류가 랜딩까지 막을 수 있어 지연 로드 */
-const DiagnosisPage = lazy(() => import('./pages/DiagnosisPage'))
+/** 2026-10-18: 새 배포 후 이전 화면에서 진단을 누르면 옛 파일을 찾지 못해 오류가 나던 문제 — 1회 자동 새로고침으로 복구 */
+const DiagnosisPage = lazy(() =>
+  import('./pages/DiagnosisPage').catch((err) => {
+    const key = 'free119_chunk_reload'
+    if (!sessionStorage.getItem(key)) {
+      sessionStorage.setItem(key, '1')
+      window.location.reload()
+      return new Promise<never>(() => {})
+    }
+    throw err
+  }),
+)
 
 function DiagnosisFallback() {
   return (
