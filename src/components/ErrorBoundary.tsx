@@ -13,6 +13,11 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(err: Error, info: ErrorInfo) {
+    if (/dynamically imported module|Importing a module script failed|MIME type|Loading chunk/i.test(err.message) && !sessionStorage.getItem('free119_chunk_reload')) {
+      sessionStorage.setItem('free119_chunk_reload', '1')
+      window.location.reload()
+      return
+    }
     console.error('[ErrorBoundary]', err, info.componentStack)
   }
 
@@ -20,7 +25,8 @@ export default class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f] flex flex-col items-center justify-center px-6 text-center">
-          <p className="text-[15px] font-semibold mb-2">페이지를 불러오지 못했습니다</p>
+          <p className="text-[18px] font-semibold mb-2">페이지를 불러오지 못했습니다</p>
+          <p className="text-[15px] text-neutral-600 mb-3">사이트가 방금 업데이트되었을 수 있습니다. 새로고침하면 대부분 해결됩니다.</p>
           <p className="text-[13px] text-neutral-600 mb-6 max-w-md break-words">{this.state.message}</p>
           <button
             type="button"

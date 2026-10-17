@@ -28,7 +28,8 @@ export default function ResultPage({ result, onRestart }: Props) {
   const [toast, setToast] = useState<{ kind: 'ok' | 'err'; message: string } | null>(null)
   useEffect(() => { if (!toast) return; const t = window.setTimeout(() => setToast(null), 4500); return () => window.clearTimeout(t) }, [toast])
 
-  const { percentage, verdict, categoryScores, presumptionMet, presumptionItems, answers } = result
+  const { percentage: rawPct, verdict, categoryScores, presumptionMet, presumptionItems, answers } = result
+  const percentage = Math.round(rawPct)
   const color = getVerdictColor(verdict)
   const text = getVerdictText(verdict)
   const { riskWarning } = text
