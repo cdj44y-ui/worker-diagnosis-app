@@ -37,7 +37,7 @@ export default function ConsultPage() {
       <div className="max-w-2xl mx-auto px-4 sm:px-5 pt-8 pb-16">
         <h1 className="text-[24px] sm:text-[28px] font-semibold text-apple-text tracking-tight mb-2">상담 신청</h1>
         <p className="text-[14px] text-apple-secondary leading-relaxed mb-6">
-          근로자성 판단·계약 구조 점검이 필요하시면 아래 폼을 남겨 주세요. 담당 노무사에게 바로 접수됩니다.
+          근로자성 판단·계약 구조 점검이 필요하시면 아래 폼을 남겨 주세요. 상담은 유료 자문으로 진행되며, 신청서를 확인한 뒤 일정과 비용을 안내드립니다. 일정에 따라 노무법인 위너스 소속의 경험 많은 노무사가 먼저 연락드릴 수 있습니다.
         </p>
 
         {score || grade ? (

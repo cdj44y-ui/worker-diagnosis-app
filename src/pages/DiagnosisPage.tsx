@@ -123,14 +123,14 @@ export default function DiagnosisPage() {
 
         {!isResult ? (
           <div className="border-b border-apple-border bg-apple-bg/95 backdrop-blur-md supports-[backdrop-filter]:bg-apple-bg/90">
-            <div className="max-w-lg mx-auto px-4 py-3">
+            <div className="max-w-2xl mx-auto px-4 py-3">
               <div className="flex justify-between items-baseline gap-2 mb-2 text-[13px]">
-                <span className="font-medium text-apple-text tabular-nums">
+                <span className="text-[16px] font-bold text-apple-text tabular-nums">
                   {answeredCount} / {totalQuestions} 문항 완료
                 </span>
-                <span className="text-apple-secondary tabular-nums hidden sm:inline">{progressPct}%</span>
+                <span className="text-[16px] font-bold text-brand-blue tabular-nums">{progressPct}%</span>
               </div>
-              <div className="h-0.5 bg-apple-bg rounded-full overflow-hidden mb-2">
+              <div className="h-2.5 bg-[#E6EAF0] rounded-full overflow-hidden mb-2">
                 <div
                   className="h-full bg-brand-blue rounded-full transition-all duration-500 ease-out"
                   style={{ width: `${progressPct}%` }}
@@ -143,7 +143,7 @@ export default function DiagnosisPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.22 }}
-                  className="text-[12px] font-medium text-brand-blue text-center sm:text-left line-clamp-2 min-h-[2.5rem] sm:min-h-0"
+                  className="text-[15px] font-semibold text-brand-blue text-center sm:text-left line-clamp-2 min-h-[2.5rem] sm:min-h-0"
                 >
                   {categoryLineLabel}
                 </motion.p>
@@ -153,7 +153,7 @@ export default function DiagnosisPage() {
         ) : null}
       </header>
 
-      <div className="max-w-lg mx-auto px-4 pb-24 pt-6">
+      <div className="max-w-2xl mx-auto px-4 pb-24 pt-6">
         {!isResult ? (
           <>
             <InfoBanner />
@@ -220,7 +220,7 @@ export default function DiagnosisPage() {
                   type="button"
                   onClick={prevStep}
                   disabled={!canPrev}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-3.5 min-h-[48px] rounded-full border border-apple-border bg-apple-surface text-apple-text text-[15px] font-medium transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-apple-bg"
+                  className="flex-1 flex items-center justify-center gap-1.5 py-3.5 min-h-[56px] rounded-[10px] border-[1.5px] border-[#C9D1DC] bg-white text-[#3D4A63] text-[18px] font-bold transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-apple-bg"
                 >
                   <ChevronLeft size={18} strokeWidth={2} />
                   이전
@@ -230,7 +230,7 @@ export default function DiagnosisPage() {
                   type="button"
                   onClick={nextStep}
                   disabled={!isCategoryComplete || (flow.kind === 'question' && flow.index >= totalQuestions - 1)}
-                  className="flex-[1.4] flex items-center justify-center gap-1.5 py-3.5 min-h-[48px] rounded-full bg-brand-blue text-white text-[15px] font-medium transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-brand-blue-dark"
+                  className="flex-[1.4] flex items-center justify-center gap-1.5 py-3.5 min-h-[56px] rounded-[10px] bg-[#14213D] text-white text-[18px] font-bold transition-colors disabled:opacity-35 disabled:cursor-not-allowed hover:bg-brand-blue-dark"
                 >
                   다음
                   <ChevronRight size={18} strokeWidth={2} />
