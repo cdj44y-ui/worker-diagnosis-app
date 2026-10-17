@@ -1,5 +1,4 @@
-import { Check } from 'lucide-react'
-import type { Category, Option, Question, ScoreClass } from '../types'
+import type { Category, Option, Question } from '../types'
 
 interface Props {
   category: Category
@@ -10,115 +9,64 @@ interface Props {
   onSelect: (questionId: string, optionIndex: number) => void
 }
 
-const SCORE_COLORS: Record<ScoreClass, string> = {
-  high: 'bg-rose-50 text-rose-800/90 border border-rose-100',
-  mid: 'bg-amber-50 text-amber-900/80 border border-amber-100',
-  low: 'bg-emerald-50 text-emerald-900/80 border border-emerald-100',
-  zero: 'bg-apple-bg text-apple-secondary border border-apple-border',
+// 2026-10-18 가독성 개편: 큰 질문·판례 근거 상자·큰 선택지(근로자 쪽/사업자 쪽 저채도 구분)
+const TAG_STYLE: Record<string, { c: string; tint: string }> = {
+  high: { c: '#1B4F9C', tint: '#EAF1FB' },
+  mid: { c: '#7A6A4A', tint: '#F6F2EA' },
+  low: { c: '#2F6B4F', tint: '#EDF4EF' },
+  zero: { c: '#2F6B4F', tint: '#EDF4EF' },
 }
 
-function WeightDots({ weight }: { weight: number }) {
-  return (
-    <div className="flex items-center gap-2">
-      <span className="text-[11px] font-medium text-apple-tertiary">중요도</span>
-      <div className="flex gap-1">
-        {Array.from({ length: 5 }, (_, i) => (
-          <div
-            key={i}
-            className={`w-1.5 h-1.5 rounded-full ${i < weight ? 'bg-brand-blue' : 'bg-apple-border'}`}
-          />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-export default function SingleQuestionPanel({
-  category,
-  question: q,
-  globalIndex,
-  total,
-  answers,
-  onSelect,
-}: Props) {
+export default function SingleQuestionPanel({ category, question: q, globalIndex, total, answers, onSelect }: Props) {
   const localNum = category.questions.findIndex((x) => x.id === q.id) + 1
 
   return (
-    <div className="w-full max-w-lg mx-auto">
-      <div className="bg-apple-surface rounded-apple-lg border border-apple-border overflow-hidden shadow-apple-md">
-        <div className="px-4 sm:px-5 py-5 bg-apple-elevated border-b border-apple-border">
-          <span className="inline-block text-[11px] font-semibold text-brand-blue tracking-wide mb-2">{category.tag}</span>
-          <h2 className="text-[18px] sm:text-[20px] font-semibold text-apple-text tracking-tight leading-snug">{category.title}</h2>
-          <p className="text-[13px] sm:text-[14px] text-apple-secondary mt-2 leading-relaxed line-clamp-3">{category.desc}</p>
+    <div className="w-full [word-break:keep-all]">
+      <div className="overflow-hidden rounded-[16px] border border-[#DDE2EA] bg-white">
+        <div className="border-b border-[#E6EAF0] bg-[#F7F9FC] px-6 py-5 md:px-8">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="rounded-md bg-[#14213D] px-2.5 py-1 text-[14px] font-bold text-white">{category.tag}</span>
+            <span className="text-[17px] font-bold text-[#14213D]">{category.title}</span>
+          </div>
+          <p className="mt-2 text-[16px] leading-[1.65] text-[#5B6680]">{category.desc}</p>
         </div>
 
-        <div className="p-4 sm:p-6">
-          <div className="flex items-start gap-3 mb-3">
-            <span className="w-8 h-8 rounded-lg bg-neutral-900 text-white text-[12px] font-semibold flex items-center justify-center shrink-0 shadow-sm border border-neutral-800">
-              {globalIndex + 1}
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[11px] text-apple-tertiary mb-1">
-                {localNum} / {category.questions.length} · 전체 {globalIndex + 1}/{total}
-              </p>
-              <span className="text-[15px] font-semibold text-apple-text leading-snug">{q.text}</span>
-            </div>
-          </div>
+        <div className="p-6 md:p-8">
+          <p className="text-[15px] font-bold text-[#3182F6]">질문 {localNum} / {category.questions.length} · 전체 {globalIndex + 1} / {total}</p>
+          <h2 className="mt-2 text-[24px] font-bold leading-[1.5] tracking-[-0.4px] text-[#14213D] md:text-[28px]">{q.text}</h2>
 
-          <div className="mb-4 space-y-2">
-            <div className="flex flex-wrap gap-1.5">
+          <div className="mt-5 rounded-xl border border-[#E6EAF0] bg-[#F8FAFC] px-5 py-4">
+            <p className="text-[15px] font-bold text-[#5B6680]">판례 근거</p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
               {q.refs.map((r: string) => (
-                <span
-                  key={r}
-                  className="inline-block text-[11px] font-medium text-brand-blue bg-brand-blue/10 px-2.5 py-0.5 rounded-md"
-                >
-                  {r}
-                </span>
+                <span key={r} className="rounded-md bg-white px-2.5 py-1 text-[14px] font-semibold text-[#1B64DA] ring-1 ring-[#D6E4FA]">{r}</span>
               ))}
             </div>
-            <p className="text-[12px] text-apple-secondary leading-relaxed">{q.hint}</p>
-            <WeightDots weight={q.weight} />
+            <p className="mt-2.5 text-[16px] leading-[1.7] text-[#3D4A63]">{q.hint}</p>
           </div>
 
-          <div className="space-y-2">
+          <div className="mt-6 grid gap-2.5">
             {q.options.map((opt: Option, oi: number) => {
-              const selected = answers[q.id] === oi
+              const sel = answers[q.id] === oi
+              const st = TAG_STYLE[opt.cls] || TAG_STYLE.mid
               return (
                 <button
                   key={oi}
                   type="button"
                   onClick={() => onSelect(q.id, oi)}
-                  className={`
-                    w-full flex items-center gap-3 px-4 min-h-[48px] rounded-apple-lg text-left text-[14px] transition-all duration-150
-                    ${
-                      selected
-                        ? 'bg-brand-blue text-white ring-1 ring-brand-blue/40 border border-brand-blue'
-                        : 'border border-apple-border bg-apple-surface hover:border-apple-text/20 hover:bg-apple-bg/80'
-                    }
-                  `}
+                  aria-pressed={sel}
+                  className="flex min-h-[64px] w-full items-center gap-4 rounded-xl border-2 px-5 text-left transition hover:-translate-y-px"
+                  style={{ borderColor: sel ? '#3182F6' : '#E1E6EE', background: sel ? '#EAF2FE' : '#FFFFFF' }}
                 >
-                  <span
-                    className={`
-                      w-[22px] h-[22px] rounded-full border flex items-center justify-center shrink-0 transition-all
-                      ${selected ? 'border-white bg-white' : 'border-apple-border bg-apple-surface'}
-                    `}
-                  >
-                    {selected ? <Check className="w-3.5 h-3.5 text-brand-blue" strokeWidth={2.5} aria-hidden /> : null}
-                  </span>
-
-                  <span className={`flex-1 ${selected ? 'font-medium' : 'text-apple-text'}`}>{opt.label}</span>
-
-                  <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-md shrink-0 ${
-                      selected ? 'bg-white/20 text-white border border-white/30' : SCORE_COLORS[opt.cls]
-                    }`}
-                  >
-                    {opt.tag}
-                  </span>
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-[14px] font-extrabold"
+                    style={{ borderColor: sel ? '#3182F6' : '#C9D1DC', background: sel ? '#3182F6' : '#FFFFFF', color: sel ? '#FFFFFF' : 'transparent' }} aria-hidden>✓</span>
+                  <span className="flex-1 py-3 text-[18px] font-semibold leading-snug text-[#14213D] md:text-[19px]">{opt.label}</span>
+                  <span className="shrink-0 rounded-md px-2.5 py-1 text-[14px] font-bold" style={{ color: st.c, background: st.tint }}>{opt.tag}</span>
                 </button>
               )
             })}
           </div>
+          <p className="mt-4 text-[14px] text-[#8A94A6]">오른쪽 표시는 판례 기준으로 근로자 쪽(근로자↑) 또는 사업자 쪽(사업자↑)으로 기우는 정도입니다.</p>
         </div>
       </div>
     </div>

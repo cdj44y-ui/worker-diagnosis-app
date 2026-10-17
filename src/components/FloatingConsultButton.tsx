@@ -23,7 +23,8 @@ export default function FloatingConsultButton() {
   }, [])
 
   // 상담 신청 페이지 자체에서는 숨김(이미 해당 페이지에 있으므로 중복 방지)
-  if (pathname === '/consult') return null
+  // 진단·결과 화면은 자체 하단 상담 바가 있어 중복 방지
+  if (pathname === '/consult' || pathname === '/diagnosis') return null
 
   return (
     <a
