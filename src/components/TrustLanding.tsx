@@ -68,6 +68,80 @@ export default function TrustLanding() {
         </div>
       </section>
 
+
+      {/* 고용노동부 감독 타임라인 */}
+      <section className="border-t border-[#DDE2EA] py-16 md:py-[88px]">
+        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
+          <p className="text-[17px] font-bold text-[#B42318]">고용노동부 보도자료 원문 기준</p>
+          <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">가짜 3.3 감독, 실제로 이렇게 진행됐습니다</h2>
+          <p className="mt-2.5 text-[18px] text-[#5B6680] md:text-[19px]">국세청 원천세 신고 자료로 대상을 고르고, 적발 후에는 보험료를 소급해 징수했습니다. 하반기에도 감독은 계속됩니다.</p>
+          <div className="mt-10 border-t-2 border-[#14213D]">
+            {[
+              ['2025.12.04', '기획감독 착수', '국세청 원천세 신고 자료를 연계해 근로소득자는 5명 미만인데 사업소득자는 많은 사업장 등 100여 곳을 감독 대상으로 선정했습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18691'],
+              ['2026.03.19', '108곳 중 72곳(67%) 적발', '노동자 1,070명이 3.3% 사업소득으로 처리되고 4대보험에 가입되지 않았습니다. 체불임금 6억 8,500만원, 법 위반 256건(범죄인지 9건 포함)이 적발됐습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19096'],
+              ['2026.07.01', '보험료 소급 징수·과태료', '미가입자 전원을 고용·산재보험에 소급 가입시키고 과거 미납 보험료 5억 2천만원을 사업주에게 소급 부과해 징수했습니다. 피보험자격 미신고 사업장에는 과태료를 순차 부과합니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
+              ['2026 하반기', '감독 계속', '국세청 원천세 신고 자료, 익명 제보, 구인광고 모니터링으로 의심 사업장을 골라 집중 감독을 이어갑니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
+            ].map(([d, t, desc, url], i) => (
+              <div key={d} className="grid gap-3 border-b border-[#DDE2EA] py-7 md:grid-cols-[200px_1fr] md:gap-8">
+                <div>
+                  <div className="flex gap-1.5">{[0, 1, 2, 3].map((j) => <i key={j} className={'block h-2.5 flex-1 rounded ' + (j < i ? 'bg-[#14213D]' : j === i ? 'bg-[#B42318]' : 'bg-[#E6EAF0]')} />)}</div>
+                  <p className="mt-3 text-[18px] font-bold">{d}</p>
+                </div>
+                <div>
+                  <h3 className="text-[22px] font-bold">{t}</h3>
+                  <p className="mt-1.5 text-[17px] leading-[1.75] text-[#3D4A63]">{desc}</p>
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-[14px] font-semibold text-[#1B64DA] underline underline-offset-4">고용노동부 보도자료 보기</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4대보험 소급과 사업주 부담 */}
+      <section className="border-t border-[#DDE2EA] bg-[#14213D] py-16 text-white md:py-[88px]">
+        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
+          <p className="text-[17px] font-bold text-[#9CC3FF]">가장 먼저 돌아오는 비용</p>
+          <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">4대보험을 소급해 가입하면, 사업주가 부담하는 것</h2>
+          <p className="mt-2.5 max-w-[760px] text-[18px] leading-[1.7] text-[#C9D1E0] md:text-[19px]">근로자로 판단되면 그동안 내지 않은 보험료가 과거로 거슬러 부과됩니다. 실제로 지난 감독에서 5억 2천만원이 소급 징수됐습니다.</p>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {[
+              ['보험료 사업주 몫', '건강보험·국민연금은 근로자와 같은 금액을 사업주가 부담하고, 고용보험은 실업급여 보험료의 절반과 고용안정·직업능력개발 보험료 전액을, 산재보험은 전액을 사업주가 부담합니다.', '국민건강보험법 제76조, 국민연금법 제88조, 고용·산재보험료징수법 제13조'],
+              ['최대 3년을 거슬러', '보험료를 징수할 권리는 3년간 행사할 수 있어, 미가입 기간이 길수록 소급 금액이 커집니다.', '국민건강보험법 제91조, 국민연금법 제115조, 고용·산재보험료징수법 제41조'],
+              ['연체금·가산금', '납부기한이 지나면 연체금이 붙습니다. 고용·산재보험은 확정보험료를 신고하지 않거나 사실과 다르게 신고해 징수되면 보험료의 10%가 가산금으로 더해집니다.', '고용·산재보험료징수법 제24조·제25조, 국민연금법 제97조, 국민건강보험법 제80조'],
+              ['과태료와 노동법 의무', '피보험자격을 신고하지 않은 사업장에는 과태료가 부과되고, 퇴직금·연차·가산수당 등 근로자에게 적용되는 의무도 함께 따라옵니다.', '고용노동부 보도자료(2026.7.1), 근로자퇴직급여 보장법 제8조, 근로기준법'],
+            ].map(([t, d, law]) => (
+              <div key={t} className="rounded-[14px] border border-[#3A4A6A] bg-[#1B2A4A] p-7">
+                <h3 className="text-[22px] font-bold">{t}</h3>
+                <p className="mt-2.5 text-[17px] leading-[1.75] text-[#DCE4F2]">{d}</p>
+                <p className="mt-3 text-[14px] font-semibold text-[#9AA9C7]">근거: {law}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 근로자 추정제 */}
+      <section className="border-t border-[#DDE2EA] py-16 md:py-[88px]">
+        <div className="mx-auto grid max-w-[1120px] gap-10 px-6 md:grid-cols-[1fr_1fr] md:px-8">
+          <div>
+            <span className="inline-block rounded-md bg-[#FDF3E2] px-3 py-1 text-[15px] font-bold text-[#9A5B00]">입법 전 · 국회 논의 중</span>
+            <h2 className="mt-3 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">근로자 추정제가 도입되면,<br />증명할 사람이 바뀝니다</h2>
+            <p className="mt-4 text-[18px] leading-[1.75] text-[#3D4A63]">발의된 근로기준법 개정안은 "다른 사람의 사업을 위하여 자신이 직접 노무를 제공하는 사람"을 근로자로 추정합니다. 지금은 일하는 사람이 근로자임을 증명하지만, 도입되면 회사가 <b className="text-[#14213D]">근로자가 아님</b>을 증명해야 합니다.</p>
+            <p className="mt-4 text-[15px] leading-[1.7] text-[#8A94A6]">근거: 근로기준법 일부개정법률안(2025.12.24 김주영 의원 대표발의) 등 관련 법안 국회 계류 · 2026.10.15 국회 토론회 기준. 최종 내용과 시행일은 입법 과정에서 달라질 수 있습니다.</p>
+          </div>
+          <div className="grid gap-3 self-center">
+            {[['지금', '일하는 사람이 지휘·감독, 시간·장소 구속 등을 직접 증명', '#5B6680', '#F5F7FA'], ['추정제 도입 시', '회사가 계약서·운영 기록으로 근로자가 아님을 반증', '#B42318', '#FDECEC']].map(([t, d, c, bg]) => (
+              <div key={t} className="rounded-[14px] border border-[#DDE2EA] p-6" style={{ background: bg }}>
+                <p className="text-[16px] font-bold" style={{ color: c }}>{t}</p>
+                <p className="mt-1.5 text-[19px] font-semibold leading-[1.55] text-[#14213D]">{d}</p>
+              </div>
+            ))}
+            <Link to="/diagnosis" className="mt-2 inline-flex h-[56px] items-center justify-center rounded-[10px] bg-[#3182F6] text-[18px] font-bold text-white hover:bg-[#1B64DA]">지금 계약 구조 점검하기 →</Link>
+          </div>
+        </div>
+      </section>
+
       {/* 전문가 */}
       <section id="expert" className="border-t border-[#DDE2EA] bg-[#F5F7FA] py-16 md:py-[88px]">
         <div className="mx-auto grid max-w-[1120px] items-start gap-10 px-6 md:grid-cols-[260px_1fr] md:gap-14 md:px-8">
