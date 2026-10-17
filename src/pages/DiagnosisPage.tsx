@@ -156,7 +156,7 @@ export default function DiagnosisPage() {
       <div className={(isResult ? 'max-w-2xl' : 'max-w-[1120px] md:grid md:grid-cols-[270px_1fr] md:gap-8') + ' mx-auto px-4 pb-24 pt-6 md:px-8'}>
         {!isResult ? (
           <>
-            <aside className="hidden md:block [word-break:keep-all]">
+            <aside className="hidden md:block md:sticky md:top-[180px] md:self-start [word-break:keep-all]">
               <p className="mb-3 text-[15px] font-bold text-[#5B6680]">판단 영역 · 대법원 판례 순</p>
               <nav className="overflow-hidden rounded-[14px] border border-[#DDE2EA] bg-white">
                 {CATEGORIES.map((c, ci) => {
