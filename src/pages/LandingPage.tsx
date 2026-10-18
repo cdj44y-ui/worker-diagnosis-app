@@ -3,7 +3,6 @@ import TrustLanding from '../components/TrustLanding'
 import CrackdownStats from '../components/CrackdownStats'
 import IntroVideo from '../components/IntroVideo'
 import DisclaimerNotice from '../components/DisclaimerNotice'
-import LaborInspectionLinkCard from '../components/LaborInspectionLinkCard'
 import { Link } from 'react-router-dom'
 import { PROMISE } from '../components/brand/brand'
 
@@ -17,7 +16,6 @@ export default function LandingPage() {
         <div className="max-w-3xl mx-auto px-4">
           <CrackdownStats />
           <IntroVideo />
-          <div className="mb-10"><LaborInspectionLinkCard variant="landing" /></div>
           <DisclaimerNotice variant="landing" />
         </div>
       </div>
