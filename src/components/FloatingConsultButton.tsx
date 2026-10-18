@@ -32,7 +32,6 @@ export default function FloatingConsultButton() {
       className="fixed bottom-5 right-4 z-50 flex items-center gap-2 rounded-full bg-[#1F4E79] px-5 py-3.5 text-sm font-bold text-white shadow-[0_6px_18px_rgba(31,78,121,0.3)] transition-colors hover:bg-[#173B5C] sm:bottom-6 sm:right-6 sm:px-6 sm:py-4 sm:text-base"
       aria-label="상담 신청하기"
     >
-      <span aria-hidden>💬</span>
       <span>상담 신청</span>
     </a>
   )
