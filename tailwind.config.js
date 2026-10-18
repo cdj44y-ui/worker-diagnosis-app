@@ -28,6 +28,7 @@ export default {
       },
       fontFamily: {
         sans: [
+          'Pretendard',
           '-apple-system',
           'BlinkMacSystemFont',
           'SF Pro Display',
