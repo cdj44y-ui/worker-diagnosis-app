@@ -7,7 +7,7 @@ export default function BrandFooter() {
       <div className="mx-auto max-w-[1120px] space-y-3 px-6 md:px-8">
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
           <b className="text-[15px] text-[#1F4E79]">{FAMILY_NAME}</b>
-          <a href="https://risk119.site/winners.html" className="font-bold text-[#1F4E79] hover:underline">회사 소개</a>
+          <a href="https://win119.site" className="font-bold text-[#1F4E79] hover:underline">회사 소개</a>
           {FAMILY_LINKS.map((l) => (
             <a key={l.key} href={l.url} className="hover:text-[#1F4E79] hover:underline">{l.label}</a>
           ))}
