@@ -160,7 +160,7 @@ export const EXPERT = {
   contact: {
     phone: '02-2138-0240',
     email: 'cdj44y@gmail.com',
-    calendly: 'https://calendly.com/cdj44y/15min',
+    calendly: '', // 무료 상담 폐지(2026-10-18)
     affiliation: '노무법인 위너스',
   },
 } as const
