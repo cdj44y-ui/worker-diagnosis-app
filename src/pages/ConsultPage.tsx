@@ -48,7 +48,7 @@ export default function ConsultPage() {
         ) : null}
 
         <div className="overflow-hidden rounded-apple-lg border border-apple-border bg-apple-surface shadow-apple-md p-2 sm:p-4">
-          <TallyEmbed src={tallySrc} title="노무 상담 문의 · 조대진 노무사" height={760} />
+          <TallyEmbed src={tallySrc} title="노무 상담 문의" height={760} />
         </div>
 
         <p className="mt-6 text-center text-[13px] text-apple-secondary">
