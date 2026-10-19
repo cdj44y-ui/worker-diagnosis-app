@@ -1,7 +1,7 @@
 // 위너스 119 진단사이트 브랜드 전략 v1.1 (2026-10-18) — 네 사이트 공통 상수. 문구는 네 사이트 동일하게 유지할 것
 export const SITE_NAME = 'FREE119'
 export const FAMILY_NAME = '노무법인 위너스 기준진단'
-export const PROMISE = '무료 진단 · 회원가입 없음 · 입력 내용 저장 안 함'
+export const PROMISE = '무료 진단 · 회원가입 없음 · 입력 내용은 이 기기에만'
 /** 법령·판례 원문 대조일 — 일일 점검 루틴이 갱신 */
 export const VERIFIED_DATE = '2026.10.18'
 export const KAKAO_CHANNEL_URL = 'https://pf.kakao.com/_yxexbaX/friend'
