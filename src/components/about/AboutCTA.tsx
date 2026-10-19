@@ -14,9 +14,9 @@ export default function AboutCTA() {
             우리 회사의 계약 구조, 괜찮을까?
           </h2>
           <p className="text-[14px] text-apple-secondary leading-relaxed mb-8">
-            3분 자가진단으로 근로자성 리스크를 확인하고,
+            자가진단으로 근로자성 위험을 먼저 확인하세요.
             <br className="hidden sm:block" />
-            전문가 상담으로 대응 방향을 잡으세요.
+            대응 방향은 상담에서 함께 정리합니다.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
@@ -24,7 +24,7 @@ export default function AboutCTA() {
               to="/diagnosis"
               className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 rounded-full bg-brand-blue text-white font-semibold text-[15px] hover:bg-brand-blue-dark transition-colors"
             >
-              근로자성 진단 시작하기
+              진단 시작하기
               <ChevronRight size={18} strokeWidth={2} aria-hidden />
             </Link>
             <Link
