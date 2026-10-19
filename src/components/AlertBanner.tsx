@@ -23,7 +23,7 @@ export default function AlertBanner() {
         </p>
         <p className="text-[12px] text-apple-secondary leading-snug sm:border-l sm:border-apple-border sm:pl-3">
           <span className="text-apple-text font-semibold">숙박·음식·제조</span> 등 업종 적발 비중 큼 ·{' '}
-          <span className="text-brand-blue font-semibold">근로자 추정제</span> 대비 점검 권장
+          <span className="text-brand-blue font-semibold">근로자 추정제(입법 전)</span> 대비 점검 권장
         </p>
       </div>
     </div>

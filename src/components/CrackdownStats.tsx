@@ -1,7 +1,7 @@
 import { Building2, Users, Banknote, Gavel, MapPin, TrendingUp } from 'lucide-react'
 import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
 
-const { summary, industries, caseTypes, updatedAt, source, sourceUrl, followUp } = CRACKDOWN_DATA
+const { summary, industries, updatedAt, source, sourceUrl, followUp } = CRACKDOWN_DATA
 
 const unpaidEok = (summary.unpaidWages / 100_000_000).toFixed(2)
 
@@ -134,29 +134,6 @@ export default function CrackdownStats() {
           </div>
         </div>
 
-        <div className="bg-apple-surface rounded-apple-lg border border-apple-border p-5 shadow-apple">
-          <h3 className="text-[13px] font-semibold text-apple-text mb-4 flex items-center gap-2">
-            <Gavel size={16} className="text-brand-blue" strokeWidth={2} />
-            보도에서 언급된 유형
-          </h3>
-          <ul className="space-y-3">
-            {caseTypes.map((item) => (
-              <li
-                key={item.type}
-                className="text-[13px] leading-relaxed relative rounded-lg py-2.5 pl-4 pr-2 -ml-1 bg-brand-blue/[0.06] border border-brand-blue/15 font-medium text-apple-text"
-              >
-                <span className="absolute left-1.5 top-[0.85em] w-1.5 h-1.5 rounded-full bg-brand-blue" />
-                <span className="block text-[10px] font-bold text-brand-blue uppercase tracking-wide mb-0.5">
-                  {item.amount} · 관련 {item.workers}명
-                </span>
-                {item.type}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 pt-4 border-t border-apple-border text-[11px] text-apple-tertiary leading-relaxed">
-            4대보험·국세 연계 조치 등은 보도 내용을 참고하시고, 실제 절차는 전문가 상담을 권합니다.
-          </p>
-        </div>
       </div>
 
       {followUp && (
