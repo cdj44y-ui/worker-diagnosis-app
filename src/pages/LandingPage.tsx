@@ -1,6 +1,4 @@
-import AlertBanner from '../components/AlertBanner'
 import TrustLanding from '../components/TrustLanding'
-import CrackdownStats from '../components/CrackdownStats'
 import IntroVideo from '../components/IntroVideo'
 import DisclaimerNotice from '../components/DisclaimerNotice'
 import { Link } from 'react-router-dom'
@@ -10,11 +8,9 @@ import { PROMISE } from '../components/brand/brand'
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
-      <AlertBanner />
       <TrustLanding />
       <div className="border-t border-[#DDE2EA] py-16">
         <div className="max-w-3xl mx-auto px-4">
-          <CrackdownStats />
           <IntroVideo />
           <DisclaimerNotice variant="landing" />
         </div>
