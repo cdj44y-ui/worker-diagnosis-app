@@ -74,14 +74,6 @@ export default function TrustLanding() {
       </section>
 
 
-      {/* 직군 경험 띠 */}
-      <section className="border-y border-[#DDE2EA] bg-[#F5F7FA]">
-        <div className="mx-auto flex max-w-[1120px] flex-col gap-3 px-6 py-6 md:flex-row md:items-center md:gap-8 md:px-8">
-          <p className="shrink-0 text-[15px] font-bold text-[#00796B]">근로자성 쟁점을 직접 다뤄 온 직군</p>
-          <p className="text-[18px] font-semibold leading-[1.6] md:text-[19px]">카드모집인 · 대출모집인 · 병원 연구원 · 방문 점검원 · 헤어 디자이너 · 헬스 트레이너</p>
-        </div>
-      </section>
-
       {/* 고용노동부 감독 타임라인 */}
       <section className="border-t border-[#DDE2EA] py-16 md:py-[88px]">
         <div className="mx-auto max-w-[1120px] px-6 md:px-8">
