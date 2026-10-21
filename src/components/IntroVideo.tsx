@@ -16,12 +16,11 @@ export default function IntroVideo() {
           className="block w-full aspect-video bg-apple-bg"
           src="/video/free119-intro.mp4"
           poster="/video/free119-intro-poster.jpg"
-          autoPlay
           muted
           loop
           playsInline
           controls
-          preload="metadata"
+          preload="none"
           aria-label="FREE119 소개 영상: 근로자성 자가진단 안내"
         />
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-apple-border px-5 py-4">
