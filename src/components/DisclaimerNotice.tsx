@@ -11,6 +11,14 @@ interface Props {
 export default function DisclaimerNotice({ variant, className = '' }: Props) {
   const isLanding = variant === 'landing'
 
+  if (isLanding) {
+    return (
+      <p className={`text-[14px] leading-relaxed text-apple-secondary ${className}`}>
+        본 화면은 판례·고용노동부 가이드를 바탕으로 한 참고용 자가진단이며, 법적 효력이 있는 공식 판정·법률 자문이 아닙니다. 구체적 분쟁·감독 대응은 공인노무사·변호사 등 전문가 상담을 받으시기 바랍니다.
+      </p>
+    )
+  }
+
   return (
     <section
       className={`

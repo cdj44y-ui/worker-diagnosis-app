@@ -16,14 +16,6 @@ const FIVE = [
 ]
 
 
-const JOBS = [
-  { job: '카드모집인', point: '실적 수수료 구조인데 영업 목표·출근·교육 지시가 있는 경우' },
-  { job: '대출모집인', point: '금융회사 위탁계약이지만 업무 방식과 실적 관리를 회사가 정하는 경우' },
-  { job: '병원 연구원', point: '연구과제 계약 형식이지만 근무시간·장소와 업무 지시가 정해진 경우' },
-  { job: '방문 점검원', point: '건별 수수료인데 점검 일정·구역 배정과 앱 업무 지시가 있는 경우' },
-  { job: '헤어 디자이너', point: '매출 배분(수수료) 구조이지만 매장 출근·근무 규칙을 따르는 경우' },
-  { job: '헬스 트레이너', point: '수업료 배분 계약이지만 수업 배정·회원 관리·근무시간 지시가 있는 경우' },
-]
 
 const DUTIES = [
   ['퇴직금', '계속근로 1년에 30일분 이상의 평균임금', '근로자퇴직급여 보장법 제8조'],
@@ -67,7 +59,7 @@ export default function TrustLanding() {
                 <div><p className="text-[28px] font-extrabold">{(s.unpaidWages / 100000000).toFixed(2)}억 원</p><p className="text-[15px] text-[#5B6680]">체불 적발 금액</p></div>
               </div>
               <p className="mt-4 text-[16px] leading-[1.65] text-[#3D4A63]">{CRACKDOWN_DATA.followUp.text}</p>
-              <p className="mt-4 border-t border-[#DDE2EA] pt-3 text-[14px] text-[#5B6680]">출처: {CRACKDOWN_DATA.source} ({formatCrackdownDate(CRACKDOWN_DATA.updatedAt)}, 후속조치 {formatCrackdownDate(CRACKDOWN_DATA.followUp.date)})</p>
+              <p className="mt-4 border-t border-[#DDE2EA] pt-3 text-[14px] text-[#5B6680]">출처: <a href={CRACKDOWN_DATA.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00695C] underline underline-offset-4">고용노동부 보도자료({formatCrackdownDate(CRACKDOWN_DATA.updatedAt)})</a>, <a href={CRACKDOWN_DATA.followUp.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00695C] underline underline-offset-4">후속조치({formatCrackdownDate(CRACKDOWN_DATA.followUp.date)})</a></p>
             </div>
           </div>
         </div>
@@ -75,19 +67,19 @@ export default function TrustLanding() {
 
 
       {/* 고용노동부 감독 타임라인 */}
-      <section className="border-t border-[#DDE2EA] py-16 md:py-[88px]">
+      <section className="border-t border-[#DDE2EA] py-10 md:py-14">
         <div className="mx-auto max-w-[1120px] px-6 md:px-8">
           <p className="text-[17px] font-bold text-[#B42318]">고용노동부 보도자료 원문 기준</p>
           <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">가짜 3.3 감독, 실제로 이렇게 진행됐습니다</h2>
           <p className="mt-2.5 text-[18px] text-[#5B6680] md:text-[19px]">대상 선정부터 보험료 소급 징수까지, 보도자료로 확인된 순서입니다.</p>
-          <div className="mt-10 border-t-2 border-[#14213D]">
+          <div className="mt-6 border-t-2 border-[#14213D]">
             {[
               ['2025.12.04', '기획감독 착수', '국세청 원천세 신고 자료를 연계해 근로소득자는 5명 미만인데 사업소득자는 많은 사업장 등 100여 곳을 감독 대상으로 선정했습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18691'],
               ['2026.03.19', '108곳 중 72곳(67%) 적발', '노동자 1,070명이 3.3% 사업소득으로 처리되고 4대보험에 가입되지 않았습니다. 체불임금 6억 8,500만원, 법 위반 256건(범죄인지 9건 포함)이 적발됐습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19096'],
               ['2026.07.01', '보험료 소급 징수·과태료', '미가입자 전원을 고용·산재보험에 소급 가입시키고 과거 미납 보험료 5억 2천만원을 사업주에게 소급 부과해 징수했습니다. 피보험자격 미신고 사업장에는 과태료를 순차 부과합니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
               ['2026 하반기', '감독 계속', '국세청 원천세 신고 자료, 익명 제보, 구인광고 모니터링으로 의심 사업장을 골라 집중 감독을 이어갑니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
             ].map(([d, t, desc, url], i) => (
-              <div key={d} className="grid gap-3 border-b border-[#DDE2EA] py-7 md:grid-cols-[200px_1fr] md:gap-8">
+              <div key={d} className="grid gap-2 border-b border-[#DDE2EA] py-5 md:grid-cols-[200px_1fr] md:gap-8">
                 <div>
                   <div className="flex gap-1.5">{[0, 1, 2, 3].map((j) => <i key={j} className={'block h-2.5 flex-1 rounded ' + (j < i ? 'bg-[#14213D]' : j === i ? 'bg-[#B42318]' : 'bg-[#E6EAF0]')} />)}</div>
                   <p className="mt-3 text-[18px] font-bold">{d}</p>
@@ -109,25 +101,25 @@ export default function TrustLanding() {
           <p className="text-[17px] font-bold text-[#80CBC4]">가장 먼저 돌아오는 비용</p>
           <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">4대보험을 소급해 가입하면, 사업주가 부담하는 것</h2>
           <p className="mt-2.5 max-w-[760px] text-[18px] leading-[1.7] text-[#C9D1E0] md:text-[19px]">근로자로 판단되면 내지 않은 보험료가 과거 기간까지 부과됩니다. 지난 감독에서는 5억 2천만원이 소급 징수됐습니다.</p>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
+          <div className="mt-8 border-t border-[#3A4A6A]">
             {[
               ['보험료 사업주 몫', '건강보험·국민연금은 근로자와 같은 금액을 사업주가 냅니다. 고용보험은 실업급여분의 절반과 고용안정·직업능력개발분 전액을, 산재보험은 전액을 사업주가 냅니다.', '국민건강보험법 제76조, 국민연금법 제88조, 고용·산재보험료징수법 제13조'],
               ['최대 3년을 거슬러', '보험료 징수권은 3년간 행사할 수 있습니다. 미가입 기간이 길수록 소급액이 커집니다.', '국민건강보험법 제91조, 국민연금법 제115조, 고용·산재보험료징수법 제41조'],
               ['연체금·가산금', '납부기한이 지나면 연체금이 붙습니다. 고용·산재보험은 확정보험료를 신고하지 않거나 사실과 다르게 신고해 징수되면 보험료의 10%가 가산금으로 더해집니다.', '고용·산재보험료징수법 제24조·제25조, 국민연금법 제97조, 국민건강보험법 제80조'],
               ['과태료와 노동법 의무', '피보험자격을 신고하지 않으면 과태료가 부과됩니다. 퇴직금·연차·가산수당 같은 근로자 관련 의무도 함께 따릅니다.', '고용노동부 보도자료(2026.7.1), 근로자퇴직급여 보장법 제8조, 근로기준법'],
             ].map(([t, d, law]) => (
-              <div key={t} className="rounded-[14px] border border-[#3A4A6A] bg-[#1B2A4A] p-7">
-                <h3 className="text-[22px] font-bold">{t}</h3>
-                <p className="mt-2.5 text-[17px] leading-[1.75] text-[#DCE4F2]">{d}</p>
-                <p className="mt-3 text-[14px] font-semibold text-[#9AA9C7]">근거: {law}</p>
-              </div>
+              <details key={t} className="border-b border-[#3A4A6A]">
+                <summary className="flex min-h-[48px] cursor-pointer items-center py-3 text-[19px] font-bold">{t}</summary>
+                <p className="pb-2 text-[17px] leading-[1.7] text-[#DCE4F2]">{d}</p>
+                <p className="pb-4 text-[14px] font-semibold text-[#9AA9C7]">근거: {law}</p>
+              </details>
             ))}
           </div>
         </div>
       </section>
 
       {/* 근로자 추정제 */}
-      <section className="border-t border-[#DDE2EA] py-16 md:py-[88px]">
+      <section className="border-t border-[#DDE2EA] py-10 md:py-14">
         <div className="mx-auto grid max-w-[1120px] gap-10 px-6 md:grid-cols-[1fr_1fr] md:px-8">
           <div>
             <span className="inline-block rounded-md bg-[#FDF3E2] px-3 py-1 text-[15px] font-bold text-[#9A5B00]">입법 전 · 국회 논의 중</span>
@@ -150,7 +142,7 @@ export default function TrustLanding() {
       <LawCalendar />
 
       {/* 전문가 */}
-      <section id="expert" className="border-t border-[#DDE2EA] bg-[#F5F7FA] py-16 md:py-[88px]">
+      <section id="expert" className="border-t border-[#DDE2EA] bg-[#F5F7FA] py-10 md:py-14">
         <div className="mx-auto grid max-w-[1120px] items-start gap-10 px-6 md:grid-cols-[260px_1fr] md:gap-14 md:px-8">
           <img src="/expert/cho-daejin.jpg" alt="조대진 대표노무사" width={260} height={338} className="h-[338px] w-[260px] rounded-xl object-cover" />
           <div>
@@ -168,35 +160,18 @@ export default function TrustLanding() {
                 <p className="mt-2 text-[17px] leading-[1.7] text-[#3D4A63]">업종마다 다른 프리랜서·위탁 구조를 자문하며 확인한 쟁점을 문항에 담았습니다.</p>
               </div>
             </div>
-            <div className="mt-8">
-              <p className="text-[19px] font-bold">이런 일하는 방식을 직접 다뤄 왔습니다</p>
-              <p className="mt-1 text-[16px] text-[#5B6680]">같은 프리랜서 계약도 직군마다 근로자성이 갈리는 지점이 다릅니다. 이 경험이 진단 문항의 바탕입니다.</p>
-              <div className="mt-4 grid gap-3 md:grid-cols-3">
-                {JOBS.map((j) => (
-                  <div key={j.job} className="rounded-xl border border-[#DDE2EA] bg-white p-5">
-                    <p className="text-[19px] font-bold text-[#14213D]">{j.job}</p>
-                    <p className="mt-1.5 text-[15px] leading-[1.6] text-[#5B6680]">{j.point}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mt-7 grid grid-cols-1 border-t-2 border-[#14213D] md:grid-cols-2">
-              {[['소속', '노무법인 위너스 대표노무사'], ['경력', '공인노무사 16년'], ['학위', '안전공학 박사'], ['실무 이력', '현대카드 · 삼성서울병원 인사 출신']].map(([k, v]) => (
-                <div key={k} className="border-b border-[#DDE2EA] py-4 md:pr-6"><p className="text-[15px] font-semibold text-[#5B6680]">{k}</p><p className="text-[17px]">{v}</p></div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
       {/* 대법원 5가지 */}
-      <section className="border-t border-[#DDE2EA] py-16 md:py-[88px]">
+      <section className="border-t border-[#DDE2EA] py-10 md:py-14">
         <div className="mx-auto max-w-[1120px] px-6 md:px-8">
           <h2 className="text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">대법원이 보는 5가지</h2>
           <p className="mt-2.5 text-[18px] text-[#5B6680] md:text-[19px]">진단 문항은 이 순서로 구성했고, 영역마다 근거 판례를 보여드립니다.</p>
-          <div className="mt-10 border-t-2 border-[#14213D]">
+          <div className="mt-6 border-t-2 border-[#14213D]">
             {FIVE.map((f) => (
-              <div key={f.no} className="grid gap-2 border-b border-[#DDE2EA] py-6 md:grid-cols-[64px_1fr_240px] md:items-baseline md:gap-6">
+              <div key={f.no} className="grid gap-2 border-b border-[#DDE2EA] py-4 md:grid-cols-[64px_1fr_240px] md:items-baseline md:gap-6">
                 <p className="text-[26px] font-extrabold text-[#00796B]">{f.no}</p>
                 <div><h3 className="text-[21px] font-bold">{f.t}</h3><p className="mt-1 text-[17px] leading-[1.7] text-[#3D4A63]">{f.d}</p></div>
                 <p className="text-[15px] font-semibold text-[#5B6680] md:text-right">{f.c}</p>
@@ -207,14 +182,14 @@ export default function TrustLanding() {
       </section>
 
       {/* 근로자로 판단되면 */}
-      <section className="border-t border-[#DDE2EA] bg-[#F5F7FA] py-16 md:py-[88px]">
+      <section className="border-t border-[#DDE2EA] bg-[#F5F7FA] py-10 md:py-14">
         <div className="mx-auto max-w-[1120px] px-6 md:px-8">
           <h2 className="text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">근로자로 판단되면 생기는 의무</h2>
           <p className="mt-2.5 text-[18px] text-[#5B6680] md:text-[19px]">계약서 명칭과 관계없이 근로자 보호법이 적용됩니다.</p>
-          <div className="mt-10 border-t-2 border-[#14213D] bg-white">
+          <div className="mt-6 border-t-2 border-[#14213D] bg-white">
             {DUTIES.map(([t, d, law]) => (
-              <div key={t} className="grid gap-1 border-b border-[#DDE2EA] px-1 py-5 md:grid-cols-[140px_1fr_auto] md:items-baseline md:gap-6 md:px-5">
-                <p className="text-[19px] font-bold">{t}</p><p className="text-[17px] text-[#3D4A63]">{d}</p><p className="text-[14px] font-semibold text-[#8A94A6]">{law}</p>
+              <div key={t} className="border-b border-[#DDE2EA] px-1 py-3 md:grid md:grid-cols-[120px_1fr_auto] md:items-baseline md:gap-6 md:px-5">
+                <p className="text-[18px] font-bold">{t}</p><p className="text-[16px] text-[#3D4A63]">{d}</p><p className="text-[14px] font-semibold text-[#8A94A6]">{law}</p>
               </div>
             ))}
           </div>
