@@ -1,7 +1,7 @@
 export const CRACKDOWN_DATA = {
   updatedAt: '2026-03-19',
   source: '고용노동부 보도자료',
-  sourceUrl: 'https://www.moel.go.kr',
+  sourceUrl: 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19096',
 
   followUp: {
     date: '2026-07-01',
