@@ -19,7 +19,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-[1120px] px-6">
           <h2 className="text-[30px] font-bold leading-[1.35] md:text-[36px]">감독 통지서가 오기 전에 확인하십시오</h2>
           <p className="mt-2.5 text-[18px] text-[#C9D1E0]">{PROMISE} · 약 5분</p>
-          <Link to="/diagnosis" className="mt-9 inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#00796B] px-8 text-[19px] font-bold text-white hover:bg-[#00695C]">진단 시작하기 →</Link>
+          <Link to="/diagnosis" className="mt-9 inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#2F5D50] px-8 text-[19px] font-bold text-white hover:bg-[#244A40]">진단 시작하기 →</Link>
         </div>
       </section>
     </div>
