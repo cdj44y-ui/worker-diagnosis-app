@@ -15,6 +15,15 @@ const FIVE = [
   { no: '5', t: '형식적 지표', d: '계약서 명칭, 3.3% 원천징수, 4대보험 미가입만으로 근로자성을 부정하지 않습니다.', c: '대법원 2021도11675' },
 ]
 
+const JOBS = [
+  { job: '카드모집인', point: '실적 수수료 구조인데 영업 목표·출근·교육 지시가 있는 경우' },
+  { job: '대출모집인', point: '금융회사 위탁계약이지만 업무 방식과 실적 관리를 회사가 정하는 경우' },
+  { job: '병원 연구원', point: '연구과제 계약 형식이지만 근무시간·장소와 업무 지시가 정해진 경우' },
+  { job: '방문 점검원', point: '건별 수수료인데 점검 일정·구역 배정과 앱 업무 지시가 있는 경우' },
+  { job: '헤어 디자이너', point: '매출 배분(수수료) 구조이지만 매장 출근·근무 규칙을 따르는 경우' },
+  { job: '헬스 트레이너', point: '수업료 배분 계약이지만 수업 배정·회원 관리·근무시간 지시가 있는 경우' },
+]
+
 
 
 const DUTIES = [
@@ -160,6 +169,21 @@ export default function TrustLanding() {
                 <p className="mt-2 text-[17px] leading-[1.7] text-[#3D4A63]">업종마다 다른 프리랜서·위탁 구조를 자문하며 확인한 쟁점을 문항에 담았습니다.</p>
               </div>
             </div>
+            <details className="mt-6 rounded-xl border border-[#DDE2EA] bg-white">
+              <summary className="flex min-h-[52px] cursor-pointer list-none flex-col justify-center gap-1 px-5 py-3 md:flex-row md:items-center md:justify-between">
+                <span className="text-[17px] font-bold text-[#14213D]">근로자성 쟁점을 직접 다뤄 온 직군 6종</span>
+                <span className="text-[15px] text-[#5B6680]">{JOBS.map((j) => j.job).join(' · ')} ▾</span>
+              </summary>
+              <div className="border-t border-[#DDE2EA] px-5 pb-4">
+                <p className="pt-3 text-[15px] text-[#5B6680]">같은 프리랜서 계약도 직군마다 근로자성이 갈리는 지점이 다릅니다. 이 경험이 진단 문항의 바탕입니다.</p>
+                {JOBS.map((j) => (
+                  <div key={j.job} className="grid gap-1 border-b border-[#EEF1F5] py-3 last:border-b-0 md:grid-cols-[140px_1fr] md:gap-4">
+                    <p className="text-[17px] font-bold text-[#14213D]">{j.job}</p>
+                    <p className="text-[15px] leading-[1.6] text-[#3D4A63]">{j.point}</p>
+                  </div>
+                ))}
+              </div>
+            </details>
           </div>
         </div>
       </section>
