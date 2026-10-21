@@ -32,14 +32,14 @@ export default function SingleQuestionPanel({ category, question: q, globalIndex
         </div>
 
         <div className="p-6 md:p-8">
-          <p className="text-[15px] font-bold text-[#00796B]">질문 {localNum} / {category.questions.length} · 전체 {globalIndex + 1} / {total}</p>
+          <p className="text-[15px] font-bold text-[#2F5D50]">질문 {localNum} / {category.questions.length} · 전체 {globalIndex + 1} / {total}</p>
           <h2 className="mt-2 text-[24px] font-bold leading-[1.5] tracking-[-0.4px] text-[#14213D] md:text-[28px]">{q.text}</h2>
 
           <div className="mt-5 rounded-xl border border-[#E6EAF0] bg-[#F8FAFC] px-5 py-4">
             <p className="text-[15px] font-bold text-[#5B6680]">판례 근거</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {q.refs.map((r: string) => (
-                <span key={r} className="rounded-md bg-white px-2.5 py-1 text-[14px] font-semibold text-[#00695C] ring-1 ring-[#B2DFDB]">{r}</span>
+                <span key={r} className="rounded-md bg-white px-2.5 py-1 text-[14px] font-semibold text-[#244A40] ring-1 ring-[#B2DFDB]">{r}</span>
               ))}
             </div>
             <p className="mt-2.5 text-[16px] leading-[1.7] text-[#3D4A63]">{q.hint}</p>
@@ -56,10 +56,10 @@ export default function SingleQuestionPanel({ category, question: q, globalIndex
                   onClick={() => onSelect(q.id, oi)}
                   aria-pressed={sel}
                   className="flex min-h-[64px] w-full items-center gap-4 rounded-xl border-2 px-5 text-left transition hover:-translate-y-px"
-                  style={{ borderColor: sel ? '#00796B' : '#E1E6EE', background: sel ? '#E0F2F1' : '#FFFFFF' }}
+                  style={{ borderColor: sel ? '#2F5D50' : '#E1E6EE', background: sel ? '#E0F2F1' : '#FFFFFF' }}
                 >
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-[14px] font-extrabold"
-                    style={{ borderColor: sel ? '#00796B' : '#C9D1DC', background: sel ? '#00796B' : '#FFFFFF', color: sel ? '#FFFFFF' : 'transparent' }} aria-hidden>✓</span>
+                    style={{ borderColor: sel ? '#2F5D50' : '#C9D1DC', background: sel ? '#2F5D50' : '#FFFFFF', color: sel ? '#FFFFFF' : 'transparent' }} aria-hidden>✓</span>
                   <span className="flex-1 py-3 text-[18px] font-semibold leading-snug text-[#14213D] md:text-[19px]">{opt.label}</span>
                   <span className="shrink-0 rounded-md px-2.5 py-1 text-[14px] font-bold" style={{ color: st.c, background: st.tint }}>{opt.tag}</span>
                 </button>

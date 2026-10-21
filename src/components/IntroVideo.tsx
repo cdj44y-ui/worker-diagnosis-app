@@ -24,7 +24,7 @@ export default function IntroVideo() {
           </p>
           <Link
             to="/diagnosis"
-            className="shrink-0 inline-flex items-center justify-center min-h-[40px] px-5 rounded-full border border-[#00796B] text-[#00796B] text-[14px] font-semibold transition-colors hover:bg-[#E0F2F1]"
+            className="shrink-0 inline-flex items-center justify-center min-h-[40px] px-5 rounded-full border border-[#2F5D50] text-[#2F5D50] text-[14px] font-semibold transition-colors hover:bg-[#E0F2F1]"
           >
             진단 시작하기 →
           </Link>

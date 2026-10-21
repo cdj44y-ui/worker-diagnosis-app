@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
 
 // 2026-10-18 RISK119 신뢰형 구성 적용 — 판례·법령·고용노동부 발표로 확인된 내용만 사용, 사업장 실명 미사용
-const btnPrimary = 'inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#00796B] px-8 text-[19px] font-bold text-white transition hover:bg-[#00695C]'
+const btnPrimary = 'inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#2F5D50] px-8 text-[19px] font-bold text-white transition hover:bg-[#244A40]'
 const btnGhost = 'inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#1F4E79] px-8 text-[19px] font-bold text-white transition hover:bg-[#173B5C]'
 
 const FIVE = [
@@ -42,7 +42,7 @@ export default function TrustLanding() {
       <section className="py-14 md:py-[72px]">
         <div className="mx-auto grid max-w-[1120px] gap-12 px-6 md:grid-cols-[1.25fr_0.9fr] md:gap-14 md:px-8">
           <div>
-            <p className="text-[17px] font-bold text-[#00796B]">대법원 판례 기준 · 5개 영역 19문항 · 약 5분</p>
+            <p className="text-[17px] font-bold text-[#2F5D50]">대법원 판례 기준 · 5개 영역 19문항 · 약 5분</p>
             <h1 className="mt-3.5 text-[38px] font-bold leading-[1.28] tracking-[-1px] md:text-[50px] md:tracking-[-1.2px]">
               프리랜서 계약서가 있어도,<br />일하는 방식이 근로자라면<br />근로자입니다
             </h1>
@@ -68,7 +68,7 @@ export default function TrustLanding() {
                 <div><p className="text-[28px] font-extrabold">{(s.unpaidWages / 100000000).toFixed(2)}억 원</p><p className="text-[15px] text-[#5B6680]">체불 적발 금액</p></div>
               </div>
               <p className="mt-4 text-[16px] leading-[1.65] text-[#3D4A63]">{CRACKDOWN_DATA.followUp.text}</p>
-              <p className="mt-4 border-t border-[#DDE2EA] pt-3 text-[14px] text-[#5B6680]">출처: <a href={CRACKDOWN_DATA.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00695C] underline underline-offset-4">고용노동부 보도자료({formatCrackdownDate(CRACKDOWN_DATA.updatedAt)})</a>, <a href={CRACKDOWN_DATA.followUp.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#00695C] underline underline-offset-4">후속조치({formatCrackdownDate(CRACKDOWN_DATA.followUp.date)})</a></p>
+              <p className="mt-4 border-t border-[#DDE2EA] pt-3 text-[14px] text-[#5B6680]">출처: <a href={CRACKDOWN_DATA.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#244A40] underline underline-offset-4">고용노동부 보도자료({formatCrackdownDate(CRACKDOWN_DATA.updatedAt)})</a>, <a href={CRACKDOWN_DATA.followUp.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#244A40] underline underline-offset-4">후속조치({formatCrackdownDate(CRACKDOWN_DATA.followUp.date)})</a></p>
             </div>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function TrustLanding() {
                 <div>
                   <h3 className="text-[22px] font-bold">{t}</h3>
                   <p className="mt-1.5 text-[17px] leading-[1.75] text-[#3D4A63]">{desc}</p>
-                  <a href={url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-[14px] font-semibold text-[#00695C] underline underline-offset-4">고용노동부 보도자료 보기</a>
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-[14px] font-semibold text-[#244A40] underline underline-offset-4">고용노동부 보도자료 보기</a>
                 </div>
               </div>
             ))}
@@ -143,7 +143,7 @@ export default function TrustLanding() {
                 <p className="mt-1.5 text-[19px] font-semibold leading-[1.55] text-[#14213D]">{d}</p>
               </div>
             ))}
-            <Link to="/diagnosis" className="mt-2 inline-flex h-[56px] items-center justify-center rounded-[10px] bg-[#00796B] text-[18px] font-bold text-white hover:bg-[#00695C]">지금 계약 구조 점검하기 →</Link>
+            <Link to="/diagnosis" className="mt-2 inline-flex h-[56px] items-center justify-center rounded-[10px] bg-[#2F5D50] text-[18px] font-bold text-white hover:bg-[#244A40]">지금 계약 구조 점검하기 →</Link>
           </div>
         </div>
       </section>
@@ -155,17 +155,17 @@ export default function TrustLanding() {
         <div className="mx-auto grid max-w-[1120px] items-start gap-10 px-6 md:grid-cols-[260px_1fr] md:gap-14 md:px-8">
           <img src="/expert/cho-daejin.jpg" alt="조대진 대표노무사" width={260} height={338} className="h-[338px] w-[260px] rounded-xl object-cover" />
           <div>
-            <p className="text-[17px] font-bold text-[#00796B]">이 진단을 설계한 사람</p>
+            <p className="text-[17px] font-bold text-[#2F5D50]">이 진단을 설계한 사람</p>
             <h2 className="mt-2 text-[32px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">대기업 인사팀 출신 노무사, 조대진</h2>
             <p className="mt-1 text-[18px] font-semibold text-[#5B6680]">공인노무사 16년 · 안전공학 박사</p>
             <p className="mt-2 text-[20px] font-semibold leading-[1.6] md:text-[22px]">“근로자성은 계약서가 아니라 매일의 업무 지시와 보수 구조에서 드러납니다.”</p>
             <div className="mt-7 grid gap-4 md:grid-cols-2">
               <div className="rounded-xl border border-[#DDE2EA] bg-white p-6">
-                <p className="text-[15px] font-bold text-[#00796B]">대기업 근로감독, 매년 실전 대응</p>
+                <p className="text-[15px] font-bold text-[#2F5D50]">대기업 근로감독, 매년 실전 대응</p>
                 <p className="mt-2 text-[17px] leading-[1.7] text-[#3D4A63]">해마다 근로감독에 대응하며, 감독관이 위장고용을 확인하는 방식을 현장에서 봐 왔습니다.</p>
               </div>
               <div className="rounded-xl border border-[#DDE2EA] bg-white p-6">
-                <p className="text-[15px] font-bold text-[#00796B]">금융·IT·보건의료·제조 자문사와 함께</p>
+                <p className="text-[15px] font-bold text-[#2F5D50]">금융·IT·보건의료·제조 자문사와 함께</p>
                 <p className="mt-2 text-[17px] leading-[1.7] text-[#3D4A63]">업종마다 다른 프리랜서·위탁 구조를 자문하며 확인한 쟁점을 문항에 담았습니다.</p>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function TrustLanding() {
           <div className="mt-6 border-t-2 border-[#14213D]">
             {FIVE.map((f) => (
               <div key={f.no} className="grid gap-2 border-b border-[#DDE2EA] py-4 md:grid-cols-[64px_1fr_240px] md:items-baseline md:gap-6">
-                <p className="text-[26px] font-extrabold text-[#00796B]">{f.no}</p>
+                <p className="text-[26px] font-extrabold text-[#2F5D50]">{f.no}</p>
                 <div><h3 className="text-[21px] font-bold">{f.t}</h3><p className="mt-1 text-[17px] leading-[1.7] text-[#3D4A63]">{f.d}</p></div>
                 <p className="text-[15px] font-semibold text-[#5B6680] md:text-right">{f.c}</p>
               </div>
