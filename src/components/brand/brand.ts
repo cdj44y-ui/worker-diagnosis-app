@@ -5,8 +5,8 @@ export const PROMISE = '회원가입 없음 · 입력 내용은 이 기기에만
 /** 법령·판례 원문 대조일 — 일일 점검 루틴이 갱신 */
 export const VERIFIED_DATE = '2026.10.18'
 export const KAKAO_CHANNEL_URL = 'https://pf.kakao.com/_yxexbaX/friend'
-export const SITE_COLOR = '#00796B'
-export const SITE_COLOR_HOVER = '#00695C'
+export const SITE_COLOR = '#2F5D50'
+export const SITE_COLOR_HOVER = '#244A40'
 export const CONSULT_COLOR = '#1F4E79'
 export const CONSULT_COLOR_HOVER = '#173B5C'
 export const FAMILY_LINKS = [
