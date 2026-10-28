@@ -23,7 +23,7 @@ export default function LawCalendar() {
 
   useEffect(() => {
     let alive = true
-    fetch('https://win119.site/data/law-changes.json')
+    fetch('https://win119.site/data/law-changes.json', { cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error('http'))))
       .then((json: { verifiedAt?: string; items?: Item[] }) => {
         const items = (json.items || []).filter((i) => i.sites?.includes('free') && i.date && i.title)
