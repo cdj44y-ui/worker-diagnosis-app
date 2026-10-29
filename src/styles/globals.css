@@ -58,3 +58,5 @@ a[class~="h-[60px]"][class~="bg-[#1F4E79]"], a[class~="h-[62px]"][class~="bg-[#1
 [class~="text-[#80CBC4]"] { color: #E3D6C6 !important; }
 
 .btn-black-cta { background-color: #111 !important; border-radius: 2px !important; }
+
+[style*="180, 35, 24"], [style*="#B42318"] { color: #111 !important; }
