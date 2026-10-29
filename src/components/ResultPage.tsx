@@ -5,11 +5,12 @@ import { CATEGORIES, getCategoryCaseReferences } from '../data/questions'
 import { LEGAL_REFERENCES, ACTIONS_WORKER, ACTIONS_GRAY, ACTIONS_FREELANCER, EVIDENCE_ITEMS } from '../data/legal-refs'
 import { getVerdictColor, getVerdictText, getBarColor } from '../utils/scoring'
 import { useNavigate } from 'react-router-dom'
-import { RotateCcw, Mail } from 'lucide-react'
+import { RotateCcw } from 'lucide-react'
 import DisclaimerNotice from './DisclaimerNotice'
 import ReportEmailModal from './ReportEmailModal'
 import ShareResultBar from './ShareResultBar'
 import ResultSheet from './brand/ResultSheet'
+import ReportRequest from './ReportRequest'
 
 // 2026-10-18 RISK119 결과 화면 구성 준용 — 법령·판례·고용노동부 발표로 확인된 내용만 사용
 interface Props { result: DiagnosisResult; onRestart: () => void }
@@ -62,6 +63,9 @@ export default function ResultPage({ result, onRestart }: Props) {
         <div className="mt-2 flex justify-between text-[14px] font-semibold text-[#AFC3E8]"><span>0 · 사업자 쪽</span><span>40~65 · 판단 유보</span><span>100 · 근로자 쪽</span></div>
         <p className="mt-6 text-[18px] leading-[1.7] text-[#DCE4F2]">{text.sub}</p>
       </div>
+
+      {/* 2026-10-29 리포트 받기 (기존 노션 전송 모달 대체) */}
+      <div className="-mx-5 md:mx-0"><ReportRequest site="free" answers={result.answers} tallyUrl={`/consult?s=${percentage}&g=${encodeURIComponent(text.title)}`} color="#5C4733" /></div>
 
       {/* 2. 위험 */}
       <div className="rounded-[16px] border-2 p-6 md:p-8 print-break" style={{ borderColor: verdict === 'worker' ? '#F1C5C5' : verdict === 'gray' ? '#EBD9B4' : '#C9DDD1', background: verdict === 'worker' ? '#FDF5F5' : verdict === 'gray' ? '#FCF8EE' : '#F3F8F5' }}>
@@ -158,7 +162,6 @@ export default function ResultPage({ result, onRestart }: Props) {
 
       <div className="rounded-[16px] border border-[#DDE2EA] bg-white p-6 text-center no-print">
         <p className="mb-4 text-[16px] text-[#5B6680]">진단 요약 리포트를 이메일로 받아보실 수 있습니다.</p>
-        <button type="button" onClick={() => setReportOpen(true)} className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-[10px] border-2 border-[#2F5D50]/35 bg-[#2F5D50]/[0.06] px-6 text-[17px] font-semibold text-[#244A40]"><Mail size={20} strokeWidth={2} aria-hidden /> 진단 결과 리포트 받기</button>
       </div>
       <ReportEmailModal open={reportOpen} onClose={() => setReportOpen(false)} result={result}
         onSuccess={() => setToast({ kind: 'ok', message: '리포트가 이메일로 발송됩니다 (영업일 1일 이내)' })}
