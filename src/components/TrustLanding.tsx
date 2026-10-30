@@ -61,7 +61,7 @@ export default function TrustLanding() {
             </div>
             <div className="px-6 py-[26px]">
               <p className="text-[38px] font-extrabold leading-[1.2] tracking-[-1px] md:text-[42px]">
-                {s.inspected}곳 감독,<br /><span className="text-[#B42318]">{s.violated}곳 적발</span>
+                {s.inspected}곳 감독,<br /><span className="text-[#5C4733]">{s.violated}곳 적발</span>
               </p>
               <div className="mt-5 grid grid-cols-2 border-t border-[#DDE2EA] pt-4">
                 <div><p className="text-[28px] font-extrabold">{s.affectedWorkers.toLocaleString('ko-KR')}명</p><p className="text-[15px] text-[#5B6680]">관련 근로자</p></div>
@@ -78,25 +78,29 @@ export default function TrustLanding() {
       {/* 고용노동부 감독 타임라인 */}
       <section className="border-t border-[#DDE2EA] py-10 md:py-14">
         <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-          <p className="text-[17px] font-bold text-[#B42318]">고용노동부 보도자료 원문 기준</p>
+          <p className="text-[17px] font-bold text-[#5C4733]">고용노동부 보도자료 원문 기준</p>
           <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">가짜 3.3 감독, 실제로 이렇게 진행됐습니다</h2>
           <p className="mt-2.5 text-[18px] text-[#5B6680] md:text-[19px]">대상 선정부터 보험료 소급 징수까지, 보도자료로 확인된 순서입니다.</p>
           <div className="mt-6 border-t-2 border-[#14213D]">
+            {/* 2026-10-31 읽기 쉽게: 단계마다 한 줄, 자세한 내용은 펼쳐 보기 */}
             {[
-              ['2025.12.04', '기획감독 착수', '국세청 원천세 신고 자료를 연계해 근로소득자는 5명 미만인데 사업소득자는 많은 사업장 등 100여 곳을 감독 대상으로 선정했습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18691'],
-              ['2026.03.19', '108곳 중 72곳(67%) 적발', '노동자 1,070명이 3.3% 사업소득으로 처리되고 4대보험에 가입되지 않았습니다. 체불임금 6억 8,500만원, 법 위반 256건(범죄인지 9건 포함)이 적발됐습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19096'],
-              ['2026.07.01', '보험료 소급 징수·과태료', '미가입자 전원을 고용·산재보험에 소급 가입시키고 과거 미납 보험료 5억 2천만원을 사업주에게 소급 부과해 징수했습니다. 피보험자격 미신고 사업장에는 과태료를 순차 부과합니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
-              ['2026 하반기', '감독 계속', '국세청 원천세 신고 자료, 익명 제보, 구인광고 모니터링으로 의심 사업장을 골라 집중 감독을 이어갑니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
-            ].map(([d, t, desc, url], i) => (
-              <div key={d} className="grid gap-2 border-b border-[#DDE2EA] py-5 md:grid-cols-[200px_1fr] md:gap-8">
+              ['2025.12.04', '기획감독 착수', '국세청 신고 자료로 100여 곳을 골랐습니다.', '국세청 원천세 신고 자료를 연계해 근로소득자는 5명 미만인데 사업소득자는 많은 사업장 등 100여 곳을 감독 대상으로 선정했습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18691'],
+              ['2026.03.19', '108곳 중 72곳 적발', '1,070명이 3.3%로 처리돼 4대보험에 빠져 있었습니다.', '노동자 1,070명이 3.3% 사업소득으로 처리되고 4대보험에 가입되지 않았습니다. 체불임금 6억 8,500만원, 법 위반 256건(범죄인지 9건 포함)이 적발됐습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19096'],
+              ['2026.07.01', '보험료 소급 징수', '밀린 보험료 5억 2천만원을 사업주에게 걷었습니다.', '미가입자 전원을 고용·산재보험에 소급 가입시키고 과거 미납 보험료 5억 2천만원을 사업주에게 소급 부과해 징수했습니다. 피보험자격 미신고 사업장에는 과태료를 순차 부과합니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
+              ['2026 하반기', '감독 계속', '제보와 구인광고로 의심 사업장을 계속 봅니다.', '국세청 원천세 신고 자료, 익명 제보, 구인광고 모니터링으로 의심 사업장을 골라 집중 감독을 이어갑니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
+            ].map(([d, t, short, desc, url], i) => (
+              <div key={d} className="grid grid-cols-[36px_1fr] gap-3 border-b border-[#E6E6E6] py-5 md:grid-cols-[48px_180px_1fr] md:gap-6">
+                <span className="text-[24px] font-light leading-none text-[#5C4733]">{i + 1}</span>
+                <p className="hidden text-[16px] font-bold text-[#666] md:block">{d}</p>
                 <div>
-                  <div className="flex gap-1.5">{[0, 1, 2, 3].map((j) => <i key={j} className={'block h-2.5 flex-1 rounded ' + (j < i ? 'bg-[#14213D]' : j === i ? 'bg-[#B42318]' : 'bg-[#E6EAF0]')} />)}</div>
-                  <p className="mt-3 text-[18px] font-bold">{d}</p>
-                </div>
-                <div>
-                  <h3 className="text-[22px] font-bold">{t}</h3>
-                  <p className="mt-1.5 text-[17px] leading-[1.75] text-[#3D4A63]">{desc}</p>
-                  <a href={url} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-[14px] font-semibold text-[#244A40] underline underline-offset-4">고용노동부 보도자료 보기</a>
+                  <p className="text-[15px] font-bold text-[#666] md:hidden">{d}</p>
+                  <h3 className="text-[20px] font-bold md:text-[22px]">{t}</h3>
+                  <p className="mt-1 text-[17px] leading-[1.6] text-[#333]">{short}</p>
+                  <details className="mt-1 text-[15px] text-[#555]">
+                    <summary className="cursor-pointer py-1.5 font-bold">자세히</summary>
+                    <p className="leading-[1.7]">{desc}</p>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block font-semibold text-[#5C4733] underline underline-offset-4">고용노동부 보도자료 보기</a>
+                  </details>
                 </div>
               </div>
             ))}
@@ -133,11 +137,14 @@ export default function TrustLanding() {
           <div>
             <span className="inline-block rounded-md bg-[#FDF3E2] px-3 py-1 text-[15px] font-bold text-[#9A5B00]">입법 전 · 국회 논의 중</span>
             <h2 className="mt-3 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">근로자 추정제가 도입되면,<br />증명할 사람이 바뀝니다</h2>
-            <p className="mt-4 text-[18px] leading-[1.75] text-[#3D4A63]">발의된 근로기준법 개정안은 "다른 사람의 사업을 위하여 자신이 직접 노무를 제공하는 사람"을 근로자로 추정합니다. 지금은 일하는 사람이 근로자임을 증명하지만, 도입되면 회사가 <b className="text-[#14213D]">근로자가 아님</b>을 증명해야 합니다.</p>
-            <p className="mt-4 text-[15px] leading-[1.7] text-[#8A94A6]">근거: 근로기준법 일부개정법률안(2025.12.24 김주영 의원 대표발의) 등 관련 법안 국회 계류 · 2026.10.15 국회 토론회 기준. 최종 내용과 시행일은 입법 과정에서 달라질 수 있습니다.</p>
+            <p className="mt-4 text-[18px] leading-[1.7] text-[#333]">도입되면 회사가 <b className="text-[#111]">근로자가 아님</b>을 증명해야 합니다.</p>
+            <details className="mt-3 text-[15px] text-[#555]">
+              <summary className="cursor-pointer py-1.5 font-bold">근거 보기</summary>
+              <p className="leading-[1.7]">발의된 근로기준법 개정안은 "다른 사람의 사업을 위하여 자신이 직접 노무를 제공하는 사람"을 근로자로 추정합니다. 근로기준법 일부개정법률안(2025.12.24 김주영 의원 대표발의) 등 관련 법안 국회 계류 · 2026.10.15 국회 토론회 기준. 최종 내용과 시행일은 입법 과정에서 달라질 수 있습니다.</p>
+            </details>
           </div>
           <div className="grid gap-3 self-center">
-            {[['지금', '일하는 사람이 지휘·감독, 시간·장소 구속 등을 직접 증명', '#5B6680', '#F5F7FA'], ['추정제 도입 시', '회사가 계약서·운영 기록으로 근로자가 아님을 반증', '#B42318', '#FDECEC']].map(([t, d, c, bg]) => (
+            {[['지금', '일하는 사람이 지휘·감독, 시간·장소 구속 등을 직접 증명', '#5B6680', '#F5F7FA'], ['추정제 도입 시', '회사가 계약서·운영 기록으로 근로자가 아님을 반증', '#5C4733', '#F5F5F4']].map(([t, d, c, bg]) => (
               <div key={t} className="rounded-[14px] border border-[#DDE2EA] p-6" style={{ background: bg }}>
                 <p className="text-[16px] font-bold" style={{ color: c }}>{t}</p>
                 <p className="mt-1.5 text-[19px] font-semibold leading-[1.55] text-[#14213D]">{d}</p>
