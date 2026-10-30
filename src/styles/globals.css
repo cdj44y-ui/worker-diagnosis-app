@@ -68,8 +68,8 @@ main [class*="shadow-"] { box-shadow: none !important; }
 main [class*="bg-[#B42318]"] { background: #5C4733 !important; }
 @media (max-width: 767px) { main img[class*="object-cover"][class*="w-[260px]"] { width: 120px !important; height: 156px !important; } }
 
-/* 2026-10-31 easy7 문항 화면: 질문 → 답 → 판례 근거 순서(토스식) */
-div[class*="md:p-8"]:has(> h2):has(> div.grid) { display: flex; flex-direction: column; }
-div[class*="md:p-8"]:has(> h2) > div[class*="bg-[#F8FAFC]"] { order: 5; margin-top: 20px; }
-div[class*="md:p-8"]:has(> h2) > p[class*="text-[14px]"] { order: 6; }
-@media (max-width: 767px) { div[class*="md:p-8"]:has(> h2):has(> div.grid) { padding: 20px 16px !important; } div[class*="md:p-8"]:has(> h2) > div.grid > button { padding-left: 14px !important; padding-right: 14px !important; gap: 10px !important; border-radius: 4px !important; } }
+/* 2026-10-31 easy7: 접힌 항목에 펼침 표시(+/−) */
+main details > summary.flex { list-style: none; }
+main details > summary.flex::-webkit-details-marker { display: none; }
+main details > summary.flex::after { content: '+'; margin-left: auto; padding-left: 12px; font-weight: 400; font-size: 22px; opacity: .7; }
+main details[open] > summary.flex::after { content: '−'; }
