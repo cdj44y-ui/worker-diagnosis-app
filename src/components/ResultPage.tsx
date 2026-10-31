@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { CategoryScore, DiagnosisResult } from '../types'
 import { CATEGORIES, getCategoryCaseReferences } from '../data/questions'
 import { LEGAL_REFERENCES, ACTIONS_WORKER, ACTIONS_GRAY, ACTIONS_FREELANCER, EVIDENCE_ITEMS } from '../data/legal-refs'
-import { getVerdictColor, getVerdictText, getBarColor } from '../utils/scoring'
+import { getVerdictText, getBarColor } from '../utils/scoring'
 import { useNavigate } from 'react-router-dom'
 import { RotateCcw } from 'lucide-react'
 import DisclaimerNotice from './DisclaimerNotice'
@@ -32,7 +32,6 @@ export default function ResultPage({ result, onRestart }: Props) {
 
   const { percentage: rawPct, verdict, categoryScores, presumptionMet, presumptionItems, answers } = result
   const percentage = Math.round(rawPct)
-  const color = getVerdictColor(verdict)
   const text = getVerdictText(verdict)
   const { riskWarning } = text
   const actions = verdict === 'worker' ? ACTIONS_WORKER : verdict === 'gray' ? ACTIONS_GRAY : ACTIONS_FREELANCER
@@ -48,34 +47,12 @@ export default function ResultPage({ result, onRestart }: Props) {
     <div className="animate-slide-up space-y-5 pb-24 text-[#14213D] [word-break:keep-all]">
       {/* 결과지 (브랜드 v1.1 공통 형식) */}
       <ResultSheet result={result} title={text.title} percentage={percentage} />
-      <div className="flex flex-col items-start gap-3 rounded-[12px] border border-[#D1D5DB] bg-white p-5 md:flex-row md:items-center md:justify-between md:p-6 no-print">
+      <div className="flex flex-col items-start gap-3 border border-[#E6E6E6] bg-white p-5 md:flex-row md:items-center md:justify-between md:p-6 no-print">
         <p className="text-[17px] leading-[1.6] text-[#374151]">이 결과지를 바탕으로 계약 구조와 소급 부담을 함께 정리합니다. 상담은 유료 자문입니다.</p>
-        <button type="button" onClick={goConsult} className="inline-flex min-h-[54px] shrink-0 items-center rounded-[10px] bg-[#1F4E79] px-6 text-[18px] font-bold text-white hover:bg-[#173B5C]">상담 신청서 작성</button>
+        <button type="button" onClick={goConsult} className="inline-flex min-h-[54px] shrink-0 items-center bg-[#111] px-6 text-[18px] font-bold text-white hover:bg-[#333]">상담 신청서 작성</button>
       </div>
-      {/* 1. 결과 */}
-      <div className="overflow-hidden rounded-[16px] bg-[#14213D] p-8 text-white print-break md:p-10">
-        <p className="text-[16px] font-bold text-[#80CBC4]">근로자성 자가진단 결과</p>
-        <div className="mt-3 flex flex-wrap items-end gap-x-6 gap-y-2">
-          <p className="text-[84px] font-extrabold leading-none tracking-[-3px] tabular-nums">{percentage}<span className="ml-1 text-[26px] font-bold tracking-normal text-[#AFC3E8]">/ 100</span></p>
-          <p className="mb-2 rounded-md bg-white px-3 py-1.5 text-[19px] font-extrabold" style={{ color }}>{text.title}</p>
-        </div>
-        <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/15"><div className="h-full rounded-full transition-all duration-1000" style={{ width: `${percentage}%`, background: '#80CBC4' }} /></div>
-        <div className="mt-2 flex justify-between text-[14px] font-semibold text-[#AFC3E8]"><span>0 · 사업자 쪽</span><span>40~65 · 판단 유보</span><span>100 · 근로자 쪽</span></div>
-        <p className="mt-6 text-[18px] leading-[1.7] text-[#DCE4F2]">{text.sub}</p>
-      </div>
-
-      {/* 2026-10-29 리포트 받기 (기존 노션 전송 모달 대체) */}
-      <div className="-mx-5 md:mx-0"><ReportRequest site="free" answers={result.answers} tallyUrl={`/consult?s=${percentage}&g=${encodeURIComponent(text.title)}`} color="#5C4733" /></div>
-
-      {/* 2. 위험 */}
-      <div className="rounded-[16px] border-2 p-6 md:p-8 print-break" style={{ borderColor: verdict === 'worker' ? '#F1C5C5' : verdict === 'gray' ? '#EBD9B4' : '#C9DDD1', background: verdict === 'worker' ? '#FDF5F5' : verdict === 'gray' ? '#FCF8EE' : '#F3F8F5' }}>
-        <h3 className="text-[23px] font-bold leading-snug">{riskWarning.title.replace(/^[^가-힣A-Za-z0-9]+/, '')}</h3>
-        <p className="mt-3 text-[18px] leading-[1.75] text-[#3D4A63]">{riskWarning.description}</p>
-        {riskWarning.estimatedCost ? <p className="mt-3 border-t border-[#E6DADA] pt-3 text-[15px] leading-[1.7] text-[#5B6680]">{riskWarning.estimatedCost}</p> : null}
-      </div>
-
       {/* 3. 판단을 가른 영역 */}
-      <div className="rounded-[16px] border border-[#DDE2EA] bg-white p-6 md:p-8 print-break">
+      <div className="border border-[#E6E6E6] bg-white p-6 md:p-8 print-break">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div><h3 className="text-[24px] font-bold">판단을 가른 영역</h3><p className="mt-1 text-[16px] text-[#5B6680]">근로자 쪽으로 기운 정도가 큰 영역부터 보여드립니다.</p></div>
           <div className="flex gap-3 text-[14px] font-semibold text-[#3D4A63]">{[['근로자 쪽', '#a85a66'], ['중립', '#9a8468'], ['사업자 쪽', '#5a8f78']].map(([l, c]) => <span key={l} className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded-sm" style={{ background: c }} />{l}</span>)}</div>
@@ -83,60 +60,68 @@ export default function ResultPage({ result, onRestart }: Props) {
         <div className="mt-6 divide-y divide-[#E6EAF0]">{sorted.map((cs) => <CategoryAnalysisRow key={cs.id} cs={cs} />)}</div>
       </div>
 
-      {/* 4. 사업주 부담 */}
-      {verdict !== 'freelancer' && (
-        <div className="rounded-[16px] bg-[#14213D] p-6 text-white md:p-8 print-break">
-          <p className="text-[15px] font-bold text-[#80CBC4]">근로자로 판단되면</p>
-          <h3 className="mt-1 text-[26px] font-bold leading-snug">사업주가 부담하게 되는 것</h3>
-          <p className="mt-2 text-[16px] leading-[1.7] text-[#C9D1E0]">가장 먼저 돌아오는 것은 4대보험 소급분입니다. 지난 고용노동부 감독에서는 적발 사업장에 5억 2천만원이 소급 징수됐습니다.</p>
-          <div className="mt-5 grid gap-3 md:grid-cols-2">
-            {BURDEN.map(([t, d, law]) => (
-              <div key={t} className="rounded-xl border border-[#3A4A6A] bg-[#1B2A4A] p-5">
-                <p className="text-[19px] font-bold">{t}</p>
-                <p className="mt-1.5 text-[16px] leading-[1.65] text-[#DCE4F2]">{d}</p>
-                <p className="mt-2 text-[13px] font-semibold text-[#9AA9C7]">{law}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* 2026-10-29 리포트 받기 (기존 노션 전송 모달 대체) */}
+      <div className="-mx-5 md:mx-0"><ReportRequest site="free" answers={result.answers} tallyUrl={`/consult?s=${percentage}&g=${encodeURIComponent(text.title)}`} color="#5C4733" /></div>
 
-      {/* 5. 추정제 */}
-      <div className="rounded-[16px] border border-[#EBD9B4] bg-[#FFFBF2] p-6 md:p-8 print-break">
-        <span className="inline-block rounded-md bg-[#FDF3E2] px-2.5 py-1 text-[14px] font-bold text-[#9A5B00]">근로자 추정제 · 입법 전 국회 논의 중</span>
-        <h3 className="mt-3 text-[22px] font-bold leading-snug">도입되면 회사가 "근로자가 아님"을 증명해야 합니다</h3>
-        <p className="mt-2 text-[16px] leading-[1.7] text-[#3D4A63]">판례상 핵심 판단요소 5개 중 <b>{presumptionMet}개</b>가 근로자 쪽으로 충족됐습니다. 아래 지표는 법안의 추정 요건과 같지 않으며, 최종 내용은 입법 과정에서 달라질 수 있습니다.</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {presumptionItems.map((p) => <span key={p.label} className={'rounded-lg border px-3 py-1.5 text-[15px] font-semibold ' + (p.met ? 'border-[#F1C5C5] bg-white text-[#9A2B2B]' : 'border-[#E6EAF0] bg-white text-[#8A94A6]')}>{p.met ? '충족' : '미충족'} · {p.label}</span>)}
+      {/* 7. 후속 조치·증거 */}
+      <div className="border border-[#E6E6E6] bg-white p-6 md:p-8 print-break">
+        <h3 className="text-[22px] font-bold">지금 할 수 있는 일</h3>
+        <div className="mt-4 border-t border-[#111]">{actions.map((a) => <div key={a.bold} className="border-b border-[#E6EAF0] py-3.5 text-[17px] leading-[1.65]"><b>{a.bold}</b> — <span className="text-[#3D4A63]">{a.detail}</span></div>)}</div>
+
+      </div>
+
+      {/* 더 알아보기 — 2026-10-31 읽기 쉽게: 긴 설명은 접어 두기(노션 토글) */}
+      <div className="border border-[#E6E6E6] bg-white p-6 md:p-8 print-break">
+        <h3 className="text-[22px] font-bold">더 알아보기</h3>
+        <div className="mt-4 border-t border-[#111]">
+          <details className="border-b border-[#E6E6E6]">
+            <summary className="flex min-h-[56px] cursor-pointer items-center py-3 text-[18px] font-bold">{riskWarning.title.replace(/^[^가-힣A-Za-z0-9]+/, '')}</summary>
+            <p className="pb-3 text-[17px] leading-[1.7] text-[#333]">{riskWarning.description}</p>
+            {riskWarning.estimatedCost ? <p className="pb-4 text-[15px] leading-[1.7] text-[#666]">{riskWarning.estimatedCost}</p> : null}
+          </details>
+          {verdict !== 'freelancer' && (
+            <details className="border-b border-[#E6E6E6]">
+              <summary className="flex min-h-[56px] cursor-pointer items-center py-3 text-[18px] font-bold">근로자로 판단되면 사업주가 부담하는 것</summary>
+              <p className="pb-2 text-[16px] leading-[1.7] text-[#333]">가장 먼저 돌아오는 것은 4대보험 소급분입니다. 지난 고용노동부 감독에서는 5억 2천만원이 소급 징수됐습니다.</p>
+              <ul className="pb-4">
+                {BURDEN.map(([t, d, law]) => (
+                  <li key={t} className="py-2 text-[16px] leading-[1.65]"><b>{t}</b> <span className="text-[#444]">{d}</span> <span className="text-[14px] text-[#777]">{law}</span></li>
+                ))}
+              </ul>
+            </details>
+          )}
+          <details className="border-b border-[#E6E6E6]">
+            <summary className="flex min-h-[56px] cursor-pointer items-center py-3 text-[18px] font-bold">근로자 추정제가 도입되면 (입법 전)</summary>
+            <p className="pb-3 text-[16px] leading-[1.7] text-[#333]">도입되면 회사가 "근로자가 아님"을 증명해야 합니다. 판례상 핵심 판단요소 5개 중 <b>{presumptionMet}개</b>가 근로자 쪽으로 충족됐습니다. 이 지표는 법안의 추정 요건과 같지 않으며, 최종 내용은 입법 과정에서 달라질 수 있습니다.</p>
+            <ul className="pb-4">
+              {presumptionItems.map((p) => <li key={p.label} className="py-1 text-[16px]"><span className={p.met ? 'font-bold text-[#5C4733]' : 'text-[#888]'}>{p.met ? '충족' : '미충족'}</span> · {p.label}</li>)}
+            </ul>
+          </details>
+          {percentage >= 40 && (
+            <details className="border-b border-[#E6E6E6]">
+              <summary className="flex min-h-[56px] cursor-pointer items-center py-3 text-[18px] font-bold">근로감독·분쟁 대비 자료</summary>
+              <div className="pb-4">{EVIDENCE_ITEMS.map((e) => <div key={e.bold} className="py-2 text-[16px] leading-[1.65]"><b>{e.bold}</b> — <span className="text-[#444]">{e.detail}</span></div>)}</div>
+            </details>
+          )}
         </div>
       </div>
 
       {/* 6. 전문가·제안 */}
-      <div className="grid items-start gap-6 rounded-[16px] border border-[#DDE2EA] bg-[#F7F9FC] p-6 md:grid-cols-[150px_1fr] md:p-8 print-break">
-        <img src="/expert/cho-daejin.jpg" alt="조대진 대표노무사" width={150} height={195} className="h-[195px] w-[150px] rounded-xl object-cover" />
+      <div className="grid items-start gap-6 border border-[#E6E6E6] bg-[#F5F5F4] p-6 md:grid-cols-[150px_1fr] md:p-8 print-break">
+        <img src="/expert/cho-daejin.jpg" alt="조대진 대표노무사" width={150} height={195} className="h-[156px] w-[120px] object-cover" />
         <div>
-          <p className="text-[15px] font-bold text-[#2F5D50]">이 결과를 함께 정리할 사람</p>
+          <p className="text-[15px] font-bold text-[#5C4733]">이 결과를 함께 정리할 사람</p>
           <p className="mt-1 text-[26px] font-bold">대기업 인사팀 출신 노무사, 조대진</p>
           <p className="mt-1 text-[16px] text-[#5B6680]">공인노무사 16년 · 안전공학 박사 · 노무법인 위너스 · 현대카드·삼성서울병원 인사 출신</p>
           <p className="mt-3 text-[17px] leading-[1.7] text-[#3D4A63]">카드모집인, 대출모집인, 병원 연구원, 방문 점검원, 헤어 디자이너, 헬스 트레이너까지 직군마다 다른 근로자성 쟁점을 직접 다뤄 왔습니다.</p>
-          <div className="mt-4 border-t-2 border-[#14213D]">
+          <div className="mt-4 border-t border-[#111]">
             {[['1', '결과 검토', '진단 결과로 근로자성이 문제 될 인력과 기간을 정리합니다.'], ['2', '소급 부담 산정', '4대보험·퇴직금 등 과거분 규모와 정리 방안을 세웁니다.'], ['3', '계약 구조 정비', '실제 운영과 계약서가 맞도록 구조를 다시 설계합니다.']].map(([n, t, d]) => (
-              <div key={n} className="grid grid-cols-[36px_1fr] gap-2 border-b border-[#DDE2EA] py-3"><span className="text-[20px] font-extrabold text-[#2F5D50]">{n}</span><p className="text-[17px] leading-[1.6]"><b>{t}</b> — <span className="text-[#3D4A63]">{d}</span></p></div>
+              <div key={n} className="grid grid-cols-[36px_1fr] gap-2 border-b border-[#DDE2EA] py-3"><span className="text-[20px] font-extrabold text-[#5C4733]">{n}</span><p className="text-[17px] leading-[1.6]"><b>{t}</b> — <span className="text-[#3D4A63]">{d}</span></p></div>
             ))}
           </div>
-          <button type="button" onClick={goConsult} className="mt-5 inline-flex min-h-[60px] w-full items-center justify-center rounded-[12px] bg-[#1F4E79] px-7 text-[19px] font-bold text-white hover:bg-[#173B5C] md:w-auto">상담 신청서 작성하기 →</button>
+          <button type="button" onClick={goConsult} className="mt-5 inline-flex min-h-[60px] w-full items-center justify-center bg-[#111] px-7 text-[19px] font-bold text-white hover:bg-[#333] md:w-auto">상담 신청서 작성하기 →</button>
           <p className="mt-3 text-[15px] leading-[1.6] text-[#5B6680]">진단 결과는 신청서에 자동으로 담깁니다. 상담은 유료 자문으로 진행되며, 신청서 확인 후 일정과 비용을 안내드립니다. 일정에 따라 노무법인 위너스 소속의 경험 많은 노무사가 먼저 연락드릴 수 있습니다.</p>
         </div>
-      </div>
-
-      {/* 7. 후속 조치·증거 */}
-      <div className="rounded-[16px] border border-[#DDE2EA] bg-white p-6 md:p-8 print-break">
-        <h3 className="text-[22px] font-bold">지금 할 수 있는 일</h3>
-        <div className="mt-4 border-t-2 border-[#14213D]">{actions.map((a) => <div key={a.bold} className="border-b border-[#E6EAF0] py-3.5 text-[17px] leading-[1.65]"><b>{a.bold}</b> — <span className="text-[#3D4A63]">{a.detail}</span></div>)}</div>
-        {percentage >= 40 && (<>
-          <h4 className="mt-7 text-[19px] font-bold">근로감독·분쟁 대비 자료</h4>
-          <div className="mt-3 border-t border-[#DDE2EA]">{EVIDENCE_ITEMS.map((e) => <div key={e.bold} className="border-b border-[#E6EAF0] py-3 text-[16px] leading-[1.65]"><b>{e.bold}</b> — <span className="text-[#3D4A63]">{e.detail}</span></div>)}</div>
-        </>)}
       </div>
 
       {/* 8. 상세 */}
