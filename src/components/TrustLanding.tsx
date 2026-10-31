@@ -1,4 +1,3 @@
-import LawCalendar from './brand/LawCalendar'
 import { PROMISE } from './brand/brand'
 import { Link } from 'react-router-dom'
 import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
@@ -7,14 +6,6 @@ import { CRACKDOWN_DATA, formatCrackdownDate } from '../data/crackdownData'
 // 2026-10-18 RISK119 신뢰형 구성 적용 — 판례·법령·고용노동부 발표로 확인된 내용만 사용, 사업장 실명 미사용
 const btnPrimary = 'inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#5C4733] px-8 text-[19px] font-bold text-white transition hover:bg-[#4A3929]'
 const btnGhost = 'inline-flex h-[60px] items-center justify-center rounded-[10px] bg-[#111111] px-8 text-[19px] font-bold text-white transition hover:bg-[#333333]'
-
-const FIVE = [
-  { no: '1', t: '사용종속성 (지휘·감독)', d: '업무 내용을 누가 정하고, 일하는 과정에서 구체적인 지시·감독을 받는지 봅니다.', c: '대법원 94다22859 · 2004다29736' },
-  { no: '2', t: '시간·장소 구속', d: '출퇴근 시간과 근무 장소를 회사가 정하고 지키게 하는지 봅니다.', c: '대법원 2015두38092' },
-  { no: '3', t: '경제적 종속성', d: '보수를 누가 어떻게 정하는지, 소득을 한 곳에 의존하는지 봅니다.', c: '대법원 2020다267491' },
-  { no: '4', t: '플랫폼·간접 통제', d: '앱·알고리즘·평가를 통한 통제와 중간업체 구조 뒤의 실질 사용자를 봅니다.', c: '대법원 2024두32973' },
-  { no: '5', t: '형식적 지표', d: '계약서 명칭, 3.3% 원천징수, 4대보험 미가입만으로 근로자성을 부정하지 않습니다.', c: '대법원 2021도11675' },
-]
 
 const JOBS = [
   { job: '카드모집인', point: '실적 수수료 구조인데 영업 목표·출근·교육 지시가 있는 경우' },
@@ -26,14 +17,6 @@ const JOBS = [
 ]
 
 
-
-const DUTIES = [
-  ['퇴직금', '계속근로 1년에 30일분 이상의 평균임금', '근로자퇴직급여 보장법 제8조'],
-  ['연차휴가', '1년간 80% 이상 출근 시 15일의 유급휴가', '근로기준법 제60조'],
-  ['가산수당', '연장근로에 통상임금의 50% 이상 가산', '근로기준법 제56조'],
-  ['해고 제한', '정당한 이유 없는 해고 금지, 3개월 이내 노동위원회 구제신청', '근로기준법 제23조, 제28조'],
-  ['과거분', '임금·퇴직금 채권은 3년간 행사 가능', '근로기준법 제49조, 근로자퇴직급여 보장법 제10조'],
-]
 
 export default function TrustLanding() {
   const s = CRACKDOWN_DATA.summary
@@ -48,7 +31,7 @@ export default function TrustLanding() {
               프리랜서 계약서가 있어도,<br />일하는 방식이 근로자라면<br />근로자입니다
             </h1>
             <p className="mt-6 max-w-[560px] text-[19px] leading-[1.75] text-[#333333] md:text-[20px]">
-              3.3%로 계약한 인력도 근로자로 판단될 수 있습니다. 대법원은 계약서 이름이 아니라 실제 일하는 방식을 봅니다. 그 판단요소로 직접 점검해 보세요.
+              대법원이 보는 5가지 기준으로, 3.3% 계약 인력이 근로자로 판단될지 5분 만에 점검합니다.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link to="/diagnosis" className={btnPrimary}>진단 시작하기 →</Link>
@@ -56,107 +39,21 @@ export default function TrustLanding() {
             </div>
             <p className="mt-5 text-[16px] text-[#666666]">{PROMISE}</p>
           </div>
-          <div className="self-start overflow-hidden rounded-[14px] border border-[#E6E6E6]">
-            <div className="flex justify-between bg-[#111111] px-6 py-[18px] text-[16px] font-semibold text-white">
-              <span>가짜 3.3% 기획감독 결과</span><span>{formatCrackdownDate(CRACKDOWN_DATA.updatedAt)} 발표</span>
+          {/* 2026-10-31 lean: 진단에서 드리는 것 / 상담에서 하는 것 */}
+          <div className="self-start border border-[#111111] bg-white">
+            <div className="border-b border-[#E6E6E6] px-6 py-5">
+              <p className="text-[15px] font-bold text-[#5C4733]">진단에서 바로 확인</p>
+              <ul className="mt-2 space-y-1.5 text-[17px] leading-[1.6]"><li>근로자성 점수와 판단</li><li>판단을 가른 영역과 근거 판례</li><li>메일 리포트</li></ul>
             </div>
-            <div className="px-6 py-[26px]">
-              <p className="text-[38px] font-extrabold leading-[1.2] tracking-[-1px] md:text-[42px]">
-                {s.inspected}곳 감독,<br /><span className="text-[#5C4733]">{s.violated}곳 적발</span>
-              </p>
-              <div className="mt-5 grid grid-cols-2 border-t border-[#E6E6E6] pt-4">
-                <div><p className="text-[28px] font-extrabold">{s.affectedWorkers.toLocaleString('ko-KR')}명</p><p className="text-[15px] text-[#666666]">관련 근로자</p></div>
-                <div><p className="text-[28px] font-extrabold">{(s.unpaidWages / 100000000).toFixed(2)}억 원</p><p className="text-[15px] text-[#666666]">체불 적발 금액</p></div>
-              </div>
-              <p className="mt-4 text-[16px] leading-[1.65] text-[#333333]">{CRACKDOWN_DATA.followUp.text}</p>
-              <p className="mt-4 border-t border-[#E6E6E6] pt-3 text-[14px] text-[#666666]">출처: <a href={CRACKDOWN_DATA.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#4A3929] underline underline-offset-4">고용노동부 보도자료({formatCrackdownDate(CRACKDOWN_DATA.updatedAt)})</a>, <a href={CRACKDOWN_DATA.followUp.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#4A3929] underline underline-offset-4">후속조치({formatCrackdownDate(CRACKDOWN_DATA.followUp.date)})</a></p>
+            <div className="bg-[#F5F5F4] px-6 py-5">
+              <p className="text-[15px] font-bold text-[#666666]">상담에서 함께</p>
+              <ul className="mt-2 space-y-1.5 text-[17px] leading-[1.6] text-[#333333]"><li>4대보험·퇴직금 소급 규모 산정</li><li>계약 구조와 운영 방식 재설계</li><li>감독·분쟁 대비 자료 정리</li></ul>
             </div>
+            <p className="border-t border-[#E6E6E6] px-6 py-3 text-[14px] text-[#666666]">지난 기획감독 {s.inspected}곳 중 {s.violated}곳 적발 · <a href={CRACKDOWN_DATA.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">고용노동부 {formatCrackdownDate(CRACKDOWN_DATA.updatedAt)}</a></p>
           </div>
         </div>
       </section>
 
-
-      {/* 고용노동부 감독 타임라인 */}
-      <section className="border-t border-[#E6E6E6] py-10 md:py-14">
-        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-          <p className="text-[17px] font-bold text-[#5C4733]">고용노동부 보도자료 원문 기준</p>
-          <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">가짜 3.3 감독, 실제로 이렇게 진행됐습니다</h2>
-          <p className="mt-2.5 text-[18px] text-[#666666] md:text-[19px]">대상 선정부터 보험료 소급 징수까지, 보도자료로 확인된 순서입니다.</p>
-          <div className="mt-6 border-t-2 border-[#111111]">
-            {/* 2026-10-31 읽기 쉽게: 단계마다 한 줄, 자세한 내용은 펼쳐 보기 */}
-            {[
-              ['2025.12.04', '기획감독 착수', '국세청 신고 자료로 100여 곳을 골랐습니다.', '국세청 원천세 신고 자료를 연계해 근로소득자는 5명 미만인데 사업소득자는 많은 사업장 등 100여 곳을 감독 대상으로 선정했습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=18691'],
-              ['2026.03.19', '108곳 중 72곳 적발', '1,070명이 3.3%로 처리돼 4대보험에 빠져 있었습니다.', '노동자 1,070명이 3.3% 사업소득으로 처리되고 4대보험에 가입되지 않았습니다. 체불임금 6억 8,500만원, 법 위반 256건(범죄인지 9건 포함)이 적발됐습니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19096'],
-              ['2026.07.01', '보험료 소급 징수', '밀린 보험료 5억 2천만원을 사업주에게 걷었습니다.', '미가입자 전원을 고용·산재보험에 소급 가입시키고 과거 미납 보험료 5억 2천만원을 사업주에게 소급 부과해 징수했습니다. 피보험자격 미신고 사업장에는 과태료를 순차 부과합니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
-              ['2026 하반기', '감독 계속', '제보와 구인광고로 의심 사업장을 계속 봅니다.', '국세청 원천세 신고 자료, 익명 제보, 구인광고 모니터링으로 의심 사업장을 골라 집중 감독을 이어갑니다.', 'https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19599'],
-            ].map(([d, t, short, desc, url], i) => (
-              <div key={d} className="grid grid-cols-[36px_1fr] gap-3 border-b border-[#E6E6E6] py-5 md:grid-cols-[48px_180px_1fr] md:gap-6">
-                <span className="text-[24px] font-light leading-none text-[#5C4733]">{i + 1}</span>
-                <p className="hidden text-[16px] font-bold text-[#666] md:block">{d}</p>
-                <div>
-                  <p className="text-[15px] font-bold text-[#666] md:hidden">{d}</p>
-                  <h3 className="text-[20px] font-bold md:text-[22px]">{t}</h3>
-                  <p className="mt-1 text-[17px] leading-[1.6] text-[#333]">{short}</p>
-                  <details className="mt-1 text-[15px] text-[#555]">
-                    <summary className="cursor-pointer py-1.5 font-bold">자세히</summary>
-                    <p className="leading-[1.7]">{desc}</p>
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block font-semibold text-[#5C4733] underline underline-offset-4">고용노동부 보도자료 보기</a>
-                  </details>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4대보험 소급과 사업주 부담 */}
-      <section className="border-t border-[#E6E6E6] bg-[#111111] py-16 text-white md:py-[88px]">
-        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-          <p className="text-[17px] font-bold text-[#D9C9B6]">가장 먼저 돌아오는 비용</p>
-          <h2 className="mt-2 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">4대보험을 소급해 가입하면, 사업주가 부담하는 것</h2>
-          <p className="mt-2.5 max-w-[760px] text-[18px] leading-[1.7] text-[#CFCFCF] md:text-[19px]">근로자로 판단되면 내지 않은 보험료가 과거 기간까지 부과됩니다. 지난 감독에서는 5억 2천만원이 소급 징수됐습니다.</p>
-          <div className="mt-8 border-t border-[#3A3A3A]">
-            {[
-              ['보험료 사업주 몫', '건강보험·국민연금은 근로자와 같은 금액을 사업주가 냅니다. 고용보험은 실업급여분의 절반과 고용안정·직업능력개발분 전액을, 산재보험은 전액을 사업주가 냅니다.', '국민건강보험법 제76조, 국민연금법 제88조, 고용·산재보험료징수법 제13조'],
-              ['최대 3년을 거슬러', '보험료 징수권은 3년간 행사할 수 있습니다. 미가입 기간이 길수록 소급액이 커집니다.', '국민건강보험법 제91조, 국민연금법 제115조, 고용·산재보험료징수법 제41조'],
-              ['연체금·가산금', '납부기한이 지나면 연체금이 붙습니다. 고용·산재보험은 확정보험료를 신고하지 않거나 사실과 다르게 신고해 징수되면 보험료의 10%가 가산금으로 더해집니다.', '고용·산재보험료징수법 제24조·제25조, 국민연금법 제97조, 국민건강보험법 제80조'],
-              ['과태료와 노동법 의무', '피보험자격을 신고하지 않으면 과태료가 부과됩니다. 퇴직금·연차·가산수당 같은 근로자 관련 의무도 함께 따릅니다.', '고용노동부 보도자료(2026.7.1), 근로자퇴직급여 보장법 제8조, 근로기준법'],
-            ].map(([t, d, law]) => (
-              <details key={t} className="border-b border-[#3A3A3A]">
-                <summary className="flex min-h-[48px] cursor-pointer items-center py-3 text-[19px] font-bold">{t}</summary>
-                <p className="pb-2 text-[17px] leading-[1.7] text-[#E6E6E6]">{d}</p>
-                <p className="pb-4 text-[14px] font-semibold text-[#AAAAAA]">근거: {law}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 근로자 추정제 */}
-      <section className="border-t border-[#E6E6E6] py-10 md:py-14">
-        <div className="mx-auto grid max-w-[1120px] gap-10 px-6 md:grid-cols-[1fr_1fr] md:px-8">
-          <div>
-            <span className="inline-block rounded-md bg-[#F5F5F4] px-3 py-1 text-[15px] font-bold text-[#5C4733]">입법 전 · 국회 논의 중</span>
-            <h2 className="mt-3 text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">근로자 추정제가 도입되면,<br />증명할 사람이 바뀝니다</h2>
-            <p className="mt-4 text-[18px] leading-[1.7] text-[#333]">도입되면 회사가 <b className="text-[#111]">근로자가 아님</b>을 증명해야 합니다.</p>
-            <details className="mt-3 text-[15px] text-[#555]">
-              <summary className="cursor-pointer py-1.5 font-bold">근거 보기</summary>
-              <p className="leading-[1.7]">발의된 근로기준법 개정안은 "다른 사람의 사업을 위하여 자신이 직접 노무를 제공하는 사람"을 근로자로 추정합니다. 근로기준법 일부개정법률안(2025.12.24 김주영 의원 대표발의) 등 관련 법안 국회 계류 · 2026.10.15 국회 토론회 기준. 최종 내용과 시행일은 입법 과정에서 달라질 수 있습니다.</p>
-            </details>
-          </div>
-          <div className="grid gap-3 self-center">
-            {[['지금', '일하는 사람이 지휘·감독, 시간·장소 구속 등을 직접 증명', '#666666', '#F5F5F4'], ['추정제 도입 시', '회사가 계약서·운영 기록으로 근로자가 아님을 반증', '#5C4733', '#F5F5F4']].map(([t, d, c, bg]) => (
-              <div key={t} className="rounded-[14px] border border-[#E6E6E6] p-6" style={{ background: bg }}>
-                <p className="text-[16px] font-bold" style={{ color: c }}>{t}</p>
-                <p className="mt-1.5 text-[19px] font-semibold leading-[1.55] text-[#111111]">{d}</p>
-              </div>
-            ))}
-            <Link to="/diagnosis" className="mt-2 inline-flex h-[56px] items-center justify-center rounded-[10px] bg-[#5C4733] text-[18px] font-bold text-white hover:bg-[#4A3929]">지금 계약 구조 점검하기 →</Link>
-          </div>
-        </div>
-      </section>
-
-      <LawCalendar />
 
       {/* 전문가 */}
       <section id="expert" className="border-t border-[#E6E6E6] bg-[#F5F5F4] py-10 md:py-14">
@@ -196,37 +93,6 @@ export default function TrustLanding() {
         </div>
       </section>
 
-      {/* 대법원 5가지 */}
-      <section className="border-t border-[#E6E6E6] py-10 md:py-14">
-        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-          <h2 className="text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">대법원이 보는 5가지</h2>
-          <p className="mt-2.5 text-[18px] text-[#666666] md:text-[19px]">진단 문항은 이 순서로 구성했고, 영역마다 근거 판례를 보여드립니다.</p>
-          <div className="mt-6 border-t-2 border-[#111111]">
-            {FIVE.map((f) => (
-              <div key={f.no} className="grid gap-2 border-b border-[#E6E6E6] py-4 md:grid-cols-[64px_1fr_240px] md:items-baseline md:gap-6">
-                <p className="text-[26px] font-extrabold text-[#5C4733]">{f.no}</p>
-                <div><h3 className="text-[21px] font-bold">{f.t}</h3><p className="mt-1 text-[17px] leading-[1.7] text-[#333333]">{f.d}</p></div>
-                <p className="text-[15px] font-semibold text-[#666666] md:text-right">{f.c}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 근로자로 판단되면 */}
-      <section className="border-t border-[#E6E6E6] bg-[#F5F5F4] py-10 md:py-14">
-        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
-          <h2 className="text-[30px] font-bold leading-[1.35] tracking-[-0.8px] md:text-[36px]">근로자로 판단되면 생기는 의무</h2>
-          <p className="mt-2.5 text-[18px] text-[#666666] md:text-[19px]">계약서 명칭과 관계없이 근로자 보호법이 적용됩니다.</p>
-          <div className="mt-6 border-t-2 border-[#111111] bg-white">
-            {DUTIES.map(([t, d, law]) => (
-              <div key={t} className="border-b border-[#E6E6E6] px-1 py-3 md:grid md:grid-cols-[120px_1fr_auto] md:items-baseline md:gap-6 md:px-5">
-                <p className="text-[18px] font-bold">{t}</p><p className="text-[16px] text-[#333333]">{d}</p><p className="text-[14px] font-semibold text-[#777777]">{law}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
