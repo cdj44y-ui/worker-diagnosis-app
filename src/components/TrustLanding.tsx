@@ -55,6 +55,29 @@ export default function TrustLanding() {
       </section>
 
 
+      {/* 2026-10-31 lean: 결과 견본(lead-magnets 원칙 — 받게 될 결과를 먼저 보여 주기) */}
+      <section className="border-t border-[#E6E6E6] py-10 md:py-14">
+        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
+          <p className="text-[15px] font-bold text-[#666666]">진단 결과 · 견본</p>
+          <h2 className="mt-2 text-[28px] font-bold leading-[1.35] tracking-[-0.6px] md:text-[34px]">5분 뒤 받으시는 결과는 이렇습니다</h2>
+          <p className="mt-2 text-[16px] font-bold text-[#5C4733]">교육 서비스업 · 3.3% 계약 강사</p>
+          <div className="mt-6 border-t border-[#111111]">
+            {[
+              ['판단', '근로자 쪽 72점 · 근로자로 판단될 가능성이 높습니다'],
+              ['가른 영역', '시간·장소 구속, 업무 지휘·감독'],
+              ['근거 판례', '대법원 2004다29736 · 2015두38092'],
+              ['다음', '계약서와 실제 운영 방식을 함께 점검'],
+            ].map(([k, v], i) => (
+              <div key={k} className={'grid gap-1 border-b border-[#E6E6E6] px-4 py-4 md:grid-cols-[140px_1fr] md:gap-6 ' + (i === 0 ? 'bg-[#F5F5F4]' : '')}>
+                <p className="text-[15px] font-bold text-[#666666]">{k}</p>
+                <p className={'text-[17px] leading-[1.6] ' + (i === 0 ? 'font-bold' : 'text-[#333333]')}>{v}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[14px] text-[#777777]">형식을 보여 드리는 견본입니다. 실제 결과는 답하신 내용으로 계산됩니다.</p>
+        </div>
+      </section>
+
       {/* 전문가 */}
       <section id="expert" className="border-t border-[#E6E6E6] bg-[#F5F5F4] py-10 md:py-14">
         <div className="mx-auto grid max-w-[1120px] items-start gap-10 px-6 md:grid-cols-[260px_1fr] md:gap-14 md:px-8">
@@ -93,6 +116,25 @@ export default function TrustLanding() {
         </div>
       </section>
 
+
+      {/* 2026-10-31 lean: 자주 묻는 질문 3개 */}
+      <section className="border-t border-[#E6E6E6] py-10 md:py-14">
+        <div className="mx-auto max-w-[1120px] px-6 md:px-8">
+          <h2 className="text-[26px] font-bold md:text-[30px]">자주 묻는 질문</h2>
+          <div className="mt-4 border-t border-[#111111]">
+            {[
+              ['진단 결과에 법적 효력이 있나요?', '없습니다. 대법원 판례 기준으로 위험 정도를 미리 보는 참고용 점검입니다.'],
+              ['고치는 방법도 알려 주나요?', '결과에는 판단을 가른 영역과 근거 판례까지 담깁니다. 소급 규모 산정과 계약 구조 정비는 사업장마다 달라 상담에서 함께 정합니다.'],
+              ['근로자 추정제는 시행됐나요?', '아직 입법 전입니다. 국회에 법안이 계류 중이며, 최종 내용과 시행일은 달라질 수 있습니다.'],
+            ].map(([q, a]) => (
+              <details key={q} className="border-b border-[#E6E6E6]">
+                <summary className="flex min-h-[56px] cursor-pointer items-center py-3 text-[18px] font-bold">{q}</summary>
+                <p className="pb-4 text-[17px] leading-[1.7] text-[#333333]">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
