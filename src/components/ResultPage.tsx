@@ -61,7 +61,7 @@ export default function ResultPage({ result, onRestart }: Props) {
       </div>
 
       {/* 2026-10-29 리포트 받기 (기존 노션 전송 모달 대체) */}
-      <div className="-mx-5 md:mx-0"><ReportRequest site="free" answers={result.answers} tallyUrl={`/consult?s=${percentage}&g=${encodeURIComponent(text.title)}`} color="#5C4733" /></div>
+      <div className="-mx-4 md:mx-0"><ReportRequest site="free" answers={result.answers} tallyUrl={`/consult?s=${percentage}&g=${encodeURIComponent(text.title)}`} color="#5C4733" /></div>
 
       {/* 7. 후속 조치·증거 */}
       <div className="border border-[#E6E6E6] bg-white p-6 md:p-8 print-break">
