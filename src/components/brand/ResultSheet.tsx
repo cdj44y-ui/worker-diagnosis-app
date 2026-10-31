@@ -38,7 +38,6 @@ export default function ResultSheet({ result, title, percentage }: Props) {
   }))
   const fixes = rows.filter((r) => r.opt && r.opt.score >= 3.5).sort((a, b) => b.w - a.w).slice(0, 3)
   const unsure = rows.filter((r) => r.opt && r.opt.tag === '해당없음')
-  const shortTitle = (t: string) => t.replace(/ \(.*\)$/, '')
 
   const downloadIcs = () => {
     const d = ymd(next)
@@ -85,31 +84,17 @@ export default function ResultSheet({ result, title, percentage }: Props) {
         )}
       </div>
 
+      {/* 2026-10-31 부분 공개: 상세 근거·확인 필요는 메일 리포트로(정보에 걸맞은 3칸 입력 — 대표님 결정) */}
       <div className={sec}>
-        <Head no="③" title="항목별 근거" right={`원문 대조일 ${VERIFIED_DATE}`} />
-        <div className="mt-3 divide-y divide-[#E5E7EB]">
-          {result.categoryScores.map((cs) => {
-            const cat = CATEGORIES.find((c) => c.id === cs.id)
-            const refs = cat ? [...new Set(cat.questions.flatMap((q) => q.refs))].slice(0, 3) : []
-            return (
-              <div key={cs.id} className="grid gap-1 py-3 md:grid-cols-[1fr_auto] md:gap-6">
-                <div>
-                  <p className="font-semibold text-[#111827]">{shortTitle(cs.name)}</p>
-                  <p className="text-[15px] text-[#6B7280]">{refs.join(' · ')}</p>
-                </div>
-                <p className="font-bold tabular-nums md:text-right">근로자 쪽 {cs.pct}%</p>
-              </div>
-            )
-          })}
+        <div className="border border-[#111827] bg-[#F9FAFB] px-5 py-5">
+          <p className="text-[18px] font-bold text-[#111827]">전체 결과지는 메일로 보내 드립니다</p>
+          <ul className="mt-2 space-y-1 text-[16px] leading-[1.6] text-[#374151]">
+            <li>③ 항목별 근거 · 영역 {result.categoryScores.length}개 (원문 대조일 {VERIFIED_DATE})</li>
+            <li>④ 확인 필요 · {unsure.length + 1}개</li>
+            <li>문항별 답과 근거 판례, 다음 점검일</li>
+          </ul>
+          <a href="#report" className="mt-4 inline-flex h-[48px] items-center bg-[#111827] px-5 text-[16px] font-bold text-white no-underline">리포트 받기 ↓</a>
         </div>
-      </div>
-
-      <div className={sec}>
-        <Head no="④" title="확인 필요" />
-        <ul className="mt-2 space-y-1.5">
-          {unsure.map((u) => <li key={u.q.id}>· {u.q.text} — '해당 없음'으로 답해 판단에서 제외했습니다. 실제 운영을 확인해 주십시오.</li>)}
-          <li>· 근로자 추정제는 입법 전(국회 계류)입니다. 통과되면 근로자가 아님을 회사가 증명해야 할 수 있습니다.</li>
-        </ul>
       </div>
 
       <div className={sec}>
