@@ -55,7 +55,7 @@ export default function ResultPage({ result, onRestart }: Props) {
       <div className="border border-[#E6E6E6] bg-white p-6 md:p-8 print-break">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div><h3 className="text-[24px] font-bold">판단을 가른 영역</h3><p className="mt-1 text-[16px] text-[#5B6680]">근로자 쪽으로 기운 정도가 큰 영역부터 보여드립니다.</p></div>
-          <div className="flex gap-3 text-[14px] font-semibold text-[#3D4A63]">{[['근로자 쪽', '#a85a66'], ['중립', '#9a8468'], ['사업자 쪽', '#5a8f78']].map(([l, c]) => <span key={l} className="inline-flex items-center gap-1.5"><span className="h-3 w-3 rounded-sm" style={{ background: c }} />{l}</span>)}</div>
+          
         </div>
         <div className="mt-6 divide-y divide-[#E6EAF0]">{sorted.map((cs) => <CategoryAnalysisRow key={cs.id} cs={cs} />)}</div>
       </div>
@@ -180,21 +180,20 @@ function CategoryAnalysisRow({ cs }: { cs: CategoryScore }) {
   const barColor = getBarColor(cs.pct)
   return (
     <div>
-      <div className="flex items-center justify-between py-4 gap-3">
-        <div className="flex-1 text-[18px] font-bold text-[#14213D]">{cs.name}</div>
-        <div className="w-40 h-3.5 bg-[#EEF1F5] rounded-full overflow-hidden shrink-0">
-          <div className="h-full rounded-full transition-all duration-700" style={{ width: `${cs.pct}%`, background: barColor }} />
+      {/* 2026-10-31 읽기 쉽게: 이름·숫자 한 줄, 막대는 아래 전체 폭, 근로자 쪽으로 기운 영역만 사이트색 */}
+      <div className="pt-4 pb-3">
+        <div className="flex items-baseline justify-between gap-3">
+          <div className={'min-w-0 text-[18px] ' + (cs.pct >= 65 ? 'font-extrabold text-[#111]' : 'font-semibold text-[#333]')}>{cs.name}</div>
+          <div className="shrink-0 text-[22px] font-extrabold tabular-nums text-[#5C4733]" data-bar={barColor}>{cs.pct}<span className="text-[14px] font-semibold">%</span></div>
         </div>
-        <div className="text-[22px] font-extrabold min-w-[64px] text-right tabular-nums" style={{ color: barColor }}>
-          {cs.pct}<span className="text-[14px] font-semibold">%</span>
-        </div>
+        <div className="mt-2.5 h-[8px] bg-[#EEEEEE]"><div className="h-full" style={{ width: `${Math.max(cs.pct, 2)}%`, background: cs.pct >= 65 ? '#5C4733' : '#A39A8A' }} /></div>
       </div>
       {cases.length > 0 ? (
         <div className="pb-3">
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="text-[15px] font-medium text-brand-blue hover:text-brand-blue-dark transition-colors flex items-center gap-1"
+            className="flex min-h-[40px] items-center gap-1 text-[15px] font-semibold text-[#5C4733]"
             aria-expanded={open}
           >
             관련 판례 {cases.length}건 <span aria-hidden>{open ? '▾' : '▸'}</span>
